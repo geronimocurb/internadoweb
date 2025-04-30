@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Carpintería Barat</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background-color: #111;
+      color: #fff;
+      padding: 20px;
+      margin: 0;
+      text-align: center;
+    }
+
+    h1 {
+      color: #e74c3c;
+      font-size: 3em;
+      margin-bottom: 5px;
+    }
+
+    .slogan {
+      font-size: 1.2em;
+      color: #ccc;
+      margin-bottom: 30px;
+    }
+
+    .producto {
+      display: inline-block;
+      width: 260px;
+      margin: 20px;
+      padding: 20px;
+      background-color: #1c1c1c;
+      border: 2px solid #e74c3c;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
+      transition: transform 0.2s;
+      text-align: left;
+    }
+
+    .producto:hover {
+      transform: scale(1.05);
+    }
+
+    .producto h3 {
+      color: #e74c3c;
+      margin-bottom: 10px;
+    }
+
+    label {
+      display: block;
+      margin-top: 10px;
+      font-size: 0.9em;
+      color: #eee;
+    }
+
+    select {
+      width: 100%;
+      padding: 5px;
+      margin-top: 5px;
+      background-color: #222;
+      color: white;
+      border: 1px solid #444;
+      border-radius: 5px;
+    }
+
+    .boton {
+      display: block;
+      margin: 15px auto 0;
+      padding: 10px;
+      width: 100%;
+      background-color: #e74c3c;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .boton:hover {
+      background-color: #c0392b;
+    }
+
+    #carrito {
+      margin-top: 40px;
+      padding: 30px;
+      background-color: #1c1c1c;
+      border-radius: 15px;
+      border: 2px solid #e74c3c;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+    }
+
+    #carrito h2 {
+      color: #e74c3c;
+      margin-bottom: 15px;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .boton-instagram {
+      background-color: #e4405f;
+      margin: 20px auto;
+      width: 220px;
+    }
+
+    .boton-instagram:hover {
+      background-color: #c13584;
+    }
+
+    .boton-enviar {
+      background-color: #3498db;
+      margin-top: 20px;
+    }
+
+    .boton-enviar:hover {
+      background-color: #2980b9;
+    }
+
+    footer {
+      margin-top: 50px;
+      color: #777;
+      font-size: 0.9em;
+    }
+  </style>
+</head>
+<body>
+  <h1>Carpintería Barat</h1>
+  <div class="slogan">Creamos tus ideas en madera, a tu medida</div>
+
+  <div id="productos">
+    <div class="producto">
+      <h3>Mesa</h3>
+      <p>Precio: $70</p>
+      <label>Color:
+        <select id="color-mesa">
+          <option>Madera</option>
+          <option>Blanco satinado</option>
+          <option>Negro mate</option>
+        </select>
+      </label>
+      <label>Medidas:
+        <select id="medidas-mesa">
+          <option>80 x 50 cm</option>
+          <option>100 x 60 cm</option>
+          <option>Personalizadas</option>
+        </select>
+      </label>
+      <button class="boton" onclick="agregarAlCarrito('Mesa', 70, 'color-mesa', 'medidas-mesa')">Agregar al carrito</button>
+    </div>
+
+    <div class="producto">
+      <h3>Perchero</h3>
+      <p>Precio: $20</p>
+      <label>Color:
+        <select id="color-perchero">
+          <option>Madera</option>
+          <option>Blanco satinado</option>
+          <option>Negro mate</option>
+        </select>
+      </label>
+      <label>Medidas:
+        <select id="medidas-perchero">
+          <option>Altura 170 cm</option>
+          <option>Altura 190 cm</option>
+          <option>Personalizadas</option>
+        </select>
+      </label>
+      <button class="boton" onclick="agregarAlCarrito('Perchero', 20, 'color-perchero', 'medidas-perchero')">Agregar al carrito</button>
+    </div>
+
+    <div class="producto">
+      <h3>Mueble para uñas</h3>
+      <p>Precio: $20</p>
+      <label>Color:
+        <select id="color-unas">
+          <option>Madera</option>
+          <option>Blanco satinado</option>
+          <option>Negro mate</option>
+        </select>
+      </label>
+      <label>Medidas:
+        <select id="medidas-unas">
+          <option>80 x 40 cm</option>
+          <option>100 x 50 cm</option>
+          <option>Personalizadas</option>
+        </select>
+      </label>
+      <button class="boton" onclick="agregarAlCarrito('Mueble para uñas', 20, 'color-unas', 'medidas-unas')">Agregar al carrito</button>
+    </div>
+  </div>
+
+  <div id="carrito">
+    <h2>Carrito de compras</h2>
+    <ul id="lista-carrito"></ul>
+    <p id="total">Total: $0</p>
+    <button class="boton boton-enviar" onclick="enviarPedido()">Enviar pedido por email</button>
+  </div>
+
+  <a href="https://www.instagram.com/carpinteria_barat" target="_blank">
+    <button class="boton boton-instagram">Síguenos en Instagram</button>
+  </a>
+
+  <footer>
+    Montevideo, Uruguay
+  </footer>
+
+  <script>
+    let carrito = [];
+
+    function agregarAlCarrito(nombre, precio, colorId, medidaId) {
+      const color = document.getElementById(colorId).value;
+      const medida = document.getElementById(medidaId).value;
+      carrito.push({ nombre, precio, color, medida });
+      mostrarCarrito();
+    }
+
+    function mostrarCarrito() {
+      const lista = document.getElementById("lista-carrito");
+      lista.innerHTML = "";
+      let total = 0;
+      carrito.forEach(producto => {
+        const item = document.createElement("li");
+        item.textContent = `${producto.nombre} - $${producto.precio} - Color: ${producto.color} - Medida: ${producto.medida}`;
+        lista.appendChild(item);
+        total += producto.precio;
+      });
+      document.getElementById("total").textContent = "Total: $" + total;
+    }
+
+    function enviarPedido() {
+      if (carrito.length === 0) {
+        alert("El carrito está vacío.");
+        return;
+      }
+
+      let cuerpo = "Hola, quiero encargar los siguientes productos:%0D%0A";
+      carrito.forEach(p => {
+        cuerpo += `- ${p.nombre} (${p.color}, ${p.medida}) - $${p.precio}%0D%0A`;
+      });
+      const total = carrito.reduce((sum, p) => sum + p.precio, 0);
+      cuerpo += `%0D%0ATotal: $${total}`;
+
+      window.location.href = `mailto:gerocurb@gmail.com?subject=Pedido desde Carpintería Barat&body=${cuerpo}`;
+    }
+  </script>
+</body>
+</html>
