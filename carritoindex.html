@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Carrito de Compras</title>
+  <style>
+    body {
+      background-color: #000;
+      color: #fff;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+    }
+
+    h1 {
+      color: #b71c1c;
+      text-align: center;
+    }
+
+    .carrito {
+      max-width: 600px;
+      margin: 0 auto;
+      background-color: #1e1e1e;
+      padding: 20px;
+      border-radius: 10px;
+    }
+
+    .item {
+      border-bottom: 1px solid #444;
+      padding: 10px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .boton, .boton-secundario {
+      display: block;
+      background-color: #b71c1c;
+      color: white;
+      text-align: center;
+      padding: 10px;
+      margin: 10px auto;
+      text-decoration: none;
+      border-radius: 5px;
+      max-width: 300px;
+    }
+
+    .boton:hover, .boton-secundario:hover {
+      background-color: #e53935;
+    }
+
+    .eliminar {
+      background: none;
+      border: none;
+      color: #e53935;
+      font-size: 1em;
+      cursor: pointer;
+    }
+
+    #mensajeFinal {
+      display: none;
+      text-align: center;
+      margin-top: 30px;
+      background-color: #2e2e2e;
+      padding: 15px;
+      border-radius: 10px;
+      color: #b71c1c;
+      font-size: 1.2em;
+    }
+  </style>
+</head>
+<body>
+  <h1>Carrito de Compras</h1>
+  <div class="carrito" id="carrito"></div>
+  <a class="boton" id="enviarPedido" href="#">Enviar pedido</a>
+  <a class="boton-secundario" href="index.html">Volver a la tienda</a>
+  <div id="mensajeFinal">¡Muchas gracias por su compra! Pronto me contactaré para darle una respuesta.</div>
+
+  <script>
+    const carritoDiv = document.getElementById('carrito');
+    let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+
+    function renderCarrito() {
+      carritoDiv.innerHTML = '';
+      if (carrito.length === 0) {
+        carritoDiv.innerHTML = '<p>No hay productos en el carrito.</p>';
+        document.getElementById('enviarPedido').style.display = 'none';
+        return;
+      }
+
+      carrito.forEach((item, index) => {
+        const div = document.createElement('div');
+        div.className = 'item';
+        div.innerHTML = `${item.producto} - ${item.variante} <button class="eliminar" onclick="eliminarItem(${index})">🗑️</button>`;
+        carritoDiv.appendChild(div);
+      });
+
+      document.getElementById('enviarPedido').style.display = 'block';
+    }
+
+    function eliminarItem(index) {
+      carrito.splice(index, 1);
+      localStorage.setItem('carrito', JSON.stringify(carrito));
+      renderCarrito();
+    }
+
+    document.getElementById('enviarPedido').addEventListener('click', function (e) {
+      e.preventDefault();
+      const mensaje = encodeURIComponent(
+        carrito.map(i => `${i.producto} - ${i.variante}`).join('\n')
+      );
+      window.location.href = `mailto:gerocurb@gmail.com?subject=Pedido Carpintería Barat&body=${mensaje}`;
+      document.getElementById('mensajeFinal').style.display = 'block';
+      localStorage.removeItem('carrito');
+      carrito = [];
+      renderCarrito();
+    });
+
+    renderCarrito();
+  </script>
+</body>
+</html>
