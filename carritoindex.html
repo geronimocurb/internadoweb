@@ -107,18 +107,6 @@
       font-size: 0.9rem;
     }
 
-    .carrete {
-      display: flex;
-      overflow-x: auto;
-      gap: 1rem;
-      justify-content: center;
-    }
-
-    .carrete img {
-      max-height: 250px;
-      border-radius: 12px;
-    }
-
     .carrito-lista {
       list-style: none;
       padding: 0;
@@ -152,6 +140,32 @@
     .boton-eliminar:hover {
       background-color: #ff4500;
     }
+
+    .boton-volver {
+      padding: 0.6rem 1.2rem;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+
+    .boton-volver:hover {
+      background-color: #0056b3;
+    }
+
+    .boton-enviar {
+      padding: 0.6rem 1.2rem;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+
+    .boton-enviar:hover {
+      background-color: #218838;
+    }
   </style>
 </head>
 <body class="light">
@@ -174,34 +188,14 @@
 
   <section class="producto" id="mesa">
     <h2>Carrito de Compras</h2>
-    <ul class="carrito-lista">
-      <!-- Aquí se añadirán los productos al carrito -->
-      <li>
-        <div>
-          <img src="imagenes/mesa.jpg" alt="Mesa plegable" />
-          <span>Mesa Plegable</span>
-        </div>
-        <button class="boton-eliminar">Eliminar</button>
-      </li>
-      <li>
-        <div>
-          <img src="imagenes/mesauñas.jpg" alt="Mesa uñas" />
-          <span>Mesita Nails</span>
-        </div>
-        <button class="boton-eliminar">Eliminar</button>
-      </li>
-      <li>
-        <div>
-          <img src="imagenes/perchero.jpg" alt="Perchero" />
-          <span>Perchero</span>
-        </div>
-        <button class="boton-eliminar">Eliminar</button>
-      </li>
+    <ul class="carrito-lista" id="lista-carrito">
+      <!-- Los productos serán agregados aquí -->
     </ul>
     <div>
-      <strong>Total: $XXX</strong>
+      <strong>Total: $<span id="total">0</span></strong>
     </div>
-    <button class="boton-agregar">Proceder a la compra</button>
+    <button class="boton-volver" onclick="window.history.back()">Volver atrás</button>
+    <button class="boton-enviar" onclick="enviarPedido()">Enviar Pedido</button>
   </section>
 
   <footer>
@@ -209,17 +203,47 @@
   </footer>
 
   <script>
-    function toggleTheme() {
-      const body = document.body;
-      const btn = document.querySelector('.toggle-btn');
-      if (body.classList.contains('light')) {
-        body.classList.replace('light', 'dark');
-        btn.textContent = '🌙';
-      } else {
-        body.classList.replace('dark', 'light');
-        btn.textContent = '🌞';
-      }
+    let carrito = [
+      { nombre: "Mesa Plegable", precio: 100, imagen: "imagenes/mesa.jpg" },
+      { nombre: "Mesita Nails", precio: 50, imagen: "imagenes/mesauñas.jpg" },
+      { nombre: "Perchero", precio: 75, imagen: "imagenes/perchero.jpg" }
+    ];
+
+    function actualizarCarrito() {
+      const listaCarrito = document.getElementById("lista-carrito");
+      listaCarrito.innerHTML = ''; // Limpiar lista antes de agregar elementos
+
+      let total = 0;
+      carrito.forEach((producto, index) => {
+        total += producto.precio;
+        listaCarrito.innerHTML += `
+          <li>
+            <div>
+              <img src="${producto.imagen}" alt="${producto.nombre}" />
+              <span>${producto.nombre}</span>
+            </div>
+            <button class="boton-eliminar" onclick="eliminarProducto(${index})">Eliminar</button>
+          </li>
+        `;
+      });
+
+      document.getElementById("total").innerText = total;
     }
+
+    function eliminarProducto(index) {
+      carrito.splice(index, 1); // Eliminar producto del carrito
+      actualizarCarrito(); // Actualizar vista
+    }
+
+    function enviarPedido() {
+      const carritoString = carrito.map(producto => `${producto.nombre} - $${producto.precio}`).join("\n");
+      const total = carrito.reduce((sum, producto) => sum + producto.precio, 0);
+      const mensaje = `Pedido desde Carpintería Barat:\n\n${carritoString}\n\nTotal: $${total}`;
+      const mailtoLink = `mailto:gerocurb@gmail.com?subject=Pedido de Carpintería Barat&body=${encodeURIComponent(mensaje)}`;
+      window.location.href = mailtoLink; // Abrir cliente de correo predeterminado con el mensaje
+    }
+
+    actualizarCarrito(); // Inicializar carrito en la página
   </script>
 </body>
 </html>
