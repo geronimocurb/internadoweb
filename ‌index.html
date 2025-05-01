@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Carpintería Barat</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Montserrat', sans-serif;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    .light {
+      background-color: #f4e7da;
+      color: #111;
+    }
+
+    .dark {
+      background-color: #111;
+      color: #f4e7da;
+    }
+
+    header {
+      padding: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .toggle-btn {
+      cursor: pointer;
+      font-size: 1.5rem;
+      border: none;
+      background: transparent;
+      transition: transform 0.2s;
+    }
+
+    .toggle-btn:hover {
+      transform: scale(1.2);
+    }
+
+    h1 {
+      font-size: 2rem;
+    }
+
+    .slogan {
+      text-align: center;
+      margin-top: -10px;
+      font-style: italic;
+    }
+
+    nav {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin: 1rem 0;
+      flex-wrap: wrap;
+    }
+
+    nav a {
+      text-decoration: none;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      background-color: #b22222;
+      color: white;
+      transition: box-shadow 0.3s, transform 0.2s;
+    }
+
+    nav a:hover {
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      transform: translateY(-2px);
+    }
+
+    .producto {
+      text-align: center;
+      margin: 2rem;
+    }
+
+    .producto img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 12px;
+      margin-bottom: 1rem;
+    }
+
+    .boton-agregar {
+      padding: 0.6rem 1.2rem;
+      background-color: #b22222;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .boton-agregar:hover {
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      transform: scale(1.05);
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem;
+      font-size: 0.9rem;
+    }
+
+    .carrete {
+      display: flex;
+      overflow-x: auto;
+      gap: 1rem;
+      justify-content: center;
+    }
+
+    .carrete img {
+      max-height: 250px;
+      border-radius: 12px;
+    }
+
+    select {
+      padding: 0.5rem;
+      border-radius: 8px;
+      border: 1px solid #999;
+      margin-top: 0.5rem;
+      margin-bottom: 1rem;
+    }
+  </style>
+</head>
+<body class="light">
+  <header>
+    <h1>Carpintería Barat</h1>
+    <button class="toggle-btn" onclick="toggleTheme()" title="Cambiar modo">🌞</button>
+  </header>
+
+  <div class="slogan">Creamos tus ideas en madera, a tu medida</div>
+
+  <nav>
+    <a href="#mesa">Mesa Plegable</a>
+    <a href="#nails">Nails</a>
+    <a href="#gatos">Gatos</a>
+    <a href="#perchero">Perchero</a>
+    <a href="#otros">Otros</a>
+    <a href="#ofertas">Ofertas</a>
+    <a href="carritoindex.html">🛒 Carrito</a>
+    <a href="https://link.mercadopago.com.uy/geronimocurbelo" target="_blank">💖 Donar</a>
+  </nav>
+
+  <section class="producto" id="mesa">
+    <img src="mesa.jpg" alt="Mesa plegable" />
+    <h2>Mesa Plegable</h2>
+    <p>Mesa plegable anclada a la pared con el sistema francés, de fácil colocación, con dos tornillos, que permite desanclar la mesa en cualquier momento sin alterar la pared. Práctica y cómoda, perfecta para espacios reducidos. Los materiales pueden variar. Solo imagina tu producto y me contactaré contigo para adecuar medidas, materiales y todos los detalles!</p>
+    <select>
+      <option>80 x 50</option>
+      <option>100 x 60</option>
+      <option>50 x 30</option>
+      <option>Otras</option>
+    </select><br>
+    <button class="boton-agregar">Agregar al carrito</button>
+  </section>
+
+  <section class="producto" id="nails">
+    <img src="mesauñas.jpg" alt="Mesa uñas" />
+    <h2>Mesita Nails</h2>
+    <p>Mesita apoya manos para trabajar uñas. Acolchonada y liviana, para una mejor experiencia con sus clientes!</p>
+    <select>
+      <option>20 x 13 x 12</option>
+      <option>Otras medidas</option>
+    </select><br>
+    <button class="boton-agregar">Agregar al carrito</button>
+  </section>
+
+  <section class="producto" id="perchero">
+    <div class="carrete">
+      <img src="perchero.jpg" alt="Perchero 1" />
+      <img src="percheroo.jpg" alt="Perchero 2" />
+      <img src="percherooo.jpg" alt="Perchero 3" />
+    </div>
+    <h2>Perchero</h2>
+    <p>Perchero tipo piano o "gogreebell".</p>
+    <select>
+      <option>Blanco satinado</option>
+      <option>Negro mate</option>
+      <option>Madera natural</option>
+    </select><br>
+    <button class="boton-agregar">Agregar al carrito</button>
+  </section>
+
+  <footer>
+    © 2025 Carpintería Barat — Montevideo, Uruguay
+  </footer>
+
+  <script>
+    function toggleTheme() {
+      const body = document.body;
+      const btn = document.querySelector('.toggle-btn');
+      if (body.classList.contains('light')) {
+        body.classList.replace('light', 'dark');
+        btn.textContent = '🌙';
+      } else {
+        body.classList.replace('dark', 'light');
+        btn.textContent = '🌞';
+      }
+    }
+  </script>
+</body>
+</html>
