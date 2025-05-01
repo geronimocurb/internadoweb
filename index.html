@@ -1,201 +1,138 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Carpintería Barat</title>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
   <style>
     body {
       margin: 0;
       font-family: 'Montserrat', sans-serif;
-      transition: background 0.3s, color 0.3s;
-    }
-
-    .light {
-      background-color: #f4e7da;
-      color: #111;
-    }
-
-    .dark {
       background-color: #111;
       color: #f4e7da;
     }
 
-    header {
+    header, footer {
       padding: 1rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .toggle-btn {
-      cursor: pointer;
-      font-size: 1.5rem;
-      border: none;
-      background: transparent;
-      transition: transform 0.2s;
-    }
-
-    .toggle-btn:hover {
-      transform: scale(1.2);
-    }
-
-    h1 {
-      font-size: 2rem;
-    }
-
-    .slogan {
       text-align: center;
-      margin-top: -10px;
-      font-style: italic;
+      background-color: #222;
     }
 
-    nav {
-      display: flex;
-      justify-content: center;
+    .productos {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
       gap: 1rem;
-      margin: 1rem 0;
-      flex-wrap: wrap;
-    }
-
-    nav a {
-      text-decoration: none;
-      padding: 0.5rem 1rem;
-      border-radius: 8px;
-      background-color: #b22222;
-      color: white;
-      transition: box-shadow 0.3s, transform 0.2s;
-    }
-
-    nav a:hover {
-      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-      transform: translateY(-2px);
+      padding: 2rem;
     }
 
     .producto {
+      background-color: #1c1c1c;
+      border-radius: 10px;
+      padding: 1rem;
       text-align: center;
-      margin: 2rem;
     }
 
     .producto img {
-      max-width: 100%;
-      height: auto;
-      border-radius: 12px;
-      margin-bottom: 1rem;
+      width: 100%;
+      max-height: 200px;
+      object-fit: cover;
+      border-radius: 8px;
     }
 
-    .boton-agregar {
-      padding: 0.6rem 1.2rem;
-      background-color: #b22222;
+    .producto h3 {
+      margin: 0.5rem 0;
+    }
+
+    .producto button {
+      background-color: #e63946;
       color: white;
       border: none;
-      border-radius: 10px;
-      font-weight: bold;
+      padding: 0.5rem 1rem;
+      border-radius: 5px;
       cursor: pointer;
-      transition: all 0.2s;
     }
 
-    .boton-agregar:hover {
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-      transform: scale(1.05);
-    }
-
-    footer {
-      text-align: center;
-      padding: 2rem;
-      font-size: 0.9rem;
-    }
-
-    .boton-carrito {
+    .carrito-btn {
       position: fixed;
-      bottom: 20px;
+      top: 20px;
       right: 20px;
-      background-color: #b22222;
+      background-color: #e63946;
       color: white;
-      padding: 1rem;
+      border: none;
       border-radius: 50%;
+      width: 50px;
+      height: 50px;
       font-size: 1.5rem;
       cursor: pointer;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-      transition: all 0.2s;
+      z-index: 1000;
     }
 
-    .boton-carrito:hover {
-      transform: scale(1.1);
-    }
-
-    .boton-carrito .cantidad {
+    .carrito-btn span {
       position: absolute;
       top: -5px;
       right: -5px;
-      background-color: #ff6347;
-      color: white;
-      font-size: 1rem;
-      padding: 0.2rem 0.6rem;
+      background: yellow;
+      color: black;
+      font-weight: bold;
       border-radius: 50%;
+      padding: 2px 6px;
+      font-size: 0.75rem;
     }
-
   </style>
 </head>
-<body class="light">
+<body>
+  <button class="carrito-btn" onclick="window.location.href='carrito.html'">
+    🛒<span id="contador-carrito">0</span>
+  </button>
+
   <header>
     <h1>Carpintería Barat</h1>
-    <button class="toggle-btn" onclick="toggleTheme()" title="Cambiar modo">🌞</button>
+    <p>Creamos tus ideas en madera, a tu medida</p>
   </header>
 
-  <div class="slogan">Creamos tus ideas en madera, a tu medida</div>
-
-  <nav>
-    <a href="index.html">Inicio</a>
-    <a href="#mesa">Mesa Plegable</a>
-    <a href="#perchero">Perchero</a>
-    <a href="carritoindex.html">🛒 Carrito</a>
-  </nav>
-
-  <section class="producto" id="mesa">
-    <h2>Mesa Plegable</h2>
-    <img src="mesa.jpg" alt="Mesa Plegable" />
-    <p>Mesa plegable anclada a la pared con el sistema francés, de fácil colocación. Perfecta para espacios reducidos.</p>
-    <button class="boton-agregar" onclick="agregarAlCarrito('Mesa Plegable', 'mesa.jpg')">Agregar al Carrito</button>
-  </section>
-
-  <section class="producto" id="perchero">
-    <h2>Perchero</h2>
-    <img src="perchero.jpg" alt="Perchero" />
-    <p>Perchero tipo piano o 'gogreebell'. Variantes de colores: blanco satinado, negro mate y color madera natural.</p>
-    <button class="boton-agregar" onclick="agregarAlCarrito('Perchero', 'perchero.jpg')">Agregar al Carrito</button>
+  <section class="productos" id="lista-productos">
+    <!-- Productos se insertan con JS -->
   </section>
 
   <footer>
     © 2025 Carpintería Barat — Montevideo, Uruguay
   </footer>
 
-  <button class="boton-carrito" onclick="irAlCarrito()">
-    🛒
-    <span class="cantidad" id="cantidad-carrito">0</span>
-  </button>
-
   <script>
-    let carrito = [];
+    const productos = [
+      { nombre: "Mesa Plegable", imagen: "imagenes/mesa.jpg" },
+      { nombre: "Perchero", imagen: "imagenes/perchero.jpg" },
+      { nombre: "Perchero (vista 2)", imagen: "imagenes/percheroo.jpg" },
+      { nombre: "Perchero (vista 3)", imagen: "imagenes/percherooo.jpg" },
+      { nombre: "Mueble para Uñas", imagen: "imagenes/mesauñas.jpg" },
+    ];
 
-    function agregarAlCarrito(nombre, imagen) {
-      carrito.push({ nombre, imagen });
-      actualizarCarrito();
+    const lista = document.getElementById("lista-productos");
+    let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+
+    function actualizarContador() {
+      document.getElementById("contador-carrito").textContent = carrito.length;
     }
 
-    function actualizarCarrito() {
-      document.getElementById("cantidad-carrito").textContent = carrito.length;
+    productos.forEach(p => {
+      const div = document.createElement("div");
+      div.className = "producto";
+      div.innerHTML = `
+        <img src="${p.imagen}" alt="${p.nombre}">
+        <h3>${p.nombre}</h3>
+        <button onclick='agregarAlCarrito(${JSON.stringify(p)})'>Agregar</button>
+      `;
+      lista.appendChild(div);
+    });
+
+    function agregarAlCarrito(producto) {
+      carrito.push(producto);
+      localStorage.setItem('carrito', JSON.stringify(carrito));
+      actualizarContador();
     }
 
-    function irAlCarrito() {
-      window.location.href = "carritoindex.html";
-    }
-
-    function toggleTheme() {
-      document.body.classList.toggle('dark');
-      document.body.classList.toggle('light');
-    }
+    actualizarContador();
   </script>
 </body>
 </html>
