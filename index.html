@@ -2,141 +2,144 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Carpintería Barat</title>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
   <style>
     body {
-      margin: 0;
       font-family: 'Montserrat', sans-serif;
-      transition: background 0.3s, color 0.3s;
-    }
-
-    .light {
+      margin: 0;
+      padding: 0;
       background-color: #f4e7da;
       color: #111;
     }
 
-    .dark {
+    header {
       background-color: #111;
       color: #f4e7da;
-    }
-
-    header {
       padding: 1rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .toggle-btn {
-      cursor: pointer;
-      font-size: 1.5rem;
-      border: none;
-      background: transparent;
-      transition: transform 0.2s;
-    }
-
-    .toggle-btn:hover {
-      transform: scale(1.2);
+      text-align: center;
     }
 
     h1 {
-      font-size: 2rem;
+      margin: 0;
     }
 
     .slogan {
-      text-align: center;
-      margin-top: -10px;
       font-style: italic;
+      margin-top: 0.3rem;
     }
 
     .productos {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-around;
-      margin: 2rem 0;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1rem;
+      padding: 2rem;
     }
 
     .producto {
-      background-color: #f9f9f9;
+      background-color: white;
       padding: 1rem;
-      margin-bottom: 1rem;
-      border-radius: 8px;
-      width: 200px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
       text-align: center;
     }
 
     .producto img {
-      width: 100%;
+      max-width: 100%;
       height: auto;
-      margin-bottom: 1rem;
+      margin-bottom: 0.5rem;
+      border-radius: 8px;
+    }
+
+    .producto h2 {
+      margin: 0.5rem 0;
+    }
+
+    .producto p {
+      font-size: 0.9rem;
+      margin: 0.5rem 0;
     }
 
     .producto button {
-      background-color: #28a745;
+      background-color: #111;
+      color: #f4e7da;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .carrito-btn {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      background-color: #c0392b;
       color: white;
       border: none;
-      padding: 0.6rem 1.2rem;
-      border-radius: 10px;
-      cursor: pointer;
-    }
-
-    .producto button:hover {
-      background-color: #218838;
-    }
-
-    .float-cart {
-      position: fixed;
-      bottom: 10px;
-      right: 10px;
-      background-color: #b22222;
-      color: white;
-      padding: 1rem;
-      border-radius: 50%;
-      cursor: pointer;
-      font-size: 1.5rem;
+      padding: 0.8rem 1.2rem;
+      border-radius: 50px;
+      font-size: 1.2rem;
       z-index: 1000;
+      cursor: pointer;
     }
 
+    .contador-carrito {
+      position: absolute;
+      top: -8px;
+      right: -8px;
+      background-color: yellow;
+      color: black;
+      border-radius: 50%;
+      padding: 2px 6px;
+      font-size: 0.8rem;
+    }
+
+    footer {
+      background-color: #111;
+      color: #f4e7da;
+      text-align: center;
+      padding: 1rem;
+      margin-top: 2rem;
+    }
   </style>
 </head>
-<body class="light">
+<body>
   <header>
     <h1>Carpintería Barat</h1>
-    <button class="toggle-btn" onclick="toggleTheme()" title="Cambiar modo">🌞</button>
+    <div class="slogan">Creamos tus ideas en madera, a tu medida</div>
   </header>
 
-  <div class="slogan">Creamos tus ideas en madera, a tu medida</div>
+  <button class="carrito-btn" onclick="window.location.href='carrito.html'">
+    🛒<span class="contador-carrito" id="contador">0</span>
+  </button>
 
-  <section class="productos">
+  <main class="productos">
     <div class="producto">
-      <img src="imagenes/mesa.jpg" alt="Mesa Plegable">
-      <h3>Mesa Plegable</h3>
-      <p>Diseño práctico para espacios reducidos. Colocación fácil, sin dañar la pared.</p>
-      <button onclick="agregarAlCarrito('Mesa Plegable', 'imagenes/mesa.jpg')">Agregar al Carrito</button>
+      <img src="mesa.jpg" alt="Mesa plegable">
+      <h2>Mesa Plegable</h2>
+      <p>Mesa plegable anclada a la pared con el sistema francés, de fácil colocación, con dos tornillos, que permite desanclar la mesa en cualquier momento sin alterar la pared. Práctica y cómoda, perfecta para espacios reducidos. Los materiales pueden variar.</p>
+      <button onclick="agregarAlCarrito('Mesa Plegable', 'mesa.jpg')">Agregar al carrito</button>
     </div>
+
     <div class="producto">
-      <img src="imagenes/perchero.jpg" alt="Perchero">
-      <h3>Perchero</h3>
-      <p>Perchero tipo piano, ideal para tu hogar.</p>
-      <button onclick="agregarAlCarrito('Perchero', 'imagenes/perchero.jpg')">Agregar al Carrito</button>
+      <img src="perchero.jpg" alt="Perchero">
+      <h2>Perchero</h2>
+      <p>Perchero tipo piano o "gogreebell". Disponible en blanco satinado, negro mate o madera natural. Medidas a pedido del cliente.</p>
+      <button onclick="agregarAlCarrito('Perchero', 'perchero.jpg')">Agregar al carrito</button>
     </div>
+
     <div class="producto">
-      <img src="imagenes/mesauñas.jpg" alt="Mueble para Uñas">
-      <h3>Mueble para Uñas</h3>
-      <p>Práctico y elegante para tus espacios de trabajo.</p>
-      <button onclick="agregarAlCarrito('Mueble para Uñas', 'imagenes/mesauñas.jpg')">Agregar al Carrito</button>
+      <img src="mesauñas.jpg" alt="Mueble para uñas">
+      <h2>Mueble para Uñas</h2>
+      <p>Diseño compacto, funcional y personalizable. Ideal para espacios pequeños de trabajo.</p>
+      <button onclick="agregarAlCarrito('Mueble para Uñas', 'mesauñas.jpg')">Agregar al carrito</button>
     </div>
-  </section>
+  </main>
 
   <footer>
     © 2025 Carpintería Barat — Montevideo, Uruguay
   </footer>
-
-  <div class="float-cart" onclick="window.location.href='carrito.html'">
-    🛒 <span id="cart-count">0</span>
-  </div>
 
   <script>
     let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
@@ -144,19 +147,14 @@
     function agregarAlCarrito(nombre, imagen) {
       carrito.push({ nombre, imagen });
       localStorage.setItem('carrito', JSON.stringify(carrito));
-      actualizarCarrito();
+      actualizarContador();
     }
 
-    function actualizarCarrito() {
-      document.getElementById("cart-count").innerText = carrito.length;
+    function actualizarContador() {
+      document.getElementById('contador').textContent = carrito.length;
     }
 
-    function toggleTheme() {
-      document.body.classList.toggle('dark');
-      document.body.classList.toggle('light');
-    }
-
-    actualizarCarrito();
+    actualizarContador();
   </script>
 </body>
 </html>

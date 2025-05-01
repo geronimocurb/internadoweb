@@ -51,6 +51,10 @@
       font-style: italic;
     }
 
+    .carrito {
+      padding: 1rem;
+    }
+
     .carrito-lista {
       list-style: none;
       padding: 0;
@@ -68,8 +72,16 @@
     }
 
     .carrito-lista img {
-      width: 50px;
+      width: 60px;
+      height: auto;
       margin-right: 1rem;
+      border-radius: 5px;
+    }
+
+    .producto-info {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
     }
 
     .boton-eliminar {
@@ -85,13 +97,19 @@
       background-color: #ff4500;
     }
 
-    .boton-volver {
+    .boton-volver,
+    .boton-enviar {
       padding: 0.6rem 1.2rem;
-      background-color: #007bff;
-      color: white;
+      margin: 0.5rem;
       border: none;
       border-radius: 10px;
       cursor: pointer;
+      font-weight: bold;
+    }
+
+    .boton-volver {
+      background-color: #007bff;
+      color: white;
     }
 
     .boton-volver:hover {
@@ -99,18 +117,19 @@
     }
 
     .boton-enviar {
-      padding: 0.6rem 1.2rem;
       background-color: #28a745;
       color: white;
-      border: none;
-      border-radius: 10px;
-      cursor: pointer;
     }
 
     .boton-enviar:hover {
       background-color: #218838;
     }
 
+    footer {
+      text-align: center;
+      padding: 1rem;
+      font-size: 0.9rem;
+    }
   </style>
 </head>
 <body class="light">
@@ -125,8 +144,10 @@
     <ul class="carrito-lista" id="lista-carrito">
       <!-- Productos añadidos al carrito -->
     </ul>
-    <button class="boton-volver" onclick="window.history.back()">Volver atrás</button>
-    <button class="boton-enviar" onclick="enviarPedido()">Enviar Pedido</button>
+    <div style="text-align: center;">
+      <button class="boton-volver" onclick="window.location.href='index.html'">Volver al inicio</button>
+      <button class="boton-enviar" onclick="enviarPedido()">Enviar Pedido</button>
+    </div>
   </section>
 
   <footer>
@@ -143,7 +164,7 @@
       carrito.forEach((producto, index) => {
         listaCarrito.innerHTML += `
           <li>
-            <div>
+            <div class="producto-info">
               <img src="${producto.imagen}" alt="${producto.nombre}" />
               <span>${producto.nombre}</span>
             </div>
@@ -160,7 +181,7 @@
     }
 
     function enviarPedido() {
-      const carritoString = carrito.map(producto => `${producto.nombre}`).join("\n");
+      const carritoString = carrito.map(producto => `- ${producto.nombre}`).join("\n");
       const mensaje = `Pedido desde Carpintería Barat:\n\n${carritoString}`;
       const mailtoLink = `mailto:gerocurb@gmail.com?subject=Pedido de Carpintería Barat&body=${encodeURIComponent(mensaje)}`;
       window.location.href = mailtoLink;
