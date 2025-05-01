@@ -6,11 +6,17 @@
   <title>Carpintería Barat</title>
   <style>
     body {
-      background-color: #000;
-      color: #fff;
+      background-color: #e8d7b9; /* Beige claro para el modo claro */
+      color: #000;
       font-family: Arial, sans-serif;
       margin: 0;
       padding: 20px;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    body.dark-mode {
+      background-color: #333; /* Negro para el modo oscuro */
+      color: #fff;
     }
 
     header {
@@ -24,6 +30,10 @@
 
     header p {
       font-size: 1.2em;
+      color: #000;
+    }
+
+    header.dark-mode p {
       color: #fff;
     }
 
@@ -66,6 +76,36 @@
     .producto button:hover {
       background-color: #e53935;
     }
+
+    .modo {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background-color: #333;
+      color: white;
+      padding: 10px 20px;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+
+    .modo:hover {
+      background-color: #555;
+    }
+
+    .donacion {
+      display: block;
+      text-align: center;
+      margin-top: 30px;
+      padding: 10px;
+      background-color: #b71c1c;
+      color: white;
+      border-radius: 5px;
+      text-decoration: none;
+    }
+
+    .donacion:hover {
+      background-color: #e53935;
+    }
   </style>
 </head>
 <body>
@@ -91,8 +131,11 @@
   </main>
 
   <footer>
+    <a href="https://link.mercadopago.com.uy/geronimocurbelo" class="donacion" target="_blank">¡Haz tu donación!</a>
     <p>&copy; 2025 Carpintería Barat</p>
   </footer>
+
+  <button class="modo" onclick="toggleModo()">Modo Oscuro/Claro</button>
 
   <script>
     function agregarAlCarrito(producto, variante) {
@@ -100,6 +143,12 @@
       carrito.push({ producto, variante });
       localStorage.setItem('carrito', JSON.stringify(carrito));
       alert("Producto agregado al carrito");
+    }
+
+    function toggleModo() {
+      document.body.classList.toggle("dark-mode");
+      let header = document.querySelector('header');
+      header.classList.toggle('dark-mode');
     }
   </script>
 </body>
