@@ -107,25 +107,95 @@
       font-size: 0.9rem;
     }
 
-    .carrete {
-      display: flex;
-      overflow-x: auto;
-      gap: 1rem;
-      justify-content: center;
+    .carrito-lista {
+      list-style: none;
+      padding: 0;
+      margin: 2rem 0;
     }
 
-    .carrete img {
-      max-height: 250px;
-      border-radius: 12px;
-    }
-
-    select {
-      padding: 0.5rem;
-      border-radius: 8px;
-      border: 1px solid #999;
-      margin-top: 0.5rem;
+    .carrito-lista li {
+      padding: 1rem;
+      background-color: #f9f9f9;
       margin-bottom: 1rem;
+      border-radius: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
+
+    .carrito-lista img {
+      width: 50px;
+      margin-right: 1rem;
+    }
+
+    .boton-eliminar {
+      background-color: #ff6347;
+      color: white;
+      border: none;
+      padding: 0.4rem 0.8rem;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .boton-eliminar:hover {
+      background-color: #ff4500;
+    }
+
+    .boton-volver {
+      padding: 0.6rem 1.2rem;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+
+    .boton-volver:hover {
+      background-color: #0056b3;
+    }
+
+    .boton-enviar {
+      padding: 0.6rem 1.2rem;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+
+    .boton-enviar:hover {
+      background-color: #218838;
+    }
+
+    .boton-carrito {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #b22222;
+      color: white;
+      padding: 1rem;
+      border-radius: 50%;
+      font-size: 1.5rem;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      transition: all 0.2s;
+    }
+
+    .boton-carrito:hover {
+      transform: scale(1.1);
+    }
+
+    .boton-carrito .cantidad {
+      position: absolute;
+      top: -5px;
+      right: -5px;
+      background-color: #ff6347;
+      color: white;
+      font-size: 1rem;
+      padding: 0.2rem 0.6rem;
+      border-radius: 50%;
+    }
+
   </style>
 </head>
 <body class="light">
@@ -137,71 +207,85 @@
   <div class="slogan">Creamos tus ideas en madera, a tu medida</div>
 
   <nav>
+    <a href="index.html">Inicio</a>
     <a href="#mesa">Mesa Plegable</a>
     <a href="#nails">Nails</a>
     <a href="#gatos">Gatos</a>
     <a href="#perchero">Perchero</a>
     <a href="#otros">Otros</a>
-    <a href="#ofertas">Ofertas</a>
     <a href="carritoindex.html">🛒 Carrito</a>
   </nav>
 
   <section class="producto" id="mesa">
-    <img src="imagenes/mesa.jpg" alt="Mesa plegable" />
-    <h2>Mesa Plegable</h2>
-    <p>Mesa plegable anclada a la pared con el sistema francés, de fácil colocación, con dos tornillos, que permite desanclar la mesa en cualquier momento sin alterar la pared. Práctica y cómoda, perfecta para espacios reducidos. Los materiales pueden variar. Solo imagina tu producto y me contactaré contigo para adecuar medidas, materiales y todos los detalles!</p>
-    <select>
-      <option>80 x 50</option>
-      <option>100 x 60</option>
-      <option>50 x 30</option>
-      <option>Otras</option>
-    </select><br>
-    <button class="boton-agregar">Agregar al carrito</button>
-  </section>
-
-  <section class="producto" id="nails">
-    <img src="imagenes/mesauñas.jpg" alt="Mesa uñas" />
-    <h2>Mesita Nails</h2>
-    <p>Mesita apoya manos para trabajar uñas. Acolchonada y liviana, para una mejor experiencia con sus clientes!</p>
-    <select>
-      <option>20 x 13 x 12</option>
-      <option>Otras medidas</option>
-    </select><br>
-    <button class="boton-agregar">Agregar al carrito</button>
-  </section>
-
-  <section class="producto" id="perchero">
-    <div class="carrete">
-      <img src="imagenes/perchero.jpg" alt="Perchero 1" />
-      <img src="imagenes/percheroo.jpg" alt="Perchero 2" />
-      <img src="imagenes/percherooo.jpg" alt="Perchero 3" />
+    <h2>Carrito de Compras</h2>
+    <ul class="carrito-lista" id="lista-carrito">
+      <!-- Los productos serán agregados aquí -->
+    </ul>
+    <div>
+      <strong>Total: $<span id="total">0</span></strong>
     </div>
-    <h2>Perchero</h2>
-    <p>Perchero tipo piano o "gogreebell".</p>
-    <select>
-      <option>Blanco satinado</option>
-      <option>Negro mate</option>
-      <option>Madera natural</option>
-    </select><br>
-    <button class="boton-agregar">Agregar al carrito</button>
+    <button class="boton-volver" onclick="window.history.back()">Volver atrás</button>
+    <button class="boton-enviar" onclick="enviarPedido()">Enviar Pedido</button>
   </section>
 
   <footer>
     © 2025 Carpintería Barat — Montevideo, Uruguay
   </footer>
 
+  <button class="boton-carrito" onclick="irAlCarrito()">
+    🛒
+    <span class="cantidad" id="cantidad-carrito">0</span>
+  </button>
+
   <script>
-    function toggleTheme() {
-      const body = document.body;
-      const btn = document.querySelector('.toggle-btn');
-      if (body.classList.contains('light')) {
-        body.classList.replace('light', 'dark');
-        btn.textContent = '🌙';
-      } else {
-        body.classList.replace('dark', 'light');
-        btn.textContent = '🌞';
-      }
+    let carrito = [];
+
+    function agregarAlCarrito(nombre, imagen) {
+      carrito.push({ nombre, imagen });
+      actualizarCarrito();
     }
+
+    function actualizarCarrito() {
+      const listaCarrito = document.getElementById("lista-carrito");
+      listaCarrito.innerHTML = ''; 
+
+      carrito.forEach((producto, index) => {
+        listaCarrito.innerHTML += `
+          <li>
+            <div>
+              <img src="${producto.imagen}" alt="${producto.nombre}" />
+              <span>${producto.nombre}</span>
+            </div>
+            <button class="boton-eliminar" onclick="eliminarProducto(${index})">Eliminar</button>
+          </li>
+        `;
+      });
+
+      document.getElementById("cantidad-carrito").textContent = carrito.length;
+    }
+
+    function eliminarProducto(index) {
+      carrito.splice(index, 1);
+      actualizarCarrito();
+    }
+
+    function enviarPedido() {
+      const carritoString = carrito.map(producto => `${producto.nombre}`).join("\n");
+      const mensaje = `Pedido desde Carpintería Barat:\n\n${carritoString}`;
+      const mailtoLink = `mailto:gerocurb@gmail.com?subject=Pedido de Carpintería Barat&body=${encodeURIComponent(mensaje)}`;
+      window.location.href = mailtoLink;
+    }
+
+    function toggleTheme() {
+      document.body.classList.toggle('dark');
+      document.body.classList.toggle('light');
+    }
+
+    function irAlCarrito() {
+      window.location.href = "carritoindex.html";
+    }
+
+    actualizarCarrito();
   </script>
 </body>
 </html>
