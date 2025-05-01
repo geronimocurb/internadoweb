@@ -14,11 +14,30 @@
   </header>
   <main>
     <section id="productos">
-      <!-- Aquí puedes agregar tus productos como lo hemos hecho anteriormente -->
+      <!-- Aquí puedes agregar tus productos -->
+      <div class="producto">
+        <h2>Escritorio Plegable</h2>
+        <p>Medidas: 80 x 50, 100 x 60, 50 x 30, Otros</p>
+        <button onclick="agregarAlCarrito('Escritorio Plegable', '80 x 50')">Agregar al carrito</button>
+      </div>
+      <div class="producto">
+        <h2>Apoya Manos para Uñas</h2>
+        <p>Medidas: 20 x 13 x 12, Otros</p>
+        <button onclick="agregarAlCarrito('Apoya Manos', '20 x 13 x 12')">Agregar al carrito</button>
+      </div>
     </section>
   </main>
   <footer>
     <p>&copy; 2025 Carpintería Barat</p>
   </footer>
+
+  <script>
+    function agregarAlCarrito(producto, variante) {
+      let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+      carrito.push({ producto, variante });
+      localStorage.setItem('carrito', JSON.stringify(carrito));
+      alert("Producto agregado al carrito");
+    }
+  </script>
 </body>
 </html>
