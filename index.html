@@ -1,21 +1,25 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Carpintería Barat</title>
+
+  <!-- Fuente Montserrat -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+
   <style>
     body {
-      background-color: #e8d7b9; /* Beige claro para el modo claro */
+      background-color: #e8d7b9;
       color: #000;
-      font-family: Arial, sans-serif;
+      font-family: 'Montserrat', sans-serif;
       margin: 0;
       padding: 20px;
       transition: background-color 0.3s, color 0.3s;
     }
 
     body.dark-mode {
-      background-color: #333; /* Negro para el modo oscuro */
+      background-color: #111;
       color: #fff;
     }
 
@@ -28,15 +32,6 @@
       color: #b71c1c;
     }
 
-    header p {
-      font-size: 1.2em;
-      color: #000;
-    }
-
-    header.dark-mode p {
-      color: #fff;
-    }
-
     .boton {
       display: inline-block;
       background-color: #b71c1c;
@@ -46,22 +41,31 @@
       margin: 10px;
       text-decoration: none;
       border-radius: 5px;
+      transition: box-shadow 0.3s, transform 0.2s;
     }
 
-    .boton:hover {
-      background-color: #e53935;
+    .boton:hover,
+    .producto button:hover,
+    .donacion:hover {
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+      transform: scale(1.05);
     }
 
     .producto {
       background-color: #333;
       padding: 20px;
-      margin: 10px;
+      margin: 10px auto;
       border-radius: 10px;
       text-align: center;
+      max-width: 400px;
     }
 
     .producto h2 {
       color: #fff;
+    }
+
+    .producto p {
+      color: #ccc;
     }
 
     .producto button {
@@ -71,48 +75,50 @@
       border: none;
       border-radius: 5px;
       cursor: pointer;
-    }
-
-    .producto button:hover {
-      background-color: #e53935;
+      font-family: 'Montserrat', sans-serif;
+      transition: box-shadow 0.3s, transform 0.2s;
     }
 
     .modo {
       position: fixed;
       top: 20px;
       right: 20px;
-      background-color: #333;
-      color: white;
-      padding: 10px 20px;
+      background-color: transparent;
+      font-size: 24px;
+      border: none;
       cursor: pointer;
-      border-radius: 5px;
     }
 
     .modo:hover {
-      background-color: #555;
+      transform: scale(1.1);
     }
 
     .donacion {
       display: block;
       text-align: center;
-      margin-top: 30px;
+      margin: 30px auto;
       padding: 10px;
       background-color: #b71c1c;
       color: white;
       border-radius: 5px;
       text-decoration: none;
+      max-width: 250px;
+      transition: box-shadow 0.3s, transform 0.2s;
     }
 
-    .donacion:hover {
-      background-color: #e53935;
+    footer {
+      text-align: center;
+      margin-top: 40px;
     }
   </style>
 </head>
 <body>
+  <button class="modo" onclick="toggleModo()" id="modoBoton">🌙</button>
+
   <header>
     <h1>Carpintería Barat</h1>
     <p>Creamos tus ideas en madera, a tu medida</p>
-    <a href="carrito.html" class="boton">Ver carrito</a>
+    <a href="carrito.html" class="boton">🛒 Ver carrito</a>
   </header>
 
   <main>
@@ -131,13 +137,20 @@
   </main>
 
   <footer>
-    <a href="https://link.mercadopago.com.uy/geronimocurbelo" class="donacion" target="_blank">¡Haz tu donación!</a>
+    <a href="https://link.mercadopago.com.uy/geronimocurbelo" class="donacion" target="_blank">💖 ¡Haz tu donación!</a>
     <p>&copy; 2025 Carpintería Barat</p>
   </footer>
 
-  <button class="modo" onclick="toggleModo()">Modo Oscuro/Claro</button>
-
   <script>
+    // Modo persistente
+    window.onload = function () {
+      const modo = localStorage.getItem('modo');
+      if (modo === 'oscuro') {
+        document.body.classList.add('dark-mode');
+        document.getElementById('modoBoton').textContent = '☀️';
+      }
+    };
+
     function agregarAlCarrito(producto, variante) {
       let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
       carrito.push({ producto, variante });
@@ -146,9 +159,12 @@
     }
 
     function toggleModo() {
-      document.body.classList.toggle("dark-mode");
-      let header = document.querySelector('header');
-      header.classList.toggle('dark-mode');
+      const body = document.body;
+      const boton = document.getElementById('modoBoton');
+      body.classList.toggle('dark-mode');
+      const esOscuro = body.classList.contains('dark-mode');
+      boton.textContent = esOscuro ? '☀️' : '🌙';
+      localStorage.setItem('modo', esOscuro ? 'oscuro' : 'claro');
     }
   </script>
 </body>

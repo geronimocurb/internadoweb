@@ -1,123 +1,181 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Carrito de Compras</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Carrito de Compras - Carpintería Barat</title>
+
+  <!-- Fuente Montserrat -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+
   <style>
     body {
-      background-color: #000;
-      color: #fff;
-      font-family: Arial, sans-serif;
-      margin: 0;
+      background-color: #e8d7b9;
+      color: #000;
+      font-family: 'Montserrat', sans-serif;
       padding: 20px;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    body.dark-mode {
+      background-color: #111;
+      color: #fff;
     }
 
     h1 {
-      color: #b71c1c;
       text-align: center;
+      color: #b71c1c;
     }
 
-    .carrito {
-      max-width: 600px;
-      margin: 0 auto;
-      background-color: #1e1e1e;
-      padding: 20px;
-      border-radius: 10px;
+    ul {
+      list-style-type: none;
+      padding: 0;
     }
 
-    .item {
-      border-bottom: 1px solid #444;
-      padding: 10px 0;
+    li {
+      background: #f8f1e1;
+      margin: 10px 0;
+      padding: 15px;
+      border-radius: 8px;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      flex-wrap: wrap;
     }
 
-    .boton, .boton-secundario {
-      display: block;
+    body.dark-mode li {
+      background: #222;
+      color: white;
+    }
+
+    .boton {
       background-color: #b71c1c;
       color: white;
-      text-align: center;
-      padding: 10px;
-      margin: 10px auto;
-      text-decoration: none;
-      border-radius: 5px;
-      max-width: 300px;
-    }
-
-    .boton:hover, .boton-secundario:hover {
-      background-color: #e53935;
-    }
-
-    .eliminar {
-      background: none;
+      padding: 10px 15px;
       border: none;
-      color: #e53935;
-      font-size: 1em;
+      border-radius: 5px;
+      margin: 10px;
+      cursor: pointer;
+      font-family: 'Montserrat', sans-serif;
+      transition: box-shadow 0.3s, transform 0.2s;
+    }
+
+    .boton:hover {
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+      transform: scale(1.05);
+    }
+
+    .modo {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background-color: transparent;
+      font-size: 24px;
+      border: none;
       cursor: pointer;
     }
 
-    #mensajeFinal {
-      display: none;
+    .modo:hover {
+      transform: scale(1.1);
+    }
+
+    .mensaje {
       text-align: center;
-      margin-top: 30px;
-      background-color: #2e2e2e;
-      padding: 15px;
-      border-radius: 10px;
-      color: #b71c1c;
-      font-size: 1.2em;
+      color: green;
+      font-weight: bold;
+      margin-top: 20px;
+    }
+
+    .acciones {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
     }
   </style>
 </head>
 <body>
-  <h1>Carrito de Compras</h1>
-  <div class="carrito" id="carrito"></div>
-  <a class="boton" id="enviarPedido" href="#">Enviar pedido</a>
-  <a class="boton-secundario" href="index.html">Volver a la tienda</a>
-  <div id="mensajeFinal">¡Muchas gracias por su compra! Pronto me contactaré para darle una respuesta.</div>
+  <button class="modo" onclick="toggleModo()" id="modoBoton">🌙</button>
+
+  <h1>🛒 Tu Carrito</h1>
+  <ul id="listaCarrito"></ul>
+
+  <div style="text-align: center;">
+    <button class="boton" onclick="enviarPedido()">📧 Enviar pedido</button>
+    <a href="index.html" class="boton">🏠 Volver al inicio</a>
+  </div>
+
+  <p class="mensaje" id="mensajeCompra"></p>
 
   <script>
-    const carritoDiv = document.getElementById('carrito');
-    let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+    // Cargar modo
+    window.onload = function () {
+      const modo = localStorage.getItem('modo');
+      if (modo === 'oscuro') {
+        document.body.classList.add('dark-mode');
+        document.getElementById('modoBoton').textContent = '☀️';
+      }
+      mostrarCarrito();
+    };
 
-    function renderCarrito() {
-      carritoDiv.innerHTML = '';
+    function toggleModo() {
+      const body = document.body;
+      const boton = document.getElementById('modoBoton');
+      body.classList.toggle('dark-mode');
+      const esOscuro = body.classList.contains('dark-mode');
+      boton.textContent = esOscuro ? '☀️' : '🌙';
+      localStorage.setItem('modo', esOscuro ? 'oscuro' : 'claro');
+    }
+
+    function mostrarCarrito() {
+      const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+      const lista = document.getElementById('listaCarrito');
+      lista.innerHTML = "";
+
+      carrito.forEach((item, index) => {
+        const li = document.createElement('li');
+        li.innerHTML = `
+          ${item.producto} - ${item.variante}
+          <div class="acciones">
+            <button class="boton" onclick="eliminarProducto(${index})">🗑️ Eliminar</button>
+            <button class="boton" onclick="editarProducto(${index})">✏️ Editar</button>
+          </div>
+        `;
+        lista.appendChild(li);
+      });
+    }
+
+    function eliminarProducto(index) {
+      let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+      carrito.splice(index, 1);
+      localStorage.setItem('carrito', JSON.stringify(carrito));
+      mostrarCarrito();
+    }
+
+    function editarProducto(index) {
+      let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+      const nuevoVariante = prompt("Editar variante:", carrito[index].variante);
+      if (nuevoVariante !== null) {
+        carrito[index].variante = nuevoVariante;
+        localStorage.setItem('carrito', JSON.stringify(carrito));
+        mostrarCarrito();
+      }
+    }
+
+    function enviarPedido() {
+      const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
       if (carrito.length === 0) {
-        carritoDiv.innerHTML = '<p>No hay productos en el carrito.</p>';
-        document.getElementById('enviarPedido').style.display = 'none';
+        alert("Tu carrito está vacío");
         return;
       }
 
-      carrito.forEach((item, index) => {
-        const div = document.createElement('div');
-        div.className = 'item';
-        div.innerHTML = `${item.producto} - ${item.variante} <button class="eliminar" onclick="eliminarItem(${index})">🗑️</button>`;
-        carritoDiv.appendChild(div);
-      });
+      const mensaje = carrito.map(item => `${item.producto} - ${item.variante}`).join('\n');
+      const mailto = `mailto:gerocurb@gmail.com?subject=Pedido Carpintería Barat&body=${encodeURIComponent(mensaje)}`;
+      window.location.href = mailto;
 
-      document.getElementById('enviarPedido').style.display = 'block';
-    }
-
-    function eliminarItem(index) {
-      carrito.splice(index, 1);
-      localStorage.setItem('carrito', JSON.stringify(carrito));
-      renderCarrito();
-    }
-
-    document.getElementById('enviarPedido').addEventListener('click', function (e) {
-      e.preventDefault();
-      const mensaje = encodeURIComponent(
-        carrito.map(i => `${i.producto} - ${i.variante}`).join('\\n')
-      );
-      window.location.href = `mailto:gerocurb@gmail.com?subject=Pedido Carpintería Barat&body=${mensaje}`;
-      document.getElementById('mensajeFinal').style.display = 'block';
+      document.getElementById("mensajeCompra").textContent = "¡Gracias por su compra! Pronto me contactaré para darle una respuesta.";
       localStorage.removeItem('carrito');
-      carrito = [];
-      renderCarrito();
-    });
-
-    renderCarrito();
+      mostrarCarrito();
+    }
   </script>
 </body>
 </html>
