@@ -3,175 +3,26 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Carrito de Compras | Carpintería Barat</title>
+  <title>Carrito - Carpintería Barat</title>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
   <style>
-    body {
-      margin: 0;
-      font-family: 'Montserrat', sans-serif;
-      transition: background 0.3s, color 0.3s;
-    }
-
-    .light {
-      background-color: #f4e7da;
-      color: #111;
-    }
-
-    .dark {
-      background-color: #111;
-      color: #f4e7da;
-    }
-
-    header {
-      padding: 1rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .toggle-btn {
-      cursor: pointer;
-      font-size: 1.5rem;
-      border: none;
-      background: transparent;
-      transition: transform 0.2s;
-    }
-
-    .toggle-btn:hover {
-      transform: scale(1.2);
-    }
-
-    h1 {
-      font-size: 2rem;
-    }
-
-    .slogan {
-      text-align: center;
-      margin-top: -10px;
-      font-style: italic;
-    }
-
-    nav {
-      display: flex;
-      justify-content: center;
-      gap: 1rem;
-      margin: 1rem 0;
-      flex-wrap: wrap;
-    }
-
-    nav a {
-      text-decoration: none;
-      padding: 0.5rem 1rem;
-      border-radius: 8px;
-      background-color: #b22222;
-      color: white;
-      transition: box-shadow 0.3s, transform 0.2s;
-    }
-
-    nav a:hover {
-      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-      transform: translateY(-2px);
-    }
-
-    .carrito-contenedor {
-      margin: 2rem;
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-    }
-
-    .producto-carrito {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-bottom: 1px solid #ccc;
-      padding-bottom: 1rem;
-    }
-
-    .producto-carrito img {
-      width: 80px;
-      height: 80px;
-      border-radius: 8px;
-    }
-
-    .producto-carrito h3 {
-      margin: 0;
-    }
-
-    .boton-eliminar {
-      background-color: red;
-      color: white;
-      border: none;
-      padding: 0.5rem;
-      border-radius: 5px;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-
-    .boton-eliminar:hover {
-      background-color: #cc0000;
-    }
-
-    .total {
-      font-size: 1.5rem;
-      font-weight: bold;
-      margin-top: 2rem;
-      text-align: right;
-    }
-
-    footer {
-      text-align: center;
-      padding: 2rem;
-      font-size: 0.9rem;
-    }
+    /* Aquí va el estilo similar al del index */
   </style>
 </head>
 <body class="light">
   <header>
-    <h1>Carpintería Barat</h1>
+    <h1>Carpintería Barat - Carrito</h1>
     <button class="toggle-btn" onclick="toggleTheme()" title="Cambiar modo">🌞</button>
   </header>
 
-  <div class="slogan">Creamos tus ideas en madera, a tu medida</div>
-
   <nav>
-    <a href="index.html">Inicio</a>
-    <a href="carritoindex.html">🛒 Carrito</a>
-    <a href="https://link.mercadopago.com.uy/geronimocurbelo" target="_blank">💖 Donar</a>
+    <a href="index.html">🛒 Regresar al catálogo</a>
   </nav>
 
-  <section class="carrito-contenedor">
-    <div class="producto-carrito">
-      <img src="mesa.jpg" alt="Mesa plegable" />
-      <div>
-        <h3>Mesa Plegable 100 x 60</h3>
-        <p>Precio: $5000</p>
-      </div>
-      <button class="boton-eliminar" onclick="eliminarProducto('mesa')">Eliminar</button>
-    </div>
-
-    <div class="producto-carrito">
-      <img src="mesauñas.jpg" alt="Mesa uñas" />
-      <div>
-        <h3>Mesita Nails</h3>
-        <p>Precio: $3000</p>
-      </div>
-      <button class="boton-eliminar" onclick="eliminarProducto('nails')">Eliminar</button>
-    </div>
-
-    <div class="producto-carrito">
-      <img src="perchero.jpg" alt="Perchero" />
-      <div>
-        <h3>Perchero Blanco Satinado</h3>
-        <p>Precio: $2000</p>
-      </div>
-      <button class="boton-eliminar" onclick="eliminarProducto('perchero')">Eliminar</button>
-    </div>
-
-    <div class="total">
-      <p>Total: $10000</p>
-      <button class="boton-agregar">Finalizar compra</button>
-    </div>
+  <section class="producto" id="mesa">
+    <img src="imagenes/mesa.jpg" alt="Mesa plegable" />
+    <h2>Mesa Plegable</h2>
+    <p>Mesa plegable anclada a la pared con el sistema francés...</p>
   </section>
 
   <footer>
@@ -189,11 +40,6 @@
         body.classList.replace('dark', 'light');
         btn.textContent = '🌞';
       }
-    }
-
-    function eliminarProducto(producto) {
-      alert('Producto ' + producto + ' eliminado del carrito.');
-      // Aquí podrías agregar la lógica para actualizar el carrito.
     }
   </script>
 </body>
