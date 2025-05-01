@@ -3,179 +3,167 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Carrito de Compras - Carpintería Barat</title>
-
-  <!-- Fuente Montserrat -->
+  <title>Carrito de Compras</title>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
-
   <style>
     body {
-      background-color: #e8d7b9;
-      color: #000;
       font-family: 'Montserrat', sans-serif;
-      padding: 20px;
+      margin: 0;
+      padding: 2rem;
+      background-color: #111;
+      color: white;
       transition: background-color 0.3s, color 0.3s;
     }
 
-    body.dark-mode {
-      background-color: #111;
-      color: #fff;
+    .light-mode {
+      background-color: #f5f0e6;
+      color: #111;
     }
 
     h1 {
       text-align: center;
-      color: #b71c1c;
     }
 
-    ul {
-      list-style-type: none;
-      padding: 0;
-    }
-
-    li {
-      background: #f8f1e1;
-      margin: 10px 0;
-      padding: 15px;
-      border-radius: 8px;
+    .item {
+      background-color: #222;
+      margin: 1rem auto;
+      padding: 1rem;
+      border-radius: 10px;
+      max-width: 500px;
       display: flex;
       justify-content: space-between;
       align-items: center;
       flex-wrap: wrap;
     }
 
-    body.dark-mode li {
-      background: #222;
-      color: white;
+    .light-mode .item {
+      background-color: #fff;
     }
 
-    .boton {
-      background-color: #b71c1c;
-      color: white;
-      padding: 10px 15px;
+    .item span {
+      flex: 1 1 70%;
+    }
+
+    button {
+      padding: 0.5rem 1rem;
+      margin-left: 0.5rem;
       border: none;
-      border-radius: 5px;
-      margin: 10px;
+      border-radius: 8px;
       cursor: pointer;
-      font-family: 'Montserrat', sans-serif;
-      transition: box-shadow 0.3s, transform 0.2s;
+      background-color: #900;
+      color: white;
+      transition: transform 0.1s ease, box-shadow 0.2s;
     }
 
-    .boton:hover {
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    button:hover {
       transform: scale(1.05);
-    }
-
-    .modo {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      background-color: transparent;
-      font-size: 24px;
-      border: none;
-      cursor: pointer;
-    }
-
-    .modo:hover {
-      transform: scale(1.1);
-    }
-
-    .mensaje {
-      text-align: center;
-      color: green;
-      font-weight: bold;
-      margin-top: 20px;
+      box-shadow: 0 0 10px rgba(255,255,255,0.3);
     }
 
     .acciones {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
+      text-align: center;
+      margin-top: 2rem;
+    }
+
+    .toggle-mode {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      background: none;
+      font-size: 1.5rem;
+    }
+
+    .gracias {
+      text-align: center;
+      margin-top: 2rem;
+      color: lightgreen;
+      font-weight: bold;
+    }
+
+    .volver {
+      position: fixed;
+      bottom: 1rem;
+      left: 1rem;
     }
   </style>
 </head>
 <body>
-  <button class="modo" onclick="toggleModo()" id="modoBoton">🌙</button>
+  <button class="toggle-mode" onclick="toggleMode()">🌙</button>
+  <h1>Carrito de Compras</h1>
+  <div id="carrito"></div>
 
-  <h1>🛒 Tu Carrito</h1>
-  <ul id="listaCarrito"></ul>
-
-  <div style="text-align: center;">
-    <button class="boton" onclick="enviarPedido()">📧 Enviar pedido</button>
-    <a href="index.html" class="boton">🏠 Volver al inicio</a>
+  <div class="acciones">
+    <button onclick="vaciarCarrito()">Vaciar carrito</button>
+    <button onclick="enviarPedido()">Enviar pedido</button>
   </div>
 
-  <p class="mensaje" id="mensajeCompra"></p>
+  <div id="gracias" class="gracias" style="display:none;">
+    ¡Muchas gracias por su compra, pronto me contactaré para darle una respuesta!
+  </div>
+
+  <a href="index.html" class="volver"><button>← Volver</button></a>
 
   <script>
-    // Cargar modo
-    window.onload = function () {
-      const modo = localStorage.getItem('modo');
-      if (modo === 'oscuro') {
-        document.body.classList.add('dark-mode');
-        document.getElementById('modoBoton').textContent = '☀️';
-      }
-      mostrarCarrito();
-    };
-
-    function toggleModo() {
-      const body = document.body;
-      const boton = document.getElementById('modoBoton');
-      body.classList.toggle('dark-mode');
-      const esOscuro = body.classList.contains('dark-mode');
-      boton.textContent = esOscuro ? '☀️' : '🌙';
-      localStorage.setItem('modo', esOscuro ? 'oscuro' : 'claro');
+    function toggleMode() {
+      document.body.classList.toggle("light-mode");
+      const button = document.querySelector('.toggle-mode');
+      button.textContent = document.body.classList.contains("light-mode") ? "☀️" : "🌙";
     }
 
-    function mostrarCarrito() {
-      const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
-      const lista = document.getElementById('listaCarrito');
-      lista.innerHTML = "";
+    let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
 
+    function renderCarrito() {
+      const contenedor = document.getElementById("carrito");
+      contenedor.innerHTML = "";
       carrito.forEach((item, index) => {
-        const li = document.createElement('li');
-        li.innerHTML = `
-          ${item.producto} - ${item.variante}
-          <div class="acciones">
-            <button class="boton" onclick="eliminarProducto(${index})">🗑️ Eliminar</button>
-            <button class="boton" onclick="editarProducto(${index})">✏️ Editar</button>
-          </div>
+        const div = document.createElement("div");
+        div.className = "item";
+        div.innerHTML = `
+          <span>${item.producto} - ${item.variante}</span>
+          <button onclick="editarItem(${index})">Editar</button>
+          <button onclick="eliminarItem(${index})">Borrar</button>
         `;
-        lista.appendChild(li);
+        contenedor.appendChild(div);
       });
     }
 
-    function eliminarProducto(index) {
-      let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+    function eliminarItem(index) {
       carrito.splice(index, 1);
-      localStorage.setItem('carrito', JSON.stringify(carrito));
-      mostrarCarrito();
+      localStorage.setItem("carrito", JSON.stringify(carrito));
+      renderCarrito();
     }
 
-    function editarProducto(index) {
-      let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
-      const nuevoVariante = prompt("Editar variante:", carrito[index].variante);
-      if (nuevoVariante !== null) {
-        carrito[index].variante = nuevoVariante;
-        localStorage.setItem('carrito', JSON.stringify(carrito));
-        mostrarCarrito();
+    function editarItem(index) {
+      const nuevaVariante = prompt("Ingrese la nueva variante:");
+      if (nuevaVariante) {
+        carrito[index].variante = nuevaVariante;
+        localStorage.setItem("carrito", JSON.stringify(carrito));
+        renderCarrito();
+      }
+    }
+
+    function vaciarCarrito() {
+      if (confirm("¿Estás seguro de vaciar el carrito?")) {
+        carrito = [];
+        localStorage.setItem("carrito", JSON.stringify(carrito));
+        renderCarrito();
       }
     }
 
     function enviarPedido() {
-      const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
       if (carrito.length === 0) {
-        alert("Tu carrito está vacío");
+        alert("El carrito está vacío.");
         return;
       }
 
-      const mensaje = carrito.map(item => `${item.producto} - ${item.variante}`).join('\n');
-      const mailto = `mailto:gerocurb@gmail.com?subject=Pedido Carpintería Barat&body=${encodeURIComponent(mensaje)}`;
+      const cuerpo = carrito.map(item => `${item.producto} - ${item.variante}`).join("\n");
+      const mailto = `mailto:gerocurb@gmail.com?subject=Pedido Carpintería Barat&body=${encodeURIComponent(cuerpo)}`;
       window.location.href = mailto;
 
-      document.getElementById("mensajeCompra").textContent = "¡Gracias por su compra! Pronto me contactaré para darle una respuesta.";
-      localStorage.removeItem('carrito');
-      mostrarCarrito();
+      document.getElementById("gracias").style.display = "block";
     }
+
+    renderCarrito();
   </script>
 </body>
 </html>

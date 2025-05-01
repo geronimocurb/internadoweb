@@ -4,167 +4,216 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Carpintería Barat</title>
-
-  <!-- Fuente Montserrat -->
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
-
   <style>
     body {
-      background-color: #e8d7b9;
-      color: #000;
-      font-family: 'Montserrat', sans-serif;
       margin: 0;
-      padding: 20px;
+      font-family: 'Montserrat', sans-serif;
+      background-color: #111;
+      color: #fff;
       transition: background-color 0.3s, color 0.3s;
     }
 
-    body.dark-mode {
-      background-color: #111;
-      color: #fff;
+    .light-mode {
+      background-color: #f5f0e6;
+      color: #111;
     }
 
     header {
-      text-align: center;
-      margin-bottom: 30px;
+      background-color: #900;
+      padding: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
     }
 
     header h1 {
-      color: #b71c1c;
+      margin: 0;
+      font-size: 1.5rem;
     }
 
-    .boton {
-      display: inline-block;
-      background-color: #b71c1c;
+    nav button {
+      background: none;
+      border: none;
       color: white;
-      text-align: center;
-      padding: 10px 20px;
-      margin: 10px;
-      text-decoration: none;
-      border-radius: 5px;
-      transition: box-shadow 0.3s, transform 0.2s;
+      font-weight: bold;
+      margin-left: 1rem;
+      cursor: pointer;
+      font-size: 1rem;
     }
 
-    .boton:hover,
-    .producto button:hover,
-    .donacion:hover {
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    nav button:hover {
+      text-shadow: 0 0 5px white;
+    }
+
+    .toggle-mode {
+      font-size: 1.5rem;
+      cursor: pointer;
+      background: none;
+      border: none;
+      color: inherit;
+    }
+
+    .section {
+      padding: 2rem;
+      border-bottom: 1px solid #333;
+      text-align: center;
+    }
+
+    .product-img {
+      max-width: 100%;
+      height: auto;
+      margin-bottom: 1rem;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    }
+
+    select, button.add-to-cart {
+      margin-top: 1rem;
+      padding: 0.5rem;
+      font-size: 1rem;
+      border: none;
+      border-radius: 8px;
+      background-color: #900;
+      color: white;
+      cursor: pointer;
+      transition: transform 0.1s ease, box-shadow 0.2s;
+    }
+
+    button.add-to-cart:hover {
+      box-shadow: 0 0 10px rgba(255,255,255,0.5);
       transform: scale(1.05);
     }
 
-    .producto {
-      background-color: #333;
-      padding: 20px;
-      margin: 10px auto;
-      border-radius: 10px;
-      text-align: center;
-      max-width: 400px;
-    }
-
-    .producto h2 {
-      color: #fff;
-    }
-
-    .producto p {
-      color: #ccc;
-    }
-
-    .producto button {
-      padding: 10px 20px;
-      background-color: #b71c1c;
+    select {
+      background-color: #222;
       color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      font-family: 'Montserrat', sans-serif;
-      transition: box-shadow 0.3s, transform 0.2s;
     }
 
-    .modo {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      background-color: transparent;
-      font-size: 24px;
-      border: none;
-      cursor: pointer;
+    .light-mode select {
+      background-color: #eee;
+      color: #111;
     }
 
-    .modo:hover {
-      transform: scale(1.1);
-    }
-
-    .donacion {
-      display: block;
+    .donaciones {
+      padding: 2rem;
       text-align: center;
-      margin: 30px auto;
-      padding: 10px;
-      background-color: #b71c1c;
-      color: white;
-      border-radius: 5px;
+    }
+
+    .donaciones a {
+      color: #900;
+      font-weight: bold;
       text-decoration: none;
-      max-width: 250px;
-      transition: box-shadow 0.3s, transform 0.2s;
     }
 
-    footer {
-      text-align: center;
-      margin-top: 40px;
+    .carousel {
+      display: flex;
+      gap: 10px;
+      overflow-x: auto;
+      padding-bottom: 10px;
     }
+
+    .carousel img {
+      max-height: 250px;
+      border-radius: 10px;
+      flex-shrink: 0;
+    }
+
   </style>
 </head>
 <body>
-  <button class="modo" onclick="toggleModo()" id="modoBoton">🌙</button>
-
   <header>
     <h1>Carpintería Barat</h1>
-    <p>Creamos tus ideas en madera, a tu medida</p>
-    <a href="carrito.html" class="boton">🛒 Ver carrito</a>
+    <div>
+      <nav>
+        <button onclick="scrollToSection('mesa')">Mesa Plegable</button>
+        <button onclick="scrollToSection('nails')">Nails</button>
+        <button onclick="scrollToSection('gatos')">Gatos</button>
+        <button onclick="scrollToSection('perchero')">Perchero</button>
+        <button onclick="scrollToSection('donar')">Donar</button>
+        <a href="carritoindex.html" style="color:white;">🛒</a>
+        <button class="toggle-mode" onclick="toggleMode()">🌙</button>
+      </nav>
+    </div>
   </header>
 
-  <main>
-    <section id="productos">
-      <div class="producto">
-        <h2>Escritorio Plegable</h2>
-        <p>Medidas: 80 x 50, 100 x 60, 50 x 30, Otros</p>
-        <button onclick="agregarAlCarrito('Escritorio Plegable', '80 x 50')">Agregar al carrito</button>
-      </div>
-      <div class="producto">
-        <h2>Apoya Manos para Uñas</h2>
-        <p>Medidas: 20 x 13 x 12, Otros</p>
-        <button onclick="agregarAlCarrito('Apoya Manos', '20 x 13 x 12')">Agregar al carrito</button>
-      </div>
-    </section>
-  </main>
+  <div id="mesa" class="section">
+    <div class="carousel">
+      <img src="mesa.jpg" alt="Mesa plegable" />
+    </div>
+    <h2>Mesa Plegable</h2>
+    <p>Mesa plegable anclada a la pared con el sistema francés, de fácil colocación, con dos tornillos, que permite desanclar la mesa en cualquier momento sin alterar la pared. Práctica y cómoda, perfecta para espacios reducidos. Los materiales pueden variar. Solo imagina tu producto y me contactaré contigo para adecuar medidas, materiales y todos los detalles!</p>
+    <select id="mesa-options">
+      <option>80 x 50</option>
+      <option>100 x 60</option>
+      <option>50 x 30</option>
+      <option>Otro</option>
+    </select><br/>
+    <button class="add-to-cart" onclick="agregarCarrito('Mesa Plegable', getValue('mesa-options'))">Agregar al carrito</button>
+  </div>
 
-  <footer>
-    <a href="https://link.mercadopago.com.uy/geronimocurbelo" class="donacion" target="_blank">💖 ¡Haz tu donación!</a>
-    <p>&copy; 2025 Carpintería Barat</p>
-  </footer>
+  <div id="nails" class="section">
+    <div class="carousel">
+      <img src="mesauñas.jpg" alt="Mueble para uñas" />
+    </div>
+    <h2>Nails</h2>
+    <p>Mesita apoya manos para trabajar uñas. Acolchonada y liviana, para una mejor experiencia con sus clientes!</p>
+    <select id="nails-options">
+      <option>20 x 13 x 12</option>
+      <option>Otra</option>
+    </select><br/>
+    <button class="add-to-cart" onclick="agregarCarrito('Mesita Nails', getValue('nails-options'))">Agregar al carrito</button>
+  </div>
+
+  <div id="gatos" class="section">
+    <h2>Juegos para Gatos</h2>
+    <p>Próximamente...</p>
+  </div>
+
+  <div id="perchero" class="section">
+    <div class="carousel">
+      <img src="perchero.jpg" alt="Perchero" />
+      <img src="percheroo.jpg" alt="Perchero extra 1" />
+      <img src="percherooo.jpg" alt="Perchero extra 2" />
+    </div>
+    <h2>Perchero</h2>
+    <p>Perchero tipo piano o "gogreebell"</p>
+    <select id="perchero-options">
+      <option>Blanco satinado</option>
+      <option>Negro mate</option>
+      <option>Madera natural</option>
+    </select><br/>
+    <button class="add-to-cart" onclick="agregarCarrito('Perchero', getValue('perchero-options'))">Agregar al carrito</button>
+  </div>
+
+  <div id="donar" class="donaciones">
+    <h2>¿Querés apoyar el emprendimiento?</h2>
+    <p>¡Podés hacer una donación!</p>
+    <a href="https://link.mercadopago.com.uy/geronimocurbelo" target="_blank">Alias: geronimocurbelo</a>
+  </div>
 
   <script>
-    // Modo persistente
-    window.onload = function () {
-      const modo = localStorage.getItem('modo');
-      if (modo === 'oscuro') {
-        document.body.classList.add('dark-mode');
-        document.getElementById('modoBoton').textContent = '☀️';
-      }
-    };
-
-    function agregarAlCarrito(producto, variante) {
-      let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
-      carrito.push({ producto, variante });
-      localStorage.setItem('carrito', JSON.stringify(carrito));
-      alert("Producto agregado al carrito");
+    function scrollToSection(id) {
+      document.getElementById(id).scrollIntoView({ behavior: "smooth" });
     }
 
-    function toggleModo() {
-      const body = document.body;
-      const boton = document.getElementById('modoBoton');
-      body.classList.toggle('dark-mode');
-      const esOscuro = body.classList.contains('dark-mode');
-      boton.textContent = esOscuro ? '☀️' : '🌙';
-      localStorage.setItem('modo', esOscuro ? 'oscuro' : 'claro');
+    function toggleMode() {
+      document.body.classList.toggle("light-mode");
+      const button = document.querySelector('.toggle-mode');
+      button.textContent = document.body.classList.contains("light-mode") ? "☀️" : "🌙";
+    }
+
+    function getValue(selectId) {
+      return document.getElementById(selectId).value;
+    }
+
+    function agregarCarrito(producto, variante) {
+      const item = { producto, variante };
+      let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+      carrito.push(item);
+      localStorage.setItem("carrito", JSON.stringify(carrito));
+      alert("Producto agregado al carrito");
     }
   </script>
 </body>
