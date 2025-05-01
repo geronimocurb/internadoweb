@@ -1,9 +1,10 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Carrito - Carpintería Barat</title>
+  <title>Carpintería Barat</title>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
   <style>
     body {
@@ -51,90 +52,90 @@
       font-style: italic;
     }
 
-    .carrito-lista {
-      list-style: none;
-      padding: 0;
-      margin: 2rem 0;
-    }
-
-    .carrito-lista li {
-      padding: 1rem;
-      background-color: #f9f9f9;
-      margin-bottom: 1rem;
-      border-radius: 8px;
+    .productos {
       display: flex;
-      justify-content: space-between;
-      align-items: center;
       flex-wrap: wrap;
+      justify-content: space-around;
+      padding: 2rem;
     }
 
-    .carrito-lista img {
-      width: 50px;
-      margin-right: 1rem;
+    .producto {
+      background-color: #f9f9f9;
+      margin: 1rem;
+      padding: 1rem;
+      border-radius: 8px;
+      text-align: center;
+      width: 250px;
     }
 
-    .producto-detalle {
-      flex: 1;
-      min-width: 200px;
+    .producto img {
+      max-width: 100%;
+      height: auto;
+      margin-bottom: 1rem;
     }
 
-    .boton-eliminar {
-      background-color: #ff6347;
-      color: white;
-      border: none;
-      padding: 0.4rem 0.8rem;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-
-    .boton-eliminar:hover {
-      background-color: #ff4500;
-    }
-
-    .boton-volver {
-      padding: 0.6rem 1.2rem;
+    .producto button {
       background-color: #007bff;
       color: white;
+      padding: 0.6rem 1.2rem;
       border: none;
       border-radius: 10px;
       cursor: pointer;
     }
 
-    .boton-volver:hover {
+    .producto button:hover {
       background-color: #0056b3;
     }
 
-    .boton-enviar {
-      padding: 0.6rem 1.2rem;
-      background-color: #28a745;
+    .boton-carrito {
+      position: fixed;
+      bottom: 1rem;
+      right: 1rem;
+      background-color: #ff6347;
       color: white;
+      padding: 1rem;
       border: none;
-      border-radius: 10px;
+      border-radius: 50%;
+      font-size: 1.5rem;
       cursor: pointer;
+      z-index: 1000;
     }
 
-    .boton-enviar:hover {
-      background-color: #218838;
+    .boton-carrito span {
+      font-weight: bold;
     }
-
   </style>
 </head>
 <body class="light">
   <header>
-    <h1>Carrito de Compras</h1>
+    <h1>Carpintería Barat</h1>
     <button class="toggle-btn" onclick="toggleTheme()" title="Cambiar modo">🌞</button>
   </header>
-
-  <div class="slogan">Revisa los productos en tu carrito</div>
-
-  <section class="carrito">
-    <ul class="carrito-lista" id="lista-carrito">
-      <!-- Productos añadidos al carrito -->
-    </ul>
-    <button class="boton-volver" onclick="window.history.back()">Volver atrás</button>
-    <button class="boton-enviar" onclick="enviarPedido()">Enviar Pedido</button>
+  <div class="slogan">Productos a medida para tu hogar</div>
+  <section class="productos">
+    <div class="producto">
+      <img src="imagenes/mesa.jpg" alt="Mesa plegable" />
+      <h3>Mesa Plegable</h3>
+      <p>Color: Blanco, Negro, Madera Natural</p>
+      <p>Medidas a elección</p>
+      <button onclick="agregarAlCarrito('Mesa Plegable', 'imagenes/mesa.jpg')">Agregar al carrito</button>
+    </div>
+    <div class="producto">
+      <img src="imagenes/perchero.jpg" alt="Perchero" />
+      <h3>Perchero</h3>
+      <p>Color: Blanco, Negro, Madera Natural</p>
+      <p>Medidas a elección</p>
+      <button onclick="agregarAlCarrito('Perchero', 'imagenes/perchero.jpg')">Agregar al carrito</button>
+    </div>
+    <div class="producto">
+      <img src="imagenes/mesauñas.jpg" alt="Mueble para uñas" />
+      <h3>Mueble para Uñas</h3>
+      <p>Color: Blanco, Negro, Madera Natural</p>
+      <p>Medidas a elección</p>
+      <button onclick="agregarAlCarrito('Mueble para Uñas', 'imagenes/mesauñas.jpg')">Agregar al carrito</button>
+    </div>
   </section>
-
+  <button class="boton-carrito" onclick="window.location.href='carrito.html'">🛒 <span id="carrito-count">0</span></button>
   <footer>
     © 2025 Carpintería Barat — Montevideo, Uruguay
   </footer>
@@ -142,36 +143,14 @@
   <script>
     let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
 
-    function actualizarCarrito() {
-      const listaCarrito = document.getElementById("lista-carrito");
-      listaCarrito.innerHTML = ''; 
-
-      carrito.forEach((producto, index) => {
-        listaCarrito.innerHTML += `
-          <li>
-            <img src="${producto.imagen}" alt="${producto.nombre}" />
-            <div class="producto-detalle">
-              <strong>${producto.nombre}</strong><br>
-              <small>Color: ${producto.color || 'No especificado'}</small><br>
-              <small>Medidas: ${producto.medidas || 'No especificadas'}</small>
-            </div>
-            <button class="boton-eliminar" onclick="eliminarProducto(${index})">Eliminar</button>
-          </li>
-        `;
-      });
-    }
-
-    function eliminarProducto(index) {
-      carrito.splice(index, 1);
+    function agregarAlCarrito(nombre, imagen) {
+      carrito.push({ nombre, imagen });
       localStorage.setItem('carrito', JSON.stringify(carrito));
-      actualizarCarrito();
+      actualizarCarritoCount();
     }
 
-    function enviarPedido() {
-      const carritoString = carrito.map(producto => `${producto.nombre} - Color: ${producto.color || 'No especificado'}, Medidas: ${producto.medidas || 'No especificadas'}`).join("\n");
-      const mensaje = `Pedido desde Carpintería Barat:\n\n${carritoString}`;
-      const mailtoLink = `mailto:gerocurb@gmail.com?subject=Pedido de Carpintería Barat&body=${encodeURIComponent(mensaje)}`;
-      window.location.href = mailtoLink;
+    function actualizarCarritoCount() {
+      document.getElementById('carrito-count').textContent = carrito.length;
     }
 
     function toggleTheme() {
@@ -179,7 +158,7 @@
       document.body.classList.toggle('light');
     }
 
-    actualizarCarrito();
+    actualizarCarritoCount();
   </script>
 </body>
 </html>
