@@ -4,7 +4,69 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Carpintería Barat</title>
-  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      background-color: #000;
+      color: #fff;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    header h1 {
+      color: #b71c1c;
+    }
+
+    header p {
+      font-size: 1.2em;
+      color: #fff;
+    }
+
+    .boton {
+      display: inline-block;
+      background-color: #b71c1c;
+      color: white;
+      text-align: center;
+      padding: 10px 20px;
+      margin: 10px;
+      text-decoration: none;
+      border-radius: 5px;
+    }
+
+    .boton:hover {
+      background-color: #e53935;
+    }
+
+    .producto {
+      background-color: #333;
+      padding: 20px;
+      margin: 10px;
+      border-radius: 10px;
+      text-align: center;
+    }
+
+    .producto h2 {
+      color: #fff;
+    }
+
+    .producto button {
+      padding: 10px 20px;
+      background-color: #b71c1c;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .producto button:hover {
+      background-color: #e53935;
+    }
+  </style>
 </head>
 <body>
   <header>
@@ -12,9 +74,9 @@
     <p>Creamos tus ideas en madera, a tu medida</p>
     <a href="carrito.html" class="boton">Ver carrito</a>
   </header>
+
   <main>
     <section id="productos">
-      <!-- Aquí puedes agregar tus productos -->
       <div class="producto">
         <h2>Escritorio Plegable</h2>
         <p>Medidas: 80 x 50, 100 x 60, 50 x 30, Otros</p>
@@ -27,6 +89,7 @@
       </div>
     </section>
   </main>
+
   <footer>
     <p>&copy; 2025 Carpintería Barat</p>
   </footer>
