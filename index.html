@@ -1,189 +1,24 @@
-<!-- index.html -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Carpintería Barat</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      background-color: #000;
-      color: #fff;
-      transition: background 0.3s, color 0.3s;
-    }
-
-    header {
-      background-color: #b71c1c;
-      padding: 20px;
-      text-align: center;
-    }
-
-    nav a {
-      margin: 0 10px;
-      color: white;
-      text-decoration: none;
-    }
-
-    section {
-      padding: 20px;
-    }
-
-    .product {
-      background-color: #1e1e1e;
-      padding: 20px;
-      margin-bottom: 20px;
-      border-radius: 10px;
-    }
-
-    .product img {
-      width: 100%;
-      max-width: 300px;
-    }
-
-    .product button {
-      background-color: #b71c1c;
-      border: none;
-      color: white;
-      padding: 10px 20px;
-      cursor: pointer;
-      border-radius: 5px;
-      margin-top: 10px;
-    }
-
-    .btn-ver-carrito {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background-color: #b71c1c;
-      border: none;
-      padding: 15px 20px;
-      color: white;
-      border-radius: 50%;
-      font-size: 1.5em;
-      cursor: pointer;
-      z-index: 1000;
-    }
-
-    #theme-toggle {
-      position: fixed;
-      top: 10px;
-      right: 10px;
-      background: none;
-      border: none;
-      font-size: 1.5em;
-      cursor: pointer;
-      z-index: 1000;
-      color: inherit;
-    }
-
-    body.light-mode {
-      background-color: #f5f0e6;
-      color: #000;
-    }
-
-    body.light-mode header,
-    body.light-mode nav {
-      background-color: #8b5e3c;
-    }
-
-    body.light-mode .product {
-      background-color: #fff;
-      color: #000;
-    }
-
-    body.light-mode .product button {
-      background-color: #8b5e3c;
-      color: white;
-    }
-  </style>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-<button id="theme-toggle">🌙</button>
-
-<header>
-  <h1>Carpintería Barat</h1>
-  <p>Creamos tus ideas en madera, a tu medida</p>
-  <nav>
-    <a href="#mesa-plegable">Mesa Plegable</a>
-    <a href="#nails">Muebles para Uñas</a>
-    <a href="#gatos">Juegos para Gatos</a>
-    <a href="#otros">Otros</a>
-    <a href="#ofertas">Ofertas</a>
-    <a href="#donaciones">Donar</a>
-  </nav>
-</header>
-
-<section id="mesa-plegable">
-  <h2>Mesa Plegable</h2>
-  <div class="product">
-    <img src="mesa.jpg" alt="Mesa Plegable">
-    <h3>Mesa Plegable</h3>
-    <p>Precio: $100</p>
-    <select id="medidas">
-      <option value="80 x 50 cm">80 x 50 cm</option>
-      <option value="100 x 60 cm">100 x 60 cm</option>
-      <option value="50 x 30 cm">50 x 30 cm</option>
-      <option value="Otros">Otros (contactar)</option>
-    </select>
-    <button onclick="agregarAlCarrito('Mesa Plegable', document.getElementById('medidas').value)">Agregar al carrito</button>
-  </div>
-</section>
-
-<section id="nails">
-  <h2>Muebles para Uñas</h2>
-  <div class="product">
-    <img src="nail.jpg" alt="Apoya manos">
-    <h3>Apoya Manos</h3>
-    <p>Precio: $80</p>
-    <select id="medidas-nails">
-      <option value="20 x 13 x 12 cm">20 x 13 x 12 cm</option>
-      <option value="Otros">Otros</option>
-    </select>
-    <button onclick="agregarAlCarrito('Apoya Manos', document.getElementById('medidas-nails').value)">Agregar al carrito</button>
-  </div>
-</section>
-
-<section id="gatos">
-  <h2>Juegos para Gatos</h2>
-  <div class="product">
-    <img src="gato.jpg" alt="Juego para Gatos">
-    <h3>Juego para Gatos</h3>
-    <p>Precio: $50</p>
-    <button onclick="agregarAlCarrito('Juego para Gatos', 'Pendiente de medidas')">Agregar al carrito</button>
-  </div>
-</section>
-
-<section id="donaciones">
-  <h2>Apoyá este emprendimiento</h2>
-  <p>Si te gusta nuestro trabajo y querés colaborar, podés hacer una donación voluntaria a través de Mercado Pago.</p>
-  <a href="https://link.mercadopago.com.uy/geronimocurbelo" target="_blank">Donar ahora</a>
-</section>
-
-<button class="btn-ver-carrito" onclick="window.location.href='carrito.html'">🛒</button>
-
-<script>
-  function agregarAlCarrito(producto, variante) {
-    let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
-    carrito.push({ producto, variante });
-    localStorage.setItem('carrito', JSON.stringify(carrito));
-  }
-
-  const toggleBtn = document.getElementById('theme-toggle');
-  if (localStorage.getItem('modo') === 'claro') {
-    document.body.classList.add('light-mode');
-    toggleBtn.textContent = '☀️';
-  }
-  toggleBtn.addEventListener('click', () => {
-    document.body.classList.toggle('light-mode');
-    const nuevoModo = document.body.classList.contains('light-mode') ? 'claro' : 'oscuro';
-    localStorage.setItem('modo', nuevoModo);
-    toggleBtn.textContent = nuevoModo === 'claro' ? '☀️' : '🌙';
-  });
-</script>
-
+  <header>
+    <h1>Carpintería Barat</h1>
+    <p>Creamos tus ideas en madera, a tu medida</p>
+    <a href="carrito.html" class="boton">Ver carrito</a>
+  </header>
+  <main>
+    <section id="productos">
+      <!-- Aquí puedes agregar tus productos como lo hemos hecho anteriormente -->
+    </section>
+  </main>
+  <footer>
+    <p>&copy; 2025 Carpintería Barat</p>
+  </footer>
 </body>
 </html>
-

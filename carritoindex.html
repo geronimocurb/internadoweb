@@ -108,7 +108,7 @@
     document.getElementById('enviarPedido').addEventListener('click', function (e) {
       e.preventDefault();
       const mensaje = encodeURIComponent(
-        carrito.map(i => `${i.producto} - ${i.variante}`).join('\n')
+        carrito.map(i => `${i.producto} - ${i.variante}`).join('\\n')
       );
       window.location.href = `mailto:gerocurb@gmail.com?subject=Pedido Carpintería Barat&body=${mensaje}`;
       document.getElementById('mensajeFinal').style.display = 'block';
