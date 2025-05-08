@@ -3,158 +3,156 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Quiz CIR Pediatría</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <title>Quiz CIR - Internado</title>
   <style>
     body {
-      font-family: 'Poppins', sans-serif;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #0d1b2a;
+      color: #fff;
       margin: 0;
-      padding: 0;
-      background-color: #0D1B2A;
-      color: white;
+      padding: 20px;
       transition: background-color 0.3s, color 0.3s;
     }
-    .container {
-      max-width: 800px;
+    .light {
+      background-color: #fefefe;
+      color: #111;
+    }
+    .quiz-container {
+      max-width: 700px;
       margin: auto;
-      padding: 2rem;
+      background-color: #1b263b;
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.3);
+    }
+    .light .quiz-container {
+      background-color: #fff;
     }
     h1 {
-      color: #FF6B00;
       text-align: center;
+      color: #f77f00;
     }
-    .question-box {
-      background: #1B263B;
-      border-radius: 1rem;
-      padding: 1.5rem;
-      box-shadow: 0 0 10px rgba(0,0,0,0.3);
-      margin-bottom: 1rem;
+    .question {
+      font-size: 1.2em;
+      margin-bottom: 20px;
     }
-    button {
-      background-color: #FF6B00;
-      color: white;
-      padding: 0.8rem 1.2rem;
-      margin: 0.5rem 0;
+    .options button {
+      display: block;
+      width: 100%;
+      margin: 10px 0;
+      padding: 12px;
+      font-size: 1em;
       border: none;
-      border-radius: 0.8rem;
+      border-radius: 8px;
       cursor: pointer;
-      font-weight: bold;
+      background-color: #003049;
+      color: #fff;
       transition: background-color 0.3s;
     }
-    button:hover {
-      background-color: #e55c00;
-    }
-    .dark-mode {
-      background-color: white;
-      color: black;
-    }
-    .dark-mode .question-box {
-      background: #e0e0e0;
-    }
-    .dark-mode button {
-      background-color: #0D1B2A;
-      color: white;
-    }
-    #toggle-theme {
-      position: fixed;
-      top: 1rem;
-      right: 1rem;
-      background: none;
-      font-size: 1.5rem;
+    .options button:hover {
+      background-color: #f77f00;
     }
     .explanation {
-      margin-top: 1rem;
-      font-style: italic;
+      margin-top: 20px;
+      font-size: 1em;
+    }
+    .toggle-theme {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: none;
+      border: none;
+      font-size: 1.5em;
+      cursor: pointer;
+      color: #f77f00;
     }
   </style>
 </head>
 <body>
-  <button id="toggle-theme">🌙</button>
-  <div class="container">
-    <h1>Cuestionario de Pediatría - CIR</h1>
-    <div id="quiz"></div>
-    <button id="next-btn" style="display:none">Siguiente pregunta</button>
-    <div id="result"></div>
-    <button id="restart-btn" style="display:none">Volver a intentar</button>
+  <button class="toggle-theme" onclick="toggleTheme()">🌙</button>
+  <div class="quiz-container">
+    <h1>Quiz CIR - Internado</h1>
+    <div class="question" id="question"></div>
+    <div class="options" id="options"></div>
+    <div class="explanation" id="explanation"></div>
   </div>
+
   <audio id="correct-sound" src="https://www.soundjay.com/buttons/sounds/button-3.mp3"></audio>
-  <audio id="incorrect-sound" src="https://www.soundjay.com/buttons/sounds/button-10.mp3"></audio>
+  <audio id="wrong-sound" src="https://www.soundjay.com/buttons/sounds/button-10.mp3"></audio>
+
   <script>
     const quizData = [
       {
-        question: "Un lactante de 8 meses presenta fiebre de 39°C sin foco aparente al examen físico. ¿Cuál es el próximo paso más adecuado?",
+        question: "¿Cuál es la causa más frecuente de convulsión febril en un niño previamente sano?",
         options: [
-          "Administrar antibiótico empírico oral y alta.",
-          "Realizar urocultivo y evaluar laboratorio.",
-          "Solicitar TAC de cráneo urgente.",
-          "Iniciar antipiréticos y control en 72 horas."
+          "Meningitis bacteriana",
+          "Infección viral banal",
+          "Epilepsia primaria",
+          "Traumatismo craneoencefálico"
         ],
-        correct: 1,
-        explanation: "En menores de 1 año con fiebre sin foco, debe buscarse una infección oculta, como ITU, con urocultivo."
+        answer: 1,
+        explanation: "Las convulsiones febriles suelen asociarse a infecciones virales comunes como gripe o roseola."
       },
-      // Se agregan 59 preguntas más del mismo formato
+      {
+        question: "¿Cuál es el signo más específico de abdomen agudo quirúrgico en un niño?",
+        options: [
+          "Distensión abdominal",
+          "Vómitos",
+          "Defensa muscular involuntaria",
+          "Diarrea"
+        ],
+        answer: 2,
+        explanation: "La defensa muscular involuntaria (rigidez) sugiere irritación peritoneal y requiere valoración quirúrgica."
+      }
     ];
 
     let currentQuestion = 0;
-    let score = 0;
 
-    const quiz = document.getElementById("quiz");
-    const nextBtn = document.getElementById("next-btn");
-    const restartBtn = document.getElementById("restart-btn");
-    const result = document.getElementById("result");
+    const questionEl = document.getElementById("question");
+    const optionsEl = document.getElementById("options");
+    const explanationEl = document.getElementById("explanation");
     const correctSound = document.getElementById("correct-sound");
-    const incorrectSound = document.getElementById("incorrect-sound");
+    const wrongSound = document.getElementById("wrong-sound");
 
     function loadQuestion() {
       const q = quizData[currentQuestion];
-      quiz.innerHTML = `<div class='question-box'><h3>${q.question}</h3>
-        ${q.options.map((opt, i) => `<button onclick='checkAnswer(${i})'>${opt}</button>`).join("<br>")}
-        <div class='explanation' id='explanation'></div>
-      </div>`;
-      nextBtn.style.display = "none";
+      questionEl.textContent = q.question;
+      optionsEl.innerHTML = "";
+      explanationEl.textContent = "";
+
+      q.options.forEach((opt, index) => {
+        const btn = document.createElement("button");
+        btn.textContent = opt;
+        btn.onclick = () => checkAnswer(index);
+        optionsEl.appendChild(btn);
+      });
     }
 
-    function checkAnswer(i) {
+    function checkAnswer(selected) {
       const q = quizData[currentQuestion];
-      const explanation = document.getElementById("explanation");
-      if (i === q.correct) {
-        score++;
-        explanation.innerHTML = `<span style='color:lightgreen;'>✅ Correcto.</span> ${q.explanation}`;
+      const isCorrect = selected === q.answer;
+      if (isCorrect) {
         correctSound.play();
+        explanationEl.textContent = "✅ Correcto: " + q.explanation;
       } else {
-        explanation.innerHTML = `<span style='color:#ff4c4c;'>❌ Incorrecto.</span> La respuesta correcta es: <strong>${q.options[q.correct]}</strong>. ${q.explanation}`;
-        incorrectSound.play();
+        wrongSound.play();
+        explanationEl.textContent = "❌ Incorrecto. " + q.explanation;
       }
-      const buttons = document.querySelectorAll("button");
-      buttons.forEach(btn => btn.disabled = true);
-      nextBtn.style.display = "inline-block";
-    }
 
-    nextBtn.addEventListener("click", () => {
       currentQuestion++;
       if (currentQuestion < quizData.length) {
-        loadQuestion();
+        setTimeout(loadQuestion, 2500);
       } else {
-        quiz.innerHTML = "";
-        result.innerHTML = `<h2>Resultado final: ${score} / ${quizData.length}</h2>`;
-        restartBtn.style.display = "inline-block";
-        nextBtn.style.display = "none";
+        setTimeout(() => {
+          questionEl.textContent = "¡Has completado el quiz!";
+          optionsEl.innerHTML = "";
+        }, 2500);
       }
-    });
+    }
 
-    restartBtn.addEventListener("click", () => {
-      currentQuestion = 0;
-      score = 0;
-      result.innerHTML = "";
-      restartBtn.style.display = "none";
-      loadQuestion();
-    });
-
-    document.getElementById("toggle-theme").addEventListener("click", () => {
-      document.body.classList.toggle("dark-mode");
-      const btn = document.getElementById("toggle-theme");
-      btn.textContent = document.body.classList.contains("dark-mode") ? "🌞" : "🌙";
-    });
+    function toggleTheme() {
+      document.body.classList.toggle("light");
+    }
 
     loadQuestion();
   </script>
