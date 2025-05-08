@@ -1,82 +1,98 @@
-/* Colores generales */
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
-    color: #333;
+* {
     margin: 0;
     padding: 0;
-    transition: background-color 0.3s, color 0.3s;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+    transition: background-color 0.3s ease;
+}
+
+body.dark {
+    background-color: #121212;
+    color: #fff;
+}
+
+.container {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center;
 }
 
 header {
-    background-color: #1a2a6c; /* Azul oscuro */
-    color: #f7a900; /* Naranja */
-    text-align: center;
+    margin-bottom: 20px;
+}
+
+#toggle-theme {
     padding: 10px;
+    background-color: #ff5733;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.question-container {
+    margin-bottom: 20px;
+}
+
+ul {
+    list-style-type: none;
+}
+
+li {
+    padding: 10px;
+    margin: 5px 0;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+li:hover {
+    background-color: #f0f0f0;
+}
+
+li.selected {
+    background-color: #ff5733;
+    color: white;
 }
 
 button {
-    background-color: #1a2a6c;
-    color: white;
     padding: 10px;
+    background-color: #ff5733;
+    color: white;
     border: none;
     cursor: pointer;
-    margin: 5px;
+    font-size: 16px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+button.hidden {
+    display: none;
 }
 
 button:hover {
-    background-color: #f7a900;
+    background-color: #e44e2d;
 }
 
-#quiz-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 50px;
-}
-
-#answers-container button {
-    width: 80%;
+#result {
     font-size: 18px;
+    font-weight: bold;
 }
 
-#next-btn {
-    background-color: #f7a900;
-    margin-top: 20px;
-    color: #1a2a6c;
+body.dark button {
+    background-color: #444;
 }
 
-#next-btn:hover {
-    background-color: #1a2a6c;
-    color: white;
-}
-
-footer {
-    text-align: center;
-    margin-top: 50px;
-}
-
-/* Modo oscuro */
-body.dark-mode {
+body.dark li {
     background-color: #333;
-    color: #f0f0f0;
-}
-
-body.dark-mode header {
-    background-color: #111;
-}
-
-body.dark-mode button {
-    background-color: #444;
-    color: #f7a900;
-}
-
-body.dark-mode #next-btn {
-    background-color: #444;
-    color: #f7a900;
-}
-
-body.dark-mode #next-btn:hover {
-    background-color: #f7a900;
-    color: #444;
+    border-color: #555;
 }

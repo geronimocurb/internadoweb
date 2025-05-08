@@ -3,35 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quiz Pediatría</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Quiz de Pediatría</title>
+    <link rel="stylesheet" href="style.css">
     <script src="script.js" defer></script>
 </head>
 <body>
-    <header>
-        <h1>Quiz Pediatría</h1>
-        <button id="theme-toggle">Modo Claro/Oscuro</button>
-    </header>
-    
-    <div id="quiz-container">
-        <div id="question-container">
-            <p id="question">Pregunta 1: ¿Qué es el triángulo de evaluación pediátrica?</p>
+    <div class="container">
+        <header>
+            <h1>Quiz de Pediatría</h1>
+            <button id="toggle-theme">Modo Claro/Oscuro</button>
+        </header>
+        <div class="question-container">
+            <p id="question"></p>
+            <ul id="answers"></ul>
         </div>
-        
-        <div id="answers-container">
-            <button class="answer-btn" onclick="checkAnswer(0)">Respuesta A</button>
-            <button class="answer-btn" onclick="checkAnswer(1)">Respuesta B</button>
-            <button class="answer-btn" onclick="checkAnswer(2)">Respuesta C</button>
-            <button class="answer-btn" onclick="checkAnswer(3)">Respuesta D</button>
-        </div>
-
-        <div id="feedback"></div>
-        
-        <button id="next-btn" onclick="nextQuestion()">Siguiente</button>
+        <button id="next" class="hidden">Siguiente</button>
+        <div id="result" class="hidden"></div>
     </div>
-
-    <footer>
-        <p>Quiz de Pediatría basado en bibliografía: Nelson, Cirugía Pediátrica, etc.</p>
-    </footer>
 </body>
 </html>
