@@ -133,16 +133,47 @@
                 ],
                 correctAnswer: 0,
                 explanation: "La neumonía adquirida en la comunidad se caracteriza por tos, fiebre y dificultad para respirar."
-     }
-     {
-        question: "¿Qué característica define una convulsión febril simple?",
-        answers: [
-            "Duración mayor a 15 minutos",
-            "Focalización neurológica",
-            "Una sola crisis en 24 horas",
-            "Presencia de vómitos"
-        ],
-        correctAnswer: 2,
+            },
+            {
+                question: "¿Qué característica define una convulsión febril simple?",
+                answers: [
+                    "Duración mayor a 15 minutos",
+                    "Focalización neurológica",
+                    "Una sola crisis en 24 horas",
+                    "Presencia de vómitos"
+                ],
+                correctAnswer: 2,
+                explanation: "Una convulsión febril simple se caracteriza por una única crisis convulsiva de corta duración, generalmente menor a 15 minutos."
+            }
+        ];
+
+        let currentQuestion = 0;
+
+        function loadQuestion() {
+            const question = questions[currentQuestion];
+            document.getElementById("question-text").textContent = question.question;
+            const buttons = document.querySelectorAll(".answer");
+            question.answers.forEach((answer, index) => {
+                buttons[index].textContent = answer;
+            });
+            document.getElementById("explanation").textContent = "";
+        }
+
+        function checkAnswer(answerIndex) {
+            const question = questions[currentQuestion];
+            const isCorrect = answerIndex === question.correctAnswer;
+            const explanation = isCorrect ? "¡Respuesta correcta!" : `Respuesta incorrecta. ${question.explanation}`;
+
+            document.getElementById("explanation").textContent = explanation;
+            playSound(isCorrect ? "correct.mp3" : "incorrect.mp3");
+        }
+
+        function playSound(filename) {
+            const audio = new Audio(filename);
+            audio.play();
+        }
+
+             correctAnswer: 2,
         explanation: "La convulsión febril simple es generalizada, dura menos de 15 minutos y ocurre una sola vez en 24 horas."
     },
     {
@@ -151,6 +182,13 @@
             "Kernig positivo",
             "Rigidez de nuca",
             "Fontanela abombada",
+            "Fiebre alta sin foco"
+        ],
+        correctAnswer: 2,
+        explanation: "La fontanela abombada es un signo clásico de meningitis en lactantes, debido a la presión intracraneal elevada."
+    }
+];
+
             "Fotofobia"
         ],
         correctAnswer: 2,
@@ -645,7 +683,7 @@ const questions = [
             "Realizar un análisis de sangre antes de iniciar el tratamiento",
             "Iniciar tratamiento antiviral"
         ],
-        correctAnswer: 0,
+               correctAnswer: 0,
         explanation: "La meningitis bacteriana requiere tratamiento antibiótico intravenoso inmediato mientras se realizan estudios diagnósticos."
     },
     {
@@ -661,43 +699,41 @@ const questions = [
     }
 ];
 
-        ];
+let currentQuestion = 0;
 
-        let currentQuestion = 0;
+function loadQuestion() {
+    const question = questions[currentQuestion];
+    document.getElementById("question-text").textContent = question.question;
+    const buttons = document.querySelectorAll(".answer");
+    question.answers.forEach((answer, index) => {
+        buttons[index].textContent = answer;
+    });
+    document.getElementById("explanation").textContent = "";
+}
 
-        function loadQuestion() {
-            const question = questions[currentQuestion];
-            document.getElementById("question-text").textContent = question.question;
-            const buttons = document.querySelectorAll(".answer");
-            question.answers.forEach(answer, index) => {
-                buttons[index].textContent = answer;
-            });
-            document.getElementById("explanation").textContent = "";
-        }
+function checkAnswer(answerIndex) {
+    const question = questions[currentQuestion];
+    const isCorrect = answerIndex === question.correctAnswer;
+    const explanation = isCorrect ? "¡Respuesta correcta!" : `Respuesta incorrecta. ${question.explanation}`;
 
-        function checkAnswer(answerIndex) {
-            const question = questions[currentQuestion];
-            const isCorrect = answerIndex === question.correctAnswer;
-            const explanation = isCorrect ? "¡Respuesta correcta!" : `Respuesta incorrecta. ${question.explanation}`;
+    document.getElementById("explanation").textContent = explanation;
+    playSound(isCorrect ? "correct.mp3" : "incorrect.mp3");
+}
 
-            document.getElementById("explanation").textContent = explanation;
-            playSound(isCorrect ? "correct.mp3" : "incorrect.mp3");
-        }
+function playSound(filename) {
+    const audio = new Audio(filename);
+    audio.play();
+}
 
-        function playSound(filename) {
-            const audio = new Audio(filename);
-            audio.play();
-        }
+function nextQuestion() {
+    currentQuestion++;
+    if (currentQuestion >= questions.length) {
+        currentQuestion = 0;
+    }
+    loadQuestion();
+}
 
-        function nextQuestion() {
-            currentQuestion++;
-            if (currentQuestion >= questions.length) {
-                currentQuestion = 0;
-            }
-            loadQuestion();
-        }
-
-        window.onload = loadQuestion;
-    </script>
+window.onload = loadQuestion;
+</script>
 </body>
 </html>
