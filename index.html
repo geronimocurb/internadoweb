@@ -4,157 +4,21 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Quiz CIR - Internado</title>
-  <style>
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #0d1b2a;
-      color: #fff;
-      margin: 0;
-      padding: 20px;
-      transition: background-color 0.3s, color 0.3s;
-    }
-    .light {
-      background-color: #fefefe;
-      color: #111;
-    }
-    .quiz-container {
-      max-width: 700px;
-      margin: auto;
-      background-color: #1b263b;
-      padding: 30px;
-      border-radius: 16px;
-      box-shadow: 0 0 20px rgba(0,0,0,0.3);
-    }
-    .light .quiz-container {
-      background-color: #fff;
-    }
-    h1 {
-      text-align: center;
-      color: #f77f00;
-    }
-    .question {
-      font-size: 1.2em;
-      margin-bottom: 20px;
-    }
-    .options button {
-      display: block;
-      width: 100%;
-      margin: 10px 0;
-      padding: 12px;
-      font-size: 1em;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      background-color: #003049;
-      color: #fff;
-      transition: background-color 0.3s;
-    }
-    .options button:hover {
-      background-color: #f77f00;
-    }
-    .explanation {
-      margin-top: 20px;
-      font-size: 1em;
-    }
-    .toggle-theme {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-      background: none;
-      border: none;
-      font-size: 1.5em;
-      cursor: pointer;
-      color: #f77f00;
-    }
-  </style>
+  <link rel="stylesheet" href="styles/style.css" />
 </head>
 <body>
-  <button class="toggle-theme" onclick="toggleTheme()">🌙</button>
-  <div class="quiz-container">
-    <h1>Quiz CIR - Internado</h1>
-    <div class="question" id="question"></div>
-    <div class="options" id="options"></div>
-    <div class="explanation" id="explanation"></div>
+  <button id="theme-toggle">🌙</button>
+  <div class="container">
+    <h1>Quiz de Preparación para el Internado</h1>
+    <div id="quiz-container">
+      <div id="question"></div>
+      <div id="options"></div>
+      <div id="feedback"></div>
+      <button id="next-btn">Siguiente</button>
+    </div>
   </div>
-
-  <audio id="correct-sound" src="https://www.soundjay.com/buttons/sounds/button-3.mp3"></audio>
-  <audio id="wrong-sound" src="https://www.soundjay.com/buttons/sounds/button-10.mp3"></audio>
-
-  <script>
-    const quizData = [
-      {
-        question: "¿Cuál es la causa más frecuente de convulsión febril en un niño previamente sano?",
-        options: [
-          "Meningitis bacteriana",
-          "Infección viral banal",
-          "Epilepsia primaria",
-          "Traumatismo craneoencefálico"
-        ],
-        answer: 1,
-        explanation: "Las convulsiones febriles suelen asociarse a infecciones virales comunes como gripe o roseola."
-      },
-      {
-        question: "¿Cuál es el signo más específico de abdomen agudo quirúrgico en un niño?",
-        options: [
-          "Distensión abdominal",
-          "Vómitos",
-          "Defensa muscular involuntaria",
-          "Diarrea"
-        ],
-        answer: 2,
-        explanation: "La defensa muscular involuntaria (rigidez) sugiere irritación peritoneal y requiere valoración quirúrgica."
-      }
-    ];
-
-    let currentQuestion = 0;
-
-    const questionEl = document.getElementById("question");
-    const optionsEl = document.getElementById("options");
-    const explanationEl = document.getElementById("explanation");
-    const correctSound = document.getElementById("correct-sound");
-    const wrongSound = document.getElementById("wrong-sound");
-
-    function loadQuestion() {
-      const q = quizData[currentQuestion];
-      questionEl.textContent = q.question;
-      optionsEl.innerHTML = "";
-      explanationEl.textContent = "";
-
-      q.options.forEach((opt, index) => {
-        const btn = document.createElement("button");
-        btn.textContent = opt;
-        btn.onclick = () => checkAnswer(index);
-        optionsEl.appendChild(btn);
-      });
-    }
-
-    function checkAnswer(selected) {
-      const q = quizData[currentQuestion];
-      const isCorrect = selected === q.answer;
-      if (isCorrect) {
-        correctSound.play();
-        explanationEl.textContent = "✅ Correcto: " + q.explanation;
-      } else {
-        wrongSound.play();
-        explanationEl.textContent = "❌ Incorrecto. " + q.explanation;
-      }
-
-      currentQuestion++;
-      if (currentQuestion < quizData.length) {
-        setTimeout(loadQuestion, 2500);
-      } else {
-        setTimeout(() => {
-          questionEl.textContent = "¡Has completado el quiz!";
-          optionsEl.innerHTML = "";
-        }, 2500);
-      }
-    }
-
-    function toggleTheme() {
-      document.body.classList.toggle("light");
-    }
-
-    loadQuestion();
-  </script>
+  <audio id="correct-sound" src="assets/correct.mp3"></audio>
+  <audio id="wrong-sound" src="assets/wrong.mp3"></audio>
+  <script src="scripts/quiz.js"></script>
 </body>
 </html>
