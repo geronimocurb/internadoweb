@@ -669,7 +669,7 @@ const questions = [
             const question = questions[currentQuestion];
             document.getElementById("question-text").textContent = question.question;
             const buttons = document.querySelectorAll(".answer");
-            question.answers.forEach((answer, index) => {
+            question.answers.forEach(answer, index) => {
                 buttons[index].textContent = answer;
             });
             document.getElementById("explanation").textContent = "";
