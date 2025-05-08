@@ -1,75 +1,94 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Quiz Pediatría</title>
-  <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Examen de Ingreso al Internado Rotatorio</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Aquí iría el CSS de tu diseño -->
+    <script src="questions1.js" defer></script> <!-- Incluye tus preguntas en orden -->
+    <script src="questions2.js" defer></script>
+    <script src="questions3.js" defer></script>
+    <script src="questions4.js" defer></script>
+    <script src="questions5.js" defer></script>
 </head>
-<body>
-  <div class="quiz-container">
-    <h1>Quiz Pediatría</h1>
-    <div class="question-container">
-      <p id="question-text"></p>
-      <div class="answers">
-        <button class="answer" onclick="checkAnswer(0)"></button>
-        <button class="answer" onclick="checkAnswer(1)"></button>
-        <button class="answer" onclick="checkAnswer(2)"></button>
-        <button class="answer" onclick="checkAnswer(3)"></button>
-      </div>
+<body class="dark-mode">
+    <div id="quiz-container">
+        <header>
+            <h1>Examen de Ingreso al Internado Rotatorio</h1>
+        </header>
+
+        <div id="question-container">
+            <!-- Aquí se mostrarán las preguntas -->
+        </div>
+
+        <div id="answers-container">
+            <!-- Aquí se mostrarán las respuestas -->
+        </div>
+
+        <div id="feedback-container">
+            <!-- Aquí se mostrarán las explicaciones después de cada respuesta -->
+        </div>
+
+        <footer>
+            <button id="next-button" onclick="nextQuestion()">Siguiente</button>
+        </footer>
     </div>
-    <button id="next-question" onclick="nextQuestion()">Siguiente pregunta</button>
-    <div id="explanation"></div>
-  </div>
 
-  <!-- Cargar los archivos de preguntas -->
-  <script src="questions1.js"></script>
-  <script src="questions2.js"></script>
-  <script src="questions3.js"></script>
-  <script src="questions4.js"></script>
-  <script src="questions5.js"></script>
+    <script>
+        let currentQuestion = 0;
+        let score = 0;
+        
+        // Lógica para mostrar las preguntas y respuestas
+        function showQuestion(questionData) {
+            const questionContainer = document.getElementById('question-container');
+            const answersContainer = document.getElementById('answers-container');
+            const feedbackContainer = document.getElementById('feedback-container');
+            
+            questionContainer.innerHTML = `<p>${questionData.question}</p>`;
+            answersContainer.innerHTML = '';
 
-  <!-- Script principal -->
-  <script>
-    // Asume que cada questionsX.js declara un array como questionsX
-    const allQuestions = [...questions1, ...questions2, ...questions3, ...questions4, ...questions5];
-    let currentQuestion = 0;
+            questionData.answers.forEach((answer, index) => {
+                const answerButton = document.createElement('button');
+                answerButton.innerText = answer.text;
+                answerButton.onclick = () => {
+                    checkAnswer(index, questionData.correctIndex, answer.explanation);
+                };
+                answersContainer.appendChild(answerButton);
+            });
+        }
 
-    function loadQuestion() {
-      const question = allQuestions[currentQuestion];
-      document.getElementById("question-text").textContent = question.question;
-      const buttons = document.querySelectorAll(".answer");
-      question.answers.forEach((answer, index) => {
-        buttons[index].textContent = answer;
-      });
-      document.getElementById("explanation").textContent = "";
-    }
+        function checkAnswer(selectedIndex, correctIndex, explanation) {
+            const feedbackContainer = document.getElementById('feedback-container');
+            const sound = new Audio('click-sound.mp3'); // Asegúrate de tener este archivo de sonido
+            sound.play();
 
-    function checkAnswer(answerIndex) {
-      const question = allQuestions[currentQuestion];
-      const isCorrect = answerIndex === question.correctAnswer;
-      const explanation = isCorrect
-        ? "¡Respuesta correcta!"
-        : `Respuesta incorrecta. ${question.explanation}`;
-      document.getElementById("explanation").textContent = explanation;
-      playSound(isCorrect ? "correct.mp3" : "incorrect.mp3");
-    }
+            if (selectedIndex === correctIndex) {
+                score++;
+                feedbackContainer.innerHTML = `<p>¡Correcto! ${explanation}</p>`;
+            } else {
+                feedbackContainer.innerHTML = `<p>Incorrecto. ${explanation}</p>`;
+            }
 
-    function nextQuestion() {
-      currentQuestion++;
-      if (currentQuestion >= allQuestions.length) {
-        alert("¡Has completado todas las preguntas!");
-        currentQuestion = 0;
-      }
-      loadQuestion();
-    }
+            document.getElementById('next-button').style.display = 'block';
+        }
 
-    function playSound(filename) {
-      const audio = new Audio(filename);
-      audio.play();
-    }
+        function nextQuestion() {
+            currentQuestion++;
+            if (currentQuestion < 50) {
+                showQuestion(questions[currentQuestion]);
+                document.getElementById('next-button').style.display = 'none';
+            } else {
+                // Mostrar puntuación final
+                alert(`Examen terminado. Tu puntuación es ${score}/50`);
+            }
+        }
 
-    window.onload = loadQuestion;
-  </script>
+        // Función para inicializar el quiz
+        function startQuiz() {
+            showQuestion(questions[currentQuestion]);
+        }
+
+        window.onload = startQuiz;
+    </script>
 </body>
 </html>
