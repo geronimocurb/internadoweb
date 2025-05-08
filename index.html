@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quiz Médico Pediátrico</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      padding: 2rem;
+      background-color: #f0f0f0;
+      color: #333;
+      transition: background-color 0.3s, color 0.3s;
+    }
+    .dark-mode {
+      background-color: #121212;
+      color: #fff;
+    }
+    .container {
+      max-width: 700px;
+      margin: auto;
+      padding: 1rem;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    .dark-mode .container {
+      background: #1e1e1e;
+    }
+    .question {
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+    }
+    .option {
+      display: block;
+      margin: 0.5rem 0;
+      padding: 0.5rem;
+      border-radius: 5px;
+      cursor: pointer;
+      border: 1px solid #ccc;
+    }
+    .option:hover {
+      background: #eee;
+    }
+    .dark-mode .option:hover {
+      background: #333;
+    }
+    .correct {
+      background-color: #d4edda;
+    }
+    .explanation {
+      margin-top: 1rem;
+      font-style: italic;
+      display: none;
+    }
+    button {
+      margin-top: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <button onclick="toggleMode()">🌙/☀️</button>
+  <div class="container">
+    <div class="question" id="question"></div>
+    <div id="options"></div>
+    <div class="explanation" id="explanation"></div>
+    <button onclick="nextQuestion()">Siguiente</button>
+  </div>
+
+  <script>
+    const questions = [
+      {
+        "pregunta": "¿Cuál es el agente más frecuente de neumonía adquirida en la comunidad en menores de 5 años?",
+        "opciones": ["Streptococcus pneumoniae", "Haemophilus influenzae", "Mycoplasma pneumoniae", "Staphylococcus aureus"],
+        "respuestaCorrecta": 0,
+        "explicacion": "El agente más frecuente en menores de 5 años es Streptococcus pneumoniae."
+      },
+      {
+        "pregunta": "¿Cuál es el signo más sensible de deshidratación moderada en niños?",
+        "opciones": ["Llenado capilar prolongado", "Ojos hundidos", "Disminución del turgor", "Sequedad de mucosas"],
+        "respuestaCorrecta": 1,
+        "explicacion": "Ojos hundidos es uno de los signos más precoces y sensibles."
+      },
+      {
+        "pregunta": "¿Cuál es el tratamiento inicial de la bronquiolitis en menores de 2 años?",
+        "opciones": ["Broncodilatadores", "Oxigenoterapia si hay hipoxemia", "Corticoides inhalados", "Antibióticos empíricos"],
+        "respuestaCorrecta": 1,
+        "explicacion": "El tratamiento inicial recomendado es oxigenoterapia si hay signos de hipoxemia."
+      },
+      {
+        "pregunta": "¿Cuál es el signo clínico más útil para diagnosticar abdomen agudo quirúrgico en niños?",
+        "opciones": ["Distensión abdominal", "Vómitos", "Dolor a la descompresión", "Fiebre alta"],
+        "respuestaCorrecta": 2,
+        "explicacion": "El dolor a la descompresión (signo de Blumberg) sugiere irritación peritoneal y posible causa quirúrgica."
+      },
+      {
+        "pregunta": "¿Qué conducta es adecuada ante una crisis asmática leve?",
+        "opciones": ["Administrar oxígeno y salbutamol nebulizado cada 20 min", "Iniciar antibióticos", "Derivar inmediatamente", "Observar sin tratamiento"],
+        "respuestaCorrecta": 0,
+        "explicacion": "En crisis asmática leve se indica salbutamol en puffs o nebulizaciones y oxigenoterapia si es necesario."
+      },
+      {
+        "pregunta": "¿Cuál es el signo de alarma en fiebre sin foco en menores de 3 meses?",
+        "opciones": ["Llanto", "Dificultad para dormir", "Irritabilidad", "Letargia"],
+        "respuestaCorrecta": 3,
+        "explicacion": "La letargia es un signo de alarma importante en recién nacidos y lactantes pequeños."
+      },
+      {
+        "pregunta": "¿Cuál es el tratamiento de elección para la invaginación intestinal en niños estables?",
+        "opciones": ["Cirugía inmediata", "Antibióticos", "Enema neumático o hidrostatico guiado por imagen", "Observación y dieta"],
+        "respuestaCorrecta": 2,
+        "explicacion": "El tratamiento inicial en niños estables es el enema terapéutico bajo control imagenológico."
+      }
+    ];
+
+    let current = 0;
+
+    function showQuestion() {
+      const q = questions[current];
+      document.getElementById('question').textContent = q.pregunta;
+      const optionsDiv = document.getElementById('options');
+      const explanation = document.getElementById('explanation');
+      optionsDiv.innerHTML = '';
+      explanation.style.display = 'none';
+
+      q.opciones.forEach((op, i) => {
+        const btn = document.createElement('button');
+        btn.textContent = op;
+        btn.className = 'option';
+        btn.onclick = () => {
+          if (i === q.respuestaCorrecta) {
+            btn.classList.add('correct');
+          } else {
+            btn.style.backgroundColor = '#f8d7da';
+          }
+          explanation.textContent = q.explicacion;
+          explanation.style.display = 'block';
+          Array.from(document.getElementsByClassName('option')).forEach(b => b.disabled = true);
+        };
+        optionsDiv.appendChild(btn);
+      });
+    }
+
+    function nextQuestion() {
+      if (current < questions.length - 1) {
+        current++;
+        showQuestion();
+      } else {
+        alert('Has llegado al final del quiz.');
+      }
+    }
+
+    function toggleMode() {
+      document.body.classList.toggle('dark-mode');
+    }
+
+    showQuestion();
+  </script>
+</body>
+</html>
