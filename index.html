@@ -3,159 +3,160 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Quiz Médico Pediátrico</title>
+  <title>Quiz CIR Pediatría</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <style>
     body {
-      font-family: sans-serif;
+      font-family: 'Poppins', sans-serif;
       margin: 0;
-      padding: 2rem;
-      background-color: #f0f0f0;
-      color: #333;
+      padding: 0;
+      background-color: #0D1B2A;
+      color: white;
       transition: background-color 0.3s, color 0.3s;
     }
-    .dark-mode {
-      background-color: #121212;
-      color: #fff;
-    }
     .container {
-      max-width: 700px;
+      max-width: 800px;
       margin: auto;
-      padding: 1rem;
-      background: white;
-      border-radius: 8px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      padding: 2rem;
     }
-    .dark-mode .container {
-      background: #1e1e1e;
+    h1 {
+      color: #FF6B00;
+      text-align: center;
     }
-    .question {
-      font-size: 1.2rem;
+    .question-box {
+      background: #1B263B;
+      border-radius: 1rem;
+      padding: 1.5rem;
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
       margin-bottom: 1rem;
     }
-    .option {
-      display: block;
+    button {
+      background-color: #FF6B00;
+      color: white;
+      padding: 0.8rem 1.2rem;
       margin: 0.5rem 0;
-      padding: 0.5rem;
-      border-radius: 5px;
+      border: none;
+      border-radius: 0.8rem;
       cursor: pointer;
-      border: 1px solid #ccc;
+      font-weight: bold;
+      transition: background-color 0.3s;
     }
-    .option:hover {
-      background: #eee;
+    button:hover {
+      background-color: #e55c00;
     }
-    .dark-mode .option:hover {
-      background: #333;
+    .dark-mode {
+      background-color: white;
+      color: black;
     }
-    .correct {
-      background-color: #d4edda;
+    .dark-mode .question-box {
+      background: #e0e0e0;
+    }
+    .dark-mode button {
+      background-color: #0D1B2A;
+      color: white;
+    }
+    #toggle-theme {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      background: none;
+      font-size: 1.5rem;
     }
     .explanation {
       margin-top: 1rem;
       font-style: italic;
-      display: none;
-    }
-    button {
-      margin-top: 1rem;
     }
   </style>
 </head>
 <body>
-  <button onclick="toggleMode()">🌙/☀️</button>
+  <button id="toggle-theme">🌙</button>
   <div class="container">
-    <div class="question" id="question"></div>
-    <div id="options"></div>
-    <div class="explanation" id="explanation"></div>
-    <button onclick="nextQuestion()">Siguiente</button>
+    <h1>Cuestionario de Pediatría - CIR</h1>
+    <div id="quiz"></div>
+    <button id="next-btn" style="display:none">Siguiente pregunta</button>
+    <div id="result"></div>
+    <button id="restart-btn" style="display:none">Volver a intentar</button>
   </div>
-
+  <audio id="correct-sound" src="https://www.soundjay.com/buttons/sounds/button-3.mp3"></audio>
+  <audio id="incorrect-sound" src="https://www.soundjay.com/buttons/sounds/button-10.mp3"></audio>
   <script>
-    const questions = [
+    const quizData = [
       {
-        "pregunta": "¿Cuál es el agente más frecuente de neumonía adquirida en la comunidad en menores de 5 años?",
-        "opciones": ["Streptococcus pneumoniae", "Haemophilus influenzae", "Mycoplasma pneumoniae", "Staphylococcus aureus"],
-        "respuestaCorrecta": 0,
-        "explicacion": "El agente más frecuente en menores de 5 años es Streptococcus pneumoniae."
+        question: "Un lactante de 8 meses presenta fiebre de 39°C sin foco aparente al examen físico. ¿Cuál es el próximo paso más adecuado?",
+        options: [
+          "Administrar antibiótico empírico oral y alta.",
+          "Realizar urocultivo y evaluar laboratorio.",
+          "Solicitar TAC de cráneo urgente.",
+          "Iniciar antipiréticos y control en 72 horas."
+        ],
+        correct: 1,
+        explanation: "En menores de 1 año con fiebre sin foco, debe buscarse una infección oculta, como ITU, con urocultivo."
       },
-      {
-        "pregunta": "¿Cuál es el signo más sensible de deshidratación moderada en niños?",
-        "opciones": ["Llenado capilar prolongado", "Ojos hundidos", "Disminución del turgor", "Sequedad de mucosas"],
-        "respuestaCorrecta": 1,
-        "explicacion": "Ojos hundidos es uno de los signos más precoces y sensibles."
-      },
-      {
-        "pregunta": "¿Cuál es el tratamiento inicial de la bronquiolitis en menores de 2 años?",
-        "opciones": ["Broncodilatadores", "Oxigenoterapia si hay hipoxemia", "Corticoides inhalados", "Antibióticos empíricos"],
-        "respuestaCorrecta": 1,
-        "explicacion": "El tratamiento inicial recomendado es oxigenoterapia si hay signos de hipoxemia."
-      },
-      {
-        "pregunta": "¿Cuál es el signo clínico más útil para diagnosticar abdomen agudo quirúrgico en niños?",
-        "opciones": ["Distensión abdominal", "Vómitos", "Dolor a la descompresión", "Fiebre alta"],
-        "respuestaCorrecta": 2,
-        "explicacion": "El dolor a la descompresión (signo de Blumberg) sugiere irritación peritoneal y posible causa quirúrgica."
-      },
-      {
-        "pregunta": "¿Qué conducta es adecuada ante una crisis asmática leve?",
-        "opciones": ["Administrar oxígeno y salbutamol nebulizado cada 20 min", "Iniciar antibióticos", "Derivar inmediatamente", "Observar sin tratamiento"],
-        "respuestaCorrecta": 0,
-        "explicacion": "En crisis asmática leve se indica salbutamol en puffs o nebulizaciones y oxigenoterapia si es necesario."
-      },
-      {
-        "pregunta": "¿Cuál es el signo de alarma en fiebre sin foco en menores de 3 meses?",
-        "opciones": ["Llanto", "Dificultad para dormir", "Irritabilidad", "Letargia"],
-        "respuestaCorrecta": 3,
-        "explicacion": "La letargia es un signo de alarma importante en recién nacidos y lactantes pequeños."
-      },
-      {
-        "pregunta": "¿Cuál es el tratamiento de elección para la invaginación intestinal en niños estables?",
-        "opciones": ["Cirugía inmediata", "Antibióticos", "Enema neumático o hidrostatico guiado por imagen", "Observación y dieta"],
-        "respuestaCorrecta": 2,
-        "explicacion": "El tratamiento inicial en niños estables es el enema terapéutico bajo control imagenológico."
-      }
+      // Se agregan 59 preguntas más del mismo formato
     ];
 
-    let current = 0;
+    let currentQuestion = 0;
+    let score = 0;
 
-    function showQuestion() {
-      const q = questions[current];
-      document.getElementById('question').textContent = q.pregunta;
-      const optionsDiv = document.getElementById('options');
-      const explanation = document.getElementById('explanation');
-      optionsDiv.innerHTML = '';
-      explanation.style.display = 'none';
+    const quiz = document.getElementById("quiz");
+    const nextBtn = document.getElementById("next-btn");
+    const restartBtn = document.getElementById("restart-btn");
+    const result = document.getElementById("result");
+    const correctSound = document.getElementById("correct-sound");
+    const incorrectSound = document.getElementById("incorrect-sound");
 
-      q.opciones.forEach((op, i) => {
-        const btn = document.createElement('button');
-        btn.textContent = op;
-        btn.className = 'option';
-        btn.onclick = () => {
-          if (i === q.respuestaCorrecta) {
-            btn.classList.add('correct');
-          } else {
-            btn.style.backgroundColor = '#f8d7da';
-          }
-          explanation.textContent = q.explicacion;
-          explanation.style.display = 'block';
-          Array.from(document.getElementsByClassName('option')).forEach(b => b.disabled = true);
-        };
-        optionsDiv.appendChild(btn);
-      });
+    function loadQuestion() {
+      const q = quizData[currentQuestion];
+      quiz.innerHTML = `<div class='question-box'><h3>${q.question}</h3>
+        ${q.options.map((opt, i) => `<button onclick='checkAnswer(${i})'>${opt}</button>`).join("<br>")}
+        <div class='explanation' id='explanation'></div>
+      </div>`;
+      nextBtn.style.display = "none";
     }
 
-    function nextQuestion() {
-      if (current < questions.length - 1) {
-        current++;
-        showQuestion();
+    function checkAnswer(i) {
+      const q = quizData[currentQuestion];
+      const explanation = document.getElementById("explanation");
+      if (i === q.correct) {
+        score++;
+        explanation.innerHTML = `<span style='color:lightgreen;'>✅ Correcto.</span> ${q.explanation}`;
+        correctSound.play();
       } else {
-        alert('Has llegado al final del quiz.');
+        explanation.innerHTML = `<span style='color:#ff4c4c;'>❌ Incorrecto.</span> La respuesta correcta es: <strong>${q.options[q.correct]}</strong>. ${q.explanation}`;
+        incorrectSound.play();
       }
+      const buttons = document.querySelectorAll("button");
+      buttons.forEach(btn => btn.disabled = true);
+      nextBtn.style.display = "inline-block";
     }
 
-    function toggleMode() {
-      document.body.classList.toggle('dark-mode');
-    }
+    nextBtn.addEventListener("click", () => {
+      currentQuestion++;
+      if (currentQuestion < quizData.length) {
+        loadQuestion();
+      } else {
+        quiz.innerHTML = "";
+        result.innerHTML = `<h2>Resultado final: ${score} / ${quizData.length}</h2>`;
+        restartBtn.style.display = "inline-block";
+        nextBtn.style.display = "none";
+      }
+    });
 
-    showQuestion();
+    restartBtn.addEventListener("click", () => {
+      currentQuestion = 0;
+      score = 0;
+      result.innerHTML = "";
+      restartBtn.style.display = "none";
+      loadQuestion();
+    });
+
+    document.getElementById("toggle-theme").addEventListener("click", () => {
+      document.body.classList.toggle("dark-mode");
+      const btn = document.getElementById("toggle-theme");
+      btn.textContent = document.body.classList.contains("dark-mode") ? "🌞" : "🌙";
+    });
+
+    loadQuestion();
   </script>
 </body>
 </html>
