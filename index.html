@@ -1,94 +1,135 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Examen de Ingreso al Internado Rotatorio</title>
-    <link rel="stylesheet" href="styles.css"> <!-- Aquí iría el CSS de tu diseño -->
-    <script src="questions1.js" defer></script> <!-- Incluye tus preguntas en orden -->
-    <script src="questions2.js" defer></script>
-    <script src="questions3.js" defer></script>
-    <script src="questions4.js" defer></script>
-    <script src="questions5.js" defer></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quiz Pediatría - Internado</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #001f3f, #0074D9);
+      color: white;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+    }
+
+    #quiz-container {
+      background-color: rgba(0,0,0,0.6);
+      border-radius: 1rem;
+      padding: 2rem;
+      max-width: 800px;
+      width: 90%;
+      box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    }
+
+    .pregunta {
+      font-size: 1.3rem;
+      margin-bottom: 1rem;
+    }
+
+    .opcion {
+      background-color: #0074D9;
+      padding: 1rem;
+      margin: 0.5rem 0;
+      border-radius: 0.5rem;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .opcion:hover {
+      background-color: #005fa3;
+    }
+
+    .correcta {
+      background-color: #2ecc40 !important;
+    }
+
+    .incorrecta {
+      background-color: #ff4136 !important;
+    }
+
+    #explicacion {
+      margin-top: 1rem;
+      font-size: 1rem;
+    }
+
+    #siguiente {
+      margin-top: 1rem;
+      background-color: #FF851B;
+      color: white;
+      padding: 0.8rem 1.5rem;
+      border: none;
+      border-radius: 0.5rem;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+  </style>
 </head>
-<body class="dark-mode">
-    <div id="quiz-container">
-        <header>
-            <h1>Examen de Ingreso al Internado Rotatorio</h1>
-        </header>
+<body>
+  <div id="quiz-container">
+    <div id="pregunta" class="pregunta"></div>
+    <div id="opciones"></div>
+    <div id="explicacion"></div>
+    <button id="siguiente" style="display:none;">Siguiente</button>
+  </div>
 
-        <div id="question-container">
-            <!-- Aquí se mostrarán las preguntas -->
-        </div>
+  <script type="module">
+    import questions from './allQuestions.js';
 
-        <div id="answers-container">
-            <!-- Aquí se mostrarán las respuestas -->
-        </div>
+    const preguntaEl = document.getElementById('pregunta');
+    const opcionesEl = document.getElementById('opciones');
+    const explicacionEl = document.getElementById('explicacion');
+    const btnSiguiente = document.getElementById('siguiente');
 
-        <div id="feedback-container">
-            <!-- Aquí se mostrarán las explicaciones después de cada respuesta -->
-        </div>
+    let index = 0;
 
-        <footer>
-            <button id="next-button" onclick="nextQuestion()">Siguiente</button>
-        </footer>
-    </div>
+    function mostrarPregunta() {
+      const actual = questions[index];
+      preguntaEl.textContent = `(${index + 1}/${questions.length}) ${actual.pregunta}`;
+      opcionesEl.innerHTML = '';
+      explicacionEl.textContent = '';
+      btnSiguiente.style.display = 'none';
 
-    <script>
-        let currentQuestion = 0;
-        let score = 0;
-        
-        // Lógica para mostrar las preguntas y respuestas
-        function showQuestion(questionData) {
-            const questionContainer = document.getElementById('question-container');
-            const answersContainer = document.getElementById('answers-container');
-            const feedbackContainer = document.getElementById('feedback-container');
-            
-            questionContainer.innerHTML = `<p>${questionData.question}</p>`;
-            answersContainer.innerHTML = '';
+      actual.opciones.forEach((opcion, i) => {
+        const div = document.createElement('div');
+        div.className = 'opcion';
+        div.textContent = opcion;
+        div.onclick = () => evaluarRespuesta(div, i, actual);
+        opcionesEl.appendChild(div);
+      });
+    }
 
-            questionData.answers.forEach((answer, index) => {
-                const answerButton = document.createElement('button');
-                answerButton.innerText = answer.text;
-                answerButton.onclick = () => {
-                    checkAnswer(index, questionData.correctIndex, answer.explanation);
-                };
-                answersContainer.appendChild(answerButton);
-            });
-        }
+    function evaluarRespuesta(elemento, seleccion, pregunta) {
+      const opciones = document.querySelectorAll('.opcion');
+      opciones.forEach((op, i) => {
+        op.onclick = null;
+        if (i === pregunta.correcta) op.classList.add('correcta');
+        else if (i === seleccion) op.classList.add('incorrecta');
+      });
 
-        function checkAnswer(selectedIndex, correctIndex, explanation) {
-            const feedbackContainer = document.getElementById('feedback-container');
-            const sound = new Audio('click-sound.mp3'); // Asegúrate de tener este archivo de sonido
-            sound.play();
+      explicacionEl.textContent = `💡 ${pregunta.explicacion}`;
+      btnSiguiente.style.display = 'inline-block';
+    }
 
-            if (selectedIndex === correctIndex) {
-                score++;
-                feedbackContainer.innerHTML = `<p>¡Correcto! ${explanation}</p>`;
-            } else {
-                feedbackContainer.innerHTML = `<p>Incorrecto. ${explanation}</p>`;
-            }
+    btnSiguiente.onclick = () => {
+      index++;
+      if (index < questions.length) {
+        mostrarPregunta();
+      } else {
+        preguntaEl.textContent = "¡Quiz finalizado!";
+        opcionesEl.innerHTML = '';
+        explicacionEl.innerHTML = `<strong>Respondiste las ${questions.length} preguntas.</strong>`;
+        btnSiguiente.style.display = 'none';
+      }
+    };
 
-            document.getElementById('next-button').style.display = 'block';
-        }
-
-        function nextQuestion() {
-            currentQuestion++;
-            if (currentQuestion < 50) {
-                showQuestion(questions[currentQuestion]);
-                document.getElementById('next-button').style.display = 'none';
-            } else {
-                // Mostrar puntuación final
-                alert(`Examen terminado. Tu puntuación es ${score}/50`);
-            }
-        }
-
-        // Función para inicializar el quiz
-        function startQuiz() {
-            showQuestion(questions[currentQuestion]);
-        }
-
-        window.onload = startQuiz;
-    </script>
+    // Inicia el quiz
+    mostrarPregunta();
+  </script>
 </body>
 </html>
