@@ -1,112 +1,112 @@
-export default [
+const questions = [
   {
-    pregunta: "¿Cuál es la causa más común de fiebre sin foco en menores de 3 años?",
-    opciones: [
-      "Infección urinaria",
-      "Otitis media",
-      "Neumonía",
-      "Infección viral autolimitada"
+    question: "Un lactante de 8 meses llega a la emergencia con fiebre de 39,5°C, irritabilidad y llanto débil. El triángulo de evaluación pediátrica (TEP) muestra aspecto general anormal, trabajo respiratorio aumentado y circulación de la piel con moteado. ¿Cuál es la conducta inmediata más adecuada?",
+    options: [
+      "Administrar paracetamol y reevaluar en 30 minutos",
+      "Tomar signos vitales y realizar una historia clínica completa",
+      "Iniciar evaluación secundaria antes de actuar",
+      "Activar código de emergencia y comenzar ABC primario"
     ],
-    correcta: 3,
-    explicacion: "La mayoría de las fiebres sin foco en este grupo etario son de origen viral, especialmente en ausencia de signos de alarma."
+    answer: 3,
+    explanation: "El TEP indica compromiso en las tres áreas (apariencia, respiración y circulación), lo que clasifica al paciente como en estado crítico. Se debe activar el equipo de emergencia e iniciar ABC inmediatamente."
   },
   {
-    pregunta: "En un niño politraumatizado, ¿qué se debe evaluar primero según el enfoque ABCDE?",
-    opciones: [
-      "Circulación",
-      "Exposición",
-      "Vía aérea",
-      "Discapacidad neurológica"
+    question: "Un niño de 5 años es atropellado. Está consciente, con sangrado nasal leve y una fractura evidente de fémur. Al aplicar el TEP, se encuentra pálido, taquicárdico y con tiempo de llenado capilar prolongado. ¿Cuál es el diagnóstico más probable?",
+    options: [
+      "Shock hipovolémico",
+      "Shock distributivo",
+      "Shock cardiogénico",
+      "Hipoxia por TCE"
     ],
-    correcta: 2,
-    explicacion: "La evaluación siempre comienza por la vía aérea (A), asegurando su permeabilidad antes de continuar con la evaluación del trauma."
+    answer: 0,
+    explanation: "La taquicardia y el llenado capilar prolongado en un politrauma sugieren hipovolemia, especialmente con una fractura de fémur, que puede provocar sangrado significativo."
   },
   {
-    pregunta: "¿Cuál es el signo clínico más útil para evaluar deshidratación moderada en lactantes?",
-    opciones: [
-      "Taquicardia",
-      "Llenado capilar lento",
-      "Fontanela deprimida",
-      "Disminución del turgor cutáneo"
+    question: "Durante una evaluación en sala de urgencias, un niño de 4 años presenta somnolencia, respuesta al dolor, y signos de dificultad respiratoria severa. ¿Cuál es la prioridad en su manejo inicial?",
+    options: [
+      "Administrar solución salina al 0,9%",
+      "Realizar punción lumbar",
+      "Asegurar vía aérea y administrar oxígeno",
+      "Esperar a que despierte espontáneamente"
     ],
-    correcta: 3,
-    explicacion: "La disminución del turgor cutáneo es un signo sensible y fácil de evaluar en la práctica clínica."
+    answer: 2,
+    explanation: "La somnolencia con dificultad respiratoria indica una amenaza a la vida. La prioridad es asegurar la vía aérea y administrar oxígeno antes de continuar con otros estudios."
   },
   {
-    pregunta: "Un niño con tos perruna, estridor inspiratorio y fiebre probablemente tiene:",
-    opciones: [
-      "Asma",
-      "Epiglotitis",
-      "Laringotraqueobronquitis viral (crup)",
-      "Bronquiolitis"
+    question: "Niño de 6 años con politraumatismo cerrado por caída de altura. Presenta TA baja, taquicardia y distensión abdominal. ¿Qué diagnóstico debe considerarse prioritariamente?",
+    options: [
+      "Hemorragia intracraneana",
+      "Fractura de pelvis",
+      "Hemoperitoneo",
+      "Taponamiento cardíaco"
     ],
-    correcta: 2,
-    explicacion: "El crup viral produce tos perruna, estridor inspiratorio y suele presentarse con fiebre y síntomas de vía aérea superior."
+    answer: 2,
+    explanation: "La distensión abdominal con signos de shock sugiere una hemorragia intraabdominal, como un hemoperitoneo, común tras traumatismo abdominal cerrado."
   },
   {
-    pregunta: "¿Cuál es el tratamiento inicial de elección en una crisis asmática moderada en pediatría?",
-    opciones: [
-      "Oxígeno y salbutamol nebulizado",
-      "Salbutamol vía oral",
-      "Antibióticos",
-      "Prednisona oral"
+    question: "Un niño de 10 años ingresa por accidente en moto sin casco. Está inconsciente, con glasgow 6, pupilas anisocóricas. ¿Cuál es la principal prioridad en este caso?",
+    options: [
+      "Tomografía urgente",
+      "Administrar manitol",
+      "Intubación orotraqueal y soporte ABC",
+      "Evaluación neurológica detallada"
     ],
-    correcta: 0,
-    explicacion: "El tratamiento inicial incluye oxígeno si hay hipoxemia y broncodilatadores de acción corta como salbutamol."
+    answer: 2,
+    explanation: "Ante un TCE grave con bajo Glasgow y anisocoria, se debe proteger la vía aérea e iniciar manejo del ABC antes de estudios por imágenes."
   },
   {
-    pregunta: "¿Qué agente etiológico se asocia más frecuentemente a neumonía típica en niños menores de 5 años?",
-    opciones: [
-      "Mycoplasma pneumoniae",
-      "Streptococcus pneumoniae",
-      "Chlamydophila pneumoniae",
-      "Haemophilus influenzae tipo b"
+    question: "Un niño de 7 años consulta por fiebre de 3 días, malestar general, y un exantema que comenzó en la cara y se extendió al tronco. Presenta adenopatías retroauriculares. ¿Cuál es el diagnóstico más probable?",
+    options: [
+      "Sarampión",
+      "Rubeola",
+      "Escarlatina",
+      "Roseola"
     ],
-    correcta: 1,
-    explicacion: "S. pneumoniae es la causa más común de neumonía típica en niños pequeños."
+    answer: 1,
+    explanation: "La rubeola cursa con fiebre, exantema centrífugo y adenopatías retroauriculares. Es importante notificar por tratarse de una enfermedad de declaración obligatoria."
   },
   {
-    pregunta: "¿Cuál es el esquema empírico recomendado para una sepsis neonatal temprana?",
-    opciones: [
-      "Ampicilina y gentamicina",
-      "Ceftriaxona y vancomicina",
-      "Amoxicilina y clavulánico",
-      "Cefotaxima y amikacina"
-    ],
-    correcta: 0,
-    explicacion: "Ampicilina más gentamicina es el tratamiento empírico clásico para cubrir GBS y gram negativos."
-  },
-  {
-    pregunta: "Un niño con exantema súbito presenta fiebre alta seguida de erupción al desaparecer la fiebre. ¿Qué virus es el causante más probable?",
-    opciones: [
-      "Virus de Epstein-Barr",
+    question: "Lactante de 1 año con fiebre alta seguida de aparición súbita de exantema rosado en tronco y cuello. ¿Cuál es la causa más probable?",
+    options: [
+      "Enterovirus",
       "Virus del sarampión",
-      "Roseola (Herpesvirus tipo 6)",
-      "Enterovirus"
+      "Roseola (HHV-6)",
+      "Parvovirus B19"
     ],
-    correcta: 2,
-    explicacion: "La roseola es causada por HHV-6 y se caracteriza por fiebre alta seguida de erupción al ceder la fiebre."
+    answer: 2,
+    explanation: "La roseola se caracteriza por fiebre alta por 3 días que desaparece súbitamente y da lugar a un exantema súbito. Es típica de lactantes menores de 2 años."
   },
   {
-    pregunta: "¿Cuál de los siguientes signos obliga a descartar meningitis en un lactante febril?",
-    opciones: [
-      "Fiebre de 38°C aislada",
-      "Llanto inconsolable, rigidez de nuca",
-      "Diarrea y vómitos",
-      "Exantema maculopapular"
+    question: "Un niño de 6 años consulta por fiebre, dolor de garganta y exantema que al tacto se siente como papel de lija, con lengua aframbuesada. ¿Qué agente es el más probable?",
+    options: [
+      "Virus de Epstein-Barr",
+      "Estreptococo beta-hemolítico del grupo A",
+      "Coxsackie A16",
+      "Staphylococcus aureus"
     ],
-    correcta: 1,
-    explicacion: "La rigidez de nuca y el llanto inconsolable son signos que obligan a descartar patología del sistema nervioso central como meningitis."
+    answer: 1,
+    explanation: "La escarlatina por Streptococcus pyogenes presenta fiebre, faringoamigdalitis, exantema en papel de lija y lengua aframbuesada. Es una infección bacteriana común en edad escolar."
   },
   {
-    pregunta: "¿Cuál es la conducta inicial ante una sospecha de maltrato infantil en la urgencia?",
-    opciones: [
-      "Dar el alta con seguimiento por pediatra",
-      "Realizar solo evaluación física",
-      "Notificar al juez o defensoría correspondiente",
-      "Llamar a los padres y dar advertencia"
+    question: "Niña de 3 años con fiebre moderada y aparición de lesiones vesiculosas en distintas fases evolutivas en torso, cuero cabelludo y extremidades. ¿Cuál es el diagnóstico más probable?",
+    options: [
+      "Herpangina",
+      "Varicela",
+      "Síndrome boca-mano-pie",
+      "Rickettsiosis"
     ],
-    correcta: 2,
-    explicacion: "Es obligatorio por ley realizar la notificación en casos de sospecha de maltrato infantil a la autoridad competente."
+    answer: 1,
+    explanation: "La varicela presenta vesículas en distintas fases, distribuidas centrífugamente, con posible afectación de mucosas. Es altamente contagiosa."
+  },
+  {
+    question: "Adolescente con fiebre, exantema maculopapular en cara y extremidades, artralgias en manos, sin compromiso respiratorio. No tiene antecedentes vacunales completos. ¿Cuál sería una medida diagnóstica útil?",
+    options: [
+      "Serología para parvovirus B19",
+      "Detección de IgM para rubéola",
+      "Hemocultivo y PCR",
+      "Detección rápida de estreptococo"
+    ],
+    answer: 1,
+    explanation: "La rubéola en adolescentes no vacunados puede cursar con fiebre, exantema y artralgias. Confirmar con serología IgM específica."
   }
 ];

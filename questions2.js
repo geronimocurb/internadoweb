@@ -1,112 +1,112 @@
-export default [
+const questions = [
   {
-    pregunta: "¿Cuál es la principal causa de abdomen agudo quirúrgico en niños?",
-    opciones: [
-      "Apendicitis aguda",
+    question: "Lactante de 9 meses con vómitos, irritabilidad y llanto paroxístico. Luego de unas horas, aparece una deposición en 'jalea de grosella'. ¿Cuál es el diagnóstico más probable?",
+    options: [
+      "Gastroenteritis aguda",
+      "Alergia alimentaria",
       "Invaginación intestinal",
-      "Peritonitis primaria",
-      "Hernia incarcerada"
+      "Volvulus intestinal"
     ],
-    correcta: 0,
-    explicacion: "La apendicitis aguda es la causa más frecuente de abdomen agudo quirúrgico en pediatría."
+    answer: 2,
+    explanation: "La tríada clásica de invaginación es dolor abdominal, vómitos y deposición en jalea de grosella (moco con sangre). Es una urgencia abdominal frecuente en menores de 2 años."
   },
   {
-    pregunta: "¿Qué dato clínico orienta a una invaginación intestinal en un lactante?",
-    opciones: [
-      "Fiebre y vómitos biliosos",
-      "Heces con moco y sangre en forma de jalea de grosella",
-      "Ictericia progresiva",
-      "Dolor abdominal difuso sin vómitos"
+    question: "Un niño de 4 años presenta dolor abdominal intermitente, vómitos biliosos y distensión abdominal. El examen físico revela masa palpable en cuadrante superior derecho. ¿Qué estudio debe realizarse primero?",
+    options: [
+      "Tomografía abdominal",
+      "Radiografía simple de abdomen",
+      "Ecografía abdominal",
+      "Enema opaco"
     ],
-    correcta: 1,
-    explicacion: "Las heces en jalea de grosella son características de la invaginación intestinal, junto con dolor abdominal episódico."
+    answer: 2,
+    explanation: "La ecografía abdominal es el estudio de elección para sospecha de invaginación. Es no invasiva, rápida y altamente sensible, mostrando el signo del 'diana' o 'donut'."
   },
   {
-    pregunta: "Un niño de 2 años presenta estridor inspiratorio súbito mientras juega. ¿Cuál es la causa más probable?",
-    opciones: [
-      "Crup viral",
-      "Cuerpo extraño en vía aérea",
-      "Laringomalacia",
-      "Epiglotitis"
+    question: "Niño de 6 años con historia de asma, acude por disnea, tiraje intercostal, sibilancias y dificultad para hablar en frases. SatO₂: 90%. ¿Cuál es la clasificación de la crisis asmática?",
+    options: [
+      "Leve",
+      "Moderada",
+      "Severa",
+      "Amenaza vital"
     ],
-    correcta: 1,
-    explicacion: "La presentación brusca de estridor durante la actividad sugiere aspiración de cuerpo extraño."
+    answer: 2,
+    explanation: "Disnea al hablar, uso de músculos accesorios y SatO₂ < 92% indican una crisis asmática severa, que requiere tratamiento inmediato con oxígeno, salbutamol y corticoides."
   },
   {
-    pregunta: "¿Cuál es la edad más frecuente de presentación de la bronquiolitis viral aguda?",
-    opciones: [
-      "Menores de 2 meses",
-      "Entre 2 meses y 2 años",
-      "Entre 3 y 5 años",
-      "Mayores de 5 años"
+    question: "Paciente de 10 años con asma, tratado en domicilio con salbutamol. Ingresa con agitación, uso de músculos accesorios, sin sibilancias audibles. SatO₂: 85%. ¿Qué debe sospecharse?",
+    options: [
+      "Mejoría clínica",
+      "Asma leve",
+      "Fatiga respiratoria inminente",
+      "Neumotórax"
     ],
-    correcta: 1,
-    explicacion: "La bronquiolitis afecta principalmente a niños menores de 2 años, especialmente durante los primeros 6 meses de vida."
+    answer: 2,
+    explanation: "La ausencia de sibilancias en un paciente con disnea severa y SatO₂ baja indica silenzio auscultatorio, signo de obstrucción crítica y fatiga respiratoria inminente. Es una urgencia vital."
   },
   {
-    pregunta: "¿Qué se debe hacer ante una fiebre sin foco en un lactante menor de 28 días?",
-    opciones: [
-      "Observación domiciliaria",
-      "Antibiótico oral y control ambulatorio",
-      "Estudios completos y hospitalización con antibiótico endovenoso",
-      "Solo análisis de orina"
+    question: "Un niño asmático de 7 años, en crisis, no mejora con 3 dosis de salbutamol nebulizado y prednisona. ¿Cuál es el siguiente paso terapéutico más apropiado?",
+    options: [
+      "Incrementar la dosis de salbutamol",
+      "Administrar adrenalina IM",
+      "Agregar bromuro de ipratropio y considerar corticoides IV",
+      "Administrar antibiótico"
     ],
-    correcta: 2,
-    explicacion: "Por el riesgo de sepsis neonatal, todo lactante febril <28 días requiere estudios completos, hospitalización y tratamiento empírico."
+    answer: 2,
+    explanation: "En crisis severas que no responden, se agrega ipratropio y se escalan corticoides a vía IV. La adrenalina se reserva para anafilaxia."
   },
   {
-    pregunta: "¿Cuál es el germen más frecuente en una otitis media aguda en pediatría?",
-    opciones: [
-      "Staphylococcus aureus",
-      "Pseudomonas aeruginosa",
-      "Streptococcus pneumoniae",
-      "Klebsiella pneumoniae"
+    question: "Niña de 2 años con placas eritematosas, calientes, con bordes mal definidos en mejilla, con fiebre. ¿Cuál es el diagnóstico más probable?",
+    options: [
+      "Impétigo",
+      "Celulitis",
+      "Erisipela",
+      "Dermatitis atópica"
     ],
-    correcta: 2,
-    explicacion: "Streptococcus pneumoniae es el agente más común en otitis media aguda en niños."
+    answer: 1,
+    explanation: "La celulitis afecta dermis y tejido subcutáneo, es dolorosa, mal delimitada, y suele asociarse a fiebre. En niños es común en cara y extremidades."
   },
   {
-    pregunta: "¿Cuál es la causa más frecuente de convulsión en menores de 5 años?",
-    opciones: [
-      "Epilepsia",
-      "Traumatismo craneal",
-      "Convulsión febril",
-      "Hipoglucemia"
+    question: "Un lactante presenta lesiones pustulosas superficiales con costras melicéricas en nariz y cara. Está afebril. ¿Cuál es el tratamiento de elección?",
+    options: [
+      "Amoxicilina-clavulánico oral",
+      "Ácido fusídico tópico",
+      "Clindamicina IV",
+      "Drenaje quirúrgico"
     ],
-    correcta: 2,
-    explicacion: "Las convulsiones febriles son la causa más común de convulsiones en este grupo etario."
+    answer: 1,
+    explanation: "El impétigo leve sin signos sistémicos se trata con antibióticos tópicos como ácido fusídico o mupirocina."
   },
   {
-    pregunta: "En una sospecha de meningitis bacteriana, ¿qué estudio debe realizarse primero?",
-    opciones: [
-      "Punción lumbar",
-      "Hemograma",
-      "Tomografía de cráneo",
-      "Cultivo de orina"
+    question: "Paciente de 13 años con dolor e induración en región glútea, eritema local y fiebre. Se palpa colección fluctuante. ¿Cuál es el paso inicial?",
+    options: [
+      "Antibióticos orales",
+      "Punción para cultivo y ATB",
+      "Drenaje quirúrgico y antibióticos",
+      "Solo vigilancia"
     ],
-    correcta: 0,
-    explicacion: "La punción lumbar es el estudio diagnóstico principal, salvo que existan signos de hipertensión endocraneana."
+    answer: 2,
+    explanation: "En abscesos con signos de fluctuación y síntomas sistémicos, se requiere drenaje quirúrgico más antibiótico sistémico."
   },
   {
-    pregunta: "¿Qué signo clínico obliga a descartar patología cardíaca congénita cianótica?",
-    opciones: [
-      "Irritabilidad",
-      "Cianosis central persistente",
-      "Llanto débil",
-      "Taquicardia aislada"
+    question: "Niño de 5 años con antecedente de varicela hace 3 días, ahora presenta fiebre alta, taquicardia y eritema progresivo en zona de vesículas. ¿Qué complicación debe sospecharse?",
+    options: [
+      "Sobreinfección por hongos",
+      "Síndrome de piel escaldada",
+      "Celulitis por S. pyogenes",
+      "Síndrome de Kawasaki"
     ],
-    correcta: 1,
-    explicacion: "La cianosis central persistente es una señal de alarma para cardiopatías congénitas cianóticas."
+    answer: 2,
+    explanation: "La sobreinfección bacteriana de lesiones de varicela por S. pyogenes puede progresar a celulitis e incluso fascitis necrotizante si no se trata precozmente."
   },
   {
-    pregunta: "En un niño con sospecha de púrpura de Henoch-Schönlein, ¿qué manifestación esperas encontrar además de púrpura palpable?",
-    opciones: [
-      "Anemia hemolítica",
-      "Edema facial",
-      "Dolor abdominal y artralgias",
-      "Trombocitopenia severa"
+    question: "Lactante de 6 meses con lesiones eritematosas en pliegues del cuello, con descamación y exudado, sin fiebre. ¿Cuál es el diagnóstico más probable?",
+    options: [
+      "Dermatitis seborreica",
+      "Micosis superficial",
+      "Intertrigo bacteriano",
+      "Dermatitis del pañal"
     ],
-    correcta: 2,
-    explicacion: "La púrpura de Henoch-Schönlein cursa típicamente con púrpura palpable, dolor abdominal, artritis o artralgias y, a veces, compromiso renal."
+    answer: 2,
+    explanation: "El intertrigo bacteriano en pliegues húmedos suele sobreinfectarse, especialmente con S. aureus o estreptococos. No suele acompañarse de fiebre."
   }
 ];

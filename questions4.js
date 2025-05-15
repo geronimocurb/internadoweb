@@ -1,112 +1,112 @@
-export default [
+const questions = [
   {
-    pregunta: "¿Cuál es el principal signo clínico de deshidratación grave en pediatría?",
-    opciones: [
-      "Boca seca",
-      "Irritabilidad",
-      "Ojos hundidos y letargo",
-      "Lágrimas ausentes"
+    question: "Lactante de 15 meses con fiebre de 39,5°C que comienza con una convulsión tónico-clónica generalizada de menos de 5 minutos. No tiene antecedentes ni signos meníngeos. ¿Cuál es la conducta más adecuada?",
+    options: [
+      "Solicitar TC de cráneo urgente",
+      "Iniciar antibióticos empíricos",
+      "Observar, controlar fiebre y explicar a los padres",
+      "Iniciar fenobarbital profiláctico"
     ],
-    correcta: 2,
-    explicacion: "En la deshidratación grave se observan signos como ojos hundidos, letargo y llenado capilar lento."
+    answer: 2,
+    explanation: "Se trata de una crisis febril simple. No requiere estudios ni medicación anticonvulsivante. La conducta es observación, educación y control térmico."
   },
   {
-    pregunta: "¿Qué parámetro es más útil para evaluar la hidratación en lactantes?",
-    opciones: [
-      "Tensión arterial",
-      "Llenado capilar",
-      "Frecuencia respiratoria",
-      "Coloración de piel"
+    question: "Niño de 4 años con fiebre, cefalea intensa, vómitos y rigidez de nuca. Presenta fotofobia y signos meníngeos positivos. ¿Qué estudio es prioritario antes de iniciar antibióticos?",
+    options: [
+      "Punción lumbar",
+      "Tomografía de cráneo",
+      "Hemocultivo",
+      "Electroencefalograma"
     ],
-    correcta: 1,
-    explicacion: "El llenado capilar es un indicador clínico sensible y fácil de evaluar en niños pequeños."
+    answer: 0,
+    explanation: "En un paciente sin signos de hipertensión endocraneana, la punción lumbar es prioritaria para confirmar diagnóstico y orientar tratamiento."
   },
   {
-    pregunta: "¿Cuál es la medida inicial en un niño con sospecha de sepsis?",
-    opciones: [
-      "Administrar oxígeno",
-      "Administrar bolos de cristaloides y antibióticos empíricos",
-      "Realizar hemocultivo y esperar resultados",
-      "Colocar sonda vesical"
+    question: "Lactante de 3 meses con fiebre, irritabilidad, rechazo alimentario y fontanela abombada. ¿Qué conducta es prioritaria?",
+    options: [
+      "Punción lumbar y antibióticos empíricos",
+      "Administrar antitérmicos y observar",
+      "Indicar paracetamol y reevaluar en 6 horas",
+      "Tomografía cerebral antes de estudiar"
     ],
-    correcta: 1,
-    explicacion: "La reposición rápida con líquidos y antibióticos empíricos debe iniciarse sin demora ante sospecha de sepsis."
+    answer: 0,
+    explanation: "Los signos clínicos orientan a meningoencefalitis. En lactantes se debe realizar PL sin demora e iniciar tratamiento antibiótico empírico inmediato."
   },
   {
-    pregunta: "¿Qué hallazgo puede indicar maltrato infantil en un lactante?",
-    opciones: [
-      "Fractura de clavícula tras el parto",
-      "Hematomas en prominencias óseas",
-      "Múltiples fracturas en distintos estadios de consolidación",
-      "Ictericia neonatal prolongada"
+    question: "Niño de 6 años con fiebre y cefalea, evoluciona con convulsiones focales y somnolencia. ¿Qué complicación neurológica debe sospecharse?",
+    options: [
+      "Epilepsia benigna",
+      "Meningitis bacteriana",
+      "Absceso cerebral",
+      "Crisis febril simple"
     ],
-    correcta: 2,
-    explicacion: "La presencia de fracturas en distintos momentos evolutivos sugiere fuertemente abuso físico."
+    answer: 2,
+    explanation: "Las convulsiones focales con deterioro del sensorio en el contexto febril deben hacer sospechar una complicación como absceso cerebral."
   },
   {
-    pregunta: "¿Cuál es la causa más frecuente de obstrucción de vía aérea alta en menores de 5 años?",
-    opciones: [
-      "Crup viral (laringotraqueítis)",
-      "Asma",
-      "Bronquiolitis",
-      "Epiglotitis"
+    question: "Lactante de 2 meses, sin foco clínico aparente, con fiebre de 38,5°C, buen estado general, examen físico normal y sin factores de riesgo. ¿Qué estudio debe realizarse siempre?",
+    options: [
+      "Radiografía de tórax",
+      "Urocultivo por cateterismo",
+      "Punción lumbar",
+      "Ecografía abdominal"
     ],
-    correcta: 0,
-    explicacion: "El crup viral es la causa más común de obstrucción aguda de vía aérea superior en esta edad."
+    answer: 1,
+    explanation: "La infección urinaria es la causa más frecuente de FSF. El urocultivo por cateterismo está indicado en todo menor de 3 meses con fiebre."
   },
   {
-    pregunta: "¿Qué característica es típica del síndrome nefrótico en niños?",
-    opciones: [
-      "Hematuria, hipertensión y proteinuria",
-      "Edema generalizado, proteinuria masiva e hipoalbuminemia",
-      "Fiebre, dolor abdominal y oliguria",
-      "Proteinuria leve y glucosuria"
+    question: "Niña de 5 años con fiebre de 39°C, sin foco clínico evidente. Está en buen estado general, sin comorbilidades, correctamente vacunada. ¿Qué conducta es adecuada?",
+    options: [
+      "Iniciar antibióticos empíricos",
+      "Hospitalización y estudios completos",
+      "Control ambulatorio con medidas generales",
+      "Solicitar hemocultivo, urocultivo y PL"
     ],
-    correcta: 1,
-    explicacion: "El síndrome nefrótico se presenta con edema, proteinuria masiva, hipoalbuminemia e hiperlipidemia."
+    answer: 2,
+    explanation: "En niños mayores de 3 años con FSF y buen estado general, se puede optar por control ambulatorio y observación si no hay signos de alarma."
   },
   {
-    pregunta: "¿Qué conducta está indicada en un niño con asma moderado durante una crisis?",
-    opciones: [
-      "Solo broncodilatadores orales",
-      "Nebulizaciones con salbutamol y corticoides sistémicos",
-      "Iniciar antibióticos",
-      "Reposo y líquidos por boca"
+    question: "Niño de 2 años con fiebre persistente, vómitos, disuria y malestar general. Se sospecha ITU alta. ¿Qué examen es más útil para confirmar el diagnóstico?",
+    options: [
+      "Tira reactiva de orina",
+      "Examen de orina completo",
+      "Urocultivo cuantitativo",
+      "Ecografía renal"
     ],
-    correcta: 1,
-    explicacion: "La combinación de salbutamol inhalado y corticoides sistémicos es el tratamiento estándar en crisis moderadas."
+    answer: 2,
+    explanation: "El diagnóstico definitivo de ITU se basa en el urocultivo con recuento significativo de colonias bacterianas."
   },
   {
-    pregunta: "¿Cuál es la indicación principal de hospitalización en una bronquiolitis?",
-    opciones: [
-      "Fiebre mayor a 39 °C",
-      "Saturación de oxígeno menor al 92%",
-      "Rinorrea persistente",
-      "Tos por más de 3 días"
+    question: "Niña de 7 años con fiebre alta, vómitos y cefalea intensa. Presenta rigidez de nuca y signos de irritación meníngea. ¿Qué antibióticos empíricos están indicados inicialmente?",
+    options: [
+      "Amoxicilina-clavulánico + azitromicina",
+      "Ceftriaxona + vancomicina",
+      "Ampicilina + gentamicina",
+      "Meropenem + aciclovir"
     ],
-    correcta: 1,
-    explicacion: "La hipoxemia es uno de los criterios más importantes para hospitalizar a un lactante con bronquiolitis."
+    answer: 1,
+    explanation: "En niños mayores, la terapia empírica para meningitis incluye ceftriaxona + vancomicina, cubriendo S. pneumoniae resistente y N. meningitidis."
   },
   {
-    pregunta: "¿Qué dato orienta a una infección urinaria en un lactante?",
-    opciones: [
-      "Llanto débil",
-      "Fiebre sin foco aparente",
-      "Diarrea aguda",
-      "Ictericia prolongada"
+    question: "Lactante de 20 días con fiebre, hipotonía, rechazo alimentario y fontanela normotensa. ¿Cuál es el manejo más adecuado?",
+    options: [
+      "Antibióticos y antipiréticos orales",
+      "Alta con control a las 24 horas",
+      "Hospitalización con estudio completo de sepsis",
+      "Solo SRO y control térmico"
     ],
-    correcta: 1,
-    explicacion: "La fiebre sin foco en lactantes debe hacer sospechar infección urinaria, incluso sin síntomas específicos."
+    answer: 2,
+    explanation: "Todo neonato con fiebre debe ser ingresado para estudio completo de sepsis e iniciar antibióticos intravenosos mientras se esperan cultivos."
   },
   {
-    pregunta: "¿Qué se recomienda como medida de prevención primaria para muerte súbita del lactante?",
-    opciones: [
-      "Dormir boca abajo",
-      "Uso de colchones blandos",
-      "Evitar cobijas y peluches en la cuna",
-      "Uso de almohadas"
+    question: "Niño de 3 años con fiebre de 39,2°C, sin foco clínico evidente. Presenta leucocitosis >20.000/mm³ y PCR elevada. ¿Cuál es la siguiente conducta más adecuada?",
+    options: [
+      "Administrar paracetamol y alta",
+      "Realizar urocultivo y hemocultivo",
+      "Iniciar antibióticos en domicilio",
+      "Realizar punción lumbar y hospitalizar"
     ],
-    correcta: 2,
-    explicacion: "Para prevenir el síndrome de muerte súbita se recomienda cuna despejada, sin almohadas ni objetos blandos."
+    answer: 1,
+    explanation: "Leucocitosis importante con PCR elevada y FSF obliga a descartar bacteriemia oculta o ITU, por lo que deben tomarse cultivos antes de decidir tratamiento."
   }
 ];

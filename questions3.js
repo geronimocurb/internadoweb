@@ -1,112 +1,112 @@
-export default [
+const questions = [
   {
-    pregunta: "¿Cuál es el agente etiológico más común en la faringitis bacteriana en niños en edad escolar?",
-    opciones: [
-      "Streptococcus pneumoniae",
-      "Staphylococcus aureus",
-      "Streptococcus pyogenes (grupo A)",
-      "Haemophilus influenzae"
+    question: "Un lactante de 1 año presenta diarrea acuosa abundante y vómitos. Está irritable, con ojos hundidos, mucosas secas y tiempo de llenado capilar de 3 segundos. ¿Cuál es el plan de rehidratación inicial recomendado?",
+    options: [
+      "SRO 10 mL/kg por cada deposición",
+      "SRO 50 mL/kg en 4 horas",
+      "SRO 100 mL/kg en 4 horas",
+      "Rehidratación IV con solución 90: 100 mL/kg en 4 horas"
     ],
-    correcta: 2,
-    explicacion: "El Streptococcus pyogenes (grupo A) es la causa bacteriana más frecuente de faringitis en niños en edad escolar."
+    answer: 2,
+    explanation: "La deshidratación moderada se trata con SRO 100 mL/kg en 4 horas si no hay contraindicaciones para la vía oral."
   },
   {
-    pregunta: "¿Cuál es el principal riesgo de no tratar una faringitis estreptocócica?",
-    opciones: [
-      "Otitis media",
-      "Absceso retrofaríngeo",
-      "Fiebre reumática",
-      "Sinusitis"
+    question: "Lactante de 8 meses con diarrea con moco y sangre, fiebre, decaimiento y aspecto tóxico. ¿Qué conducta es correcta?",
+    options: [
+      "Indicar probióticos y observación domiciliaria",
+      "Solicitar coprocultivo y comenzar antibiótico empírico",
+      "Iniciar metronidazol y suspender lactancia",
+      "Administrar sólo solución de rehidratación oral"
     ],
-    correcta: 2,
-    explicacion: "El principal riesgo es la fiebre reumática, una complicación inmunomediada evitable con antibióticos."
+    answer: 1,
+    explanation: "Diarrea disentérica con aspecto tóxico amerita iniciar antibiótico empírico y solicitar coprocultivo. En nuestro medio, se cubre principalmente Shigella."
   },
   {
-    pregunta: "¿Cuál es la principal característica del exantema del sarampión?",
-    opciones: [
-      "Distribución centrífuga con vesículas",
-      "Inicio en tronco con progresión descendente",
-      "Inicio retroauricular y progresión cráneo-caudal",
-      "Máculas que confluyen en palmas y plantas"
+    question: "Niño de 5 años, con diarrea aguda y vómitos. Permanece alerta, acepta líquidos por boca y tiene buen estado general. ¿Qué manejo es el más adecuado?",
+    options: [
+      "Hospitalización para hidratación IV",
+      "Ayuno completo y reintroducción progresiva",
+      "Hidratación con SRO y continuar alimentación habitual",
+      "Administrar antiemético y suspender alimentos sólidos"
     ],
-    correcta: 2,
-    explicacion: "El exantema del sarampión inicia típicamente detrás de las orejas y se extiende en dirección cráneo-caudal."
+    answer: 2,
+    explanation: "En gastroenteritis sin deshidratación, se indica hidratación oral con SRO y mantener la alimentación habitual para favorecer la recuperación."
   },
   {
-    pregunta: "¿Cuál es el hallazgo más característico en la escarlatina?",
-    opciones: [
-      "Petequias generalizadas",
-      "Exantema maculopapular con descamación fina",
-      "Rash urticariforme persistente",
-      "Vesículas en mucosa oral"
+    question: "Niño de 3 años con fiebre alta, taquipnea, tiraje intercostal y crépitos basales derechos. SatO₂: 93%. ¿Cuál es el tratamiento empírico recomendado?",
+    options: [
+      "Azitromicina oral",
+      "Amoxicilina oral 80-100 mg/kg/día",
+      "Amoxicilina-clavulánico IV",
+      "Ceftriaxona IM 50 mg/kg/día"
     ],
-    correcta: 1,
-    explicacion: "La escarlatina se presenta con un exantema en lija (papular), enrojecimiento difuso y descamación fina posterior."
+    answer: 1,
+    explanation: "La neumonía adquirida en la comunidad en niños pequeños se trata con amoxicilina oral en altas dosis. La cobertura de neumococo es prioritaria."
   },
   {
-    pregunta: "¿Qué dato es más sugerente de una bronquiolitis viral en un lactante?",
-    opciones: [
-      "Disfonía con fiebre leve",
-      "Tos seca, estridor y fiebre alta",
-      "Sibilancias, taquipnea y tiraje intercostal",
-      "Dolor torácico y fiebre alta"
+    question: "Un niño de 7 años tratado por neumonía presenta persistencia de fiebre, dolor torácico y derrame pleural en Rx. ¿Cuál es la complicación más probable?",
+    options: [
+      "Bronquitis obliterante",
+      "Empiema",
+      "Asma posinfecciosa",
+      "Fibrosis pulmonar"
     ],
-    correcta: 2,
-    explicacion: "La bronquiolitis cursa con signos de dificultad respiratoria baja: sibilancias, taquipnea y retracciones."
+    answer: 1,
+    explanation: "El empiema es una complicación común de la neumonía bacteriana, especialmente por neumococo. Debe sospecharse ante fiebre persistente y derrame."
   },
   {
-    pregunta: "¿Cuál es la conducta más adecuada ante una pubertad precoz central verdadera?",
-    opciones: [
-      "Reaseguro y control a los 6 meses",
-      "Ecografía pélvica y seguimiento",
-      "Derivación a endocrinología pediátrica",
-      "Iniciar anticonceptivos orales combinados"
+    question: "Lactante de 10 meses con bronquiolitis. Presenta tiraje intercostal, SatO₂: 89%, alimentación oral disminuida. ¿Qué indicación es correcta?",
+    options: [
+      "Alta con salbutamol domiciliario",
+      "Inicio de antibióticos por sospecha bacteriana",
+      "Internación para oxigenoterapia y apoyo alimentario",
+      "Nebulización con budesonida"
     ],
-    correcta: 2,
-    explicacion: "La pubertad precoz central debe ser evaluada por endocrinología, ya que puede requerir tratamiento con análogos de GnRH."
+    answer: 2,
+    explanation: "En bronquiolitis moderada-severa con SatO₂ < 90% y mala alimentación, se indica internación para oxígeno y soporte. No hay evidencia para corticoides ni antibióticos."
   },
   {
-    pregunta: "¿Qué característica distingue una meningitis viral de una bacteriana en LCR?",
-    opciones: [
-      "Hipoglucorraquia severa",
-      "Leucocitosis con predominio de PMN",
-      "Glucosa normal y leve aumento de proteínas",
-      "Presión de apertura elevada"
+    question: "Lactante de 6 meses con primer episodio de sibilancias y rinorrea. ¿Qué hallazgo clínico orienta más a bronquiolitis y no a asma?",
+    options: [
+      "Antecedente familiar de atopia",
+      "Tos seca persistente",
+      "Inicio posterior a un cuadro catarral",
+      "Buena respuesta a salbutamol"
     ],
-    correcta: 2,
-    explicacion: "El LCR viral suele tener glucosa normal, proteínas levemente elevadas y pleocitosis linfocitaria."
+    answer: 2,
+    explanation: "La bronquiolitis típicamente se inicia tras una infección viral con rinorrea. A diferencia del asma, no responde bien a broncodilatadores."
   },
   {
-    pregunta: "¿Cuál es el tratamiento empírico en una meningitis bacteriana en niños mayores de 3 meses?",
-    opciones: [
-      "Ceftriaxona y vancomicina",
-      "Ampicilina y gentamicina",
-      "Cefazolina y clindamicina",
-      "Amoxicilina y ácido clavulánico"
+    question: "En un paciente con bronquiolitis leve, ¿cuál de las siguientes medidas es innecesaria según las guías clínicas?",
+    options: [
+      "Oxigenoterapia si SatO₂ < 92%",
+      "Uso de salbutamol nebulizado de prueba",
+      "Aspiración nasal con solución fisiológica",
+      "Monitoreo clínico ambulatorio"
     ],
-    correcta: 0,
-    explicacion: "Ceftriaxona más vancomicina es el esquema empírico habitual para cubrir S. pneumoniae resistente y otros gérmenes."
+    answer: 1,
+    explanation: "No se recomienda el uso rutinario de salbutamol en bronquiolitis. Solo puede considerarse una prueba terapéutica en algunos casos, pero no es estándar."
   },
   {
-    pregunta: "¿Qué hallazgo esperas en un niño con enterocolitis por Shigella?",
-    opciones: [
-      "Diarrea acuosa sin sangre",
-      "Deposiciones con sangre y moco, fiebre alta y convulsiones",
-      "Distensión abdominal sin fiebre",
-      "Diarrea leve con vómitos prolongados"
+    question: "Lactante de 2 meses con diagnóstico de bronquiolitis en domicilio, presenta pausas de apnea y dificultad respiratoria progresiva. ¿Cuál es la principal preocupación?",
+    options: [
+      "Sobreinfección bacteriana",
+      "Hipoxemia leve",
+      "Insuficiencia respiratoria inminente",
+      "Deshidratación leve"
     ],
-    correcta: 1,
-    explicacion: "La shigelosis se manifiesta con diarrea disentérica, fiebre alta, y puede causar convulsiones por toxinas."
+    answer: 2,
+    explanation: "Las pausas de apnea y dificultad respiratoria progresiva en lactantes con bronquiolitis indican riesgo de insuficiencia respiratoria y requieren evaluación urgente e internación."
   },
   {
-    pregunta: "¿Qué acción es prioritaria frente a un niño con sospecha de anafilaxia?",
-    opciones: [
-      "Administrar antihistamínico oral",
-      "Colocar corticoide IM",
-      "Inyectar adrenalina intramuscular",
-      "Colocar oxígeno y observar"
+    question: "Lactante con bronquiolitis que requiere internación y presenta dificultad respiratoria leve-moderada, sin indicación de ventilación. ¿Qué medida es apropiada?",
+    options: [
+      "Oxigenoterapia con cánula nasal",
+      "Intubación orotraqueal urgente",
+      "Corticoides sistémicos",
+      "Broncodilatadores de rutina"
     ],
-    correcta: 2,
-    explicacion: "La adrenalina IM es el tratamiento de primera línea y salva vidas en una anafilaxia."
+    answer: 0,
+    explanation: "En bronquiolitis con dificultad respiratoria leve o moderada, la oxigenoterapia con cánula nasal es el soporte adecuado. La mayoría de los casos no requieren medicamentos."
   }
 ];
