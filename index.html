@@ -2,39 +2,53 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <title>Quiz Pediatría Inicial</title>
+  <title>Quiz Pediatría</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background: #121212;
-      color: white;
-      max-width: 700px;
-      margin: 20px auto;
-      padding: 10px;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #121212;
+      color: #eee;
+      margin: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
-    #quiz {
-      display: none;
-      margin-top: 20px;
+    h1 {
+      margin-bottom: 20px;
     }
-    .question {
+    #quizContainer {
+      max-width: 600px;
+      width: 100%;
+      background-color: #212121;
+      padding: 20px;
+      border-radius: 10px;
+      display: flex;
+      flex-direction: column;
+    }
+    #questionText {
       font-size: 1.2rem;
-      margin-bottom: 10px;
+      margin-bottom: 15px;
     }
     .option {
-      display: block;
-      margin: 5px 0;
-      padding: 10px;
-      background: #333;
+      background-color: #333;
       border: none;
+      padding: 12px;
+      margin: 6px 0;
+      text-align: left;
+      font-size: 1rem;
       color: white;
+      border-radius: 6px;
       cursor: pointer;
-      border-radius: 5px;
+      transition: background-color 0.3s ease;
+    }
+    .option:hover:not(:disabled) {
+      background-color: #555;
     }
     .option.correct {
-      background: #2e7d32 !important;
+      background-color: #2e7d32 !important;
     }
     .option.incorrect {
-      background: #c62828 !important;
+      background-color: #c62828 !important;
     }
     #explanation {
       margin-top: 15px;
@@ -42,30 +56,36 @@
       color: #bbb;
       min-height: 40px;
     }
-    #next {
+    #nextBtn {
       margin-top: 15px;
+      align-self: flex-end;
       padding: 10px 20px;
-      background: #fb8c00;
+      font-size: 1rem;
+      background-color: #fb8c00;
       border: none;
-      color: white;
-      border-radius: 5px;
+      border-radius: 6px;
       cursor: pointer;
+      color: white;
       display: none;
+      transition: background-color 0.3s ease;
+    }
+    #nextBtn:hover {
+      background-color: #ef6c00;
     }
   </style>
 </head>
 <body>
-  <h1>Quiz Pediatría Inicial</h1>
-  <button id="startBtn">Comenzar</button>
+  <h1>Quiz Pediatría</h1>
 
-  <div id="quiz">
-    <div id="question" class="question"></div>
-    <div id="options"></div>
+  <button id="startBtn">Iniciar Quiz</button>
+
+  <div id="quizContainer" style="display:none;">
+    <div id="questionText"></div>
+    <div id="optionsContainer"></div>
     <div id="explanation"></div>
-    <button id="next">Siguiente</button>
+    <button id="nextBtn">Siguiente</button>
   </div>
 
-  <!-- Carga preguntas pediatría -->
   <script src="questions1.js"></script>
   <script src="questions2.js"></script>
   <script src="questions3.js"></script>
@@ -74,18 +94,18 @@
 
   <script>
     const startBtn = document.getElementById('startBtn');
-    const quiz = document.getElementById('quiz');
-    const questionDiv = document.getElementById('question');
-    const optionsDiv = document.getElementById('options');
+    const quizContainer = document.getElementById('quizContainer');
+    const questionText = document.getElementById('questionText');
+    const optionsContainer = document.getElementById('optionsContainer');
     const explanationDiv = document.getElementById('explanation');
-    const nextBtn = document.getElementById('next');
+    const nextBtn = document.getElementById('nextBtn');
 
-    // Unir preguntas de los archivos
-    const allQuestions = [...questions1, ...questions2, ...questions3, ...questions4, ...questions5];
+    // Unir todas las preguntas
+    const questions = [...questions1, ...questions2, ...questions3, ...questions4, ...questions5];
 
     let currentIndex = 0;
 
-    function shuffle(array) {
+    function shuffleArray(array) {
       for (let i = array.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         [array[i], array[j]] = [array[j], array[i]];
@@ -95,32 +115,36 @@
     function showQuestion() {
       explanationDiv.textContent = '';
       nextBtn.style.display = 'none';
-      const q = allQuestions[currentIndex];
-      questionDiv.textContent = `${currentIndex + 1}. ${q.question}`;
-      optionsDiv.innerHTML = '';
+
+      const q = questions[currentIndex];
+      questionText.textContent = `${currentIndex + 1}. ${q.question}`;
+      optionsContainer.innerHTML = '';
+
       q.options.forEach((opt, i) => {
         const btn = document.createElement('button');
         btn.className = 'option';
         btn.textContent = opt;
-        btn.onclick = () => selectOption(i);
-        optionsDiv.appendChild(btn);
+        btn.onclick = () => selectAnswer(i);
+        optionsContainer.appendChild(btn);
       });
     }
 
-    function selectOption(selected) {
-      const q = allQuestions[currentIndex];
+    function selectAnswer(selectedIndex) {
+      const q = questions[currentIndex];
       explanationDiv.textContent = q.explanation;
-      Array.from(optionsDiv.children).forEach((btn, i) => {
-        btn.disabled = true;
-        if (i === q.answer) btn.classList.add('correct');
-        if (i === selected && selected !== q.answer) btn.classList.add('incorrect');
+
+      Array.from(optionsContainer.children).forEach((button, idx) => {
+        button.disabled = true;
+        if (idx === q.answer) button.classList.add('correct');
+        if (idx === selectedIndex && selectedIndex !== q.answer) button.classList.add('incorrect');
       });
+
       nextBtn.style.display = 'inline-block';
     }
 
     nextBtn.onclick = () => {
       currentIndex++;
-      if (currentIndex >= allQuestions.length) {
+      if (currentIndex >= questions.length) {
         alert('¡Terminaste el quiz!');
         location.reload();
       } else {
@@ -129,10 +153,10 @@
     };
 
     startBtn.onclick = () => {
-      shuffle(allQuestions);
+      shuffleArray(questions);
       currentIndex = 0;
       startBtn.style.display = 'none';
-      quiz.style.display = 'block';
+      quizContainer.style.display = 'flex';
       showQuestion();
     };
   </script>

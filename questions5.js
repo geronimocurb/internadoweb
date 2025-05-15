@@ -1,4 +1,4 @@
-const questions5 = [
+const questions = [
   {
     question: "Niño de 2 años es llevado a la emergencia tras quemarse con agua hirviendo. Presenta lesiones eritematosas y ampollas en tronco anterior y ambos brazos. ¿Qué cálculo inicial de superficie corporal quemada corresponde?",
     options: [
