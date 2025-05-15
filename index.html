@@ -2,65 +2,34 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <title>Quiz Médico - Selección de Módulo</title>
+  <title>Quiz Pediatría - Prueba</title>
   <style>
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-family: Arial, sans-serif;
       background-color: #121212;
-      color: #eee;
-      margin: 20px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-    h1 {
-      margin-bottom: 20px;
-    }
-    .menu {
-      display: flex;
-      gap: 15px;
-      margin-bottom: 20px;
-    }
-    .menu button {
-      background-color: #1e88e5;
-      border: none;
-      padding: 15px 25px;
-      font-size: 1.1rem;
       color: white;
-      cursor: pointer;
-      border-radius: 8px;
-      transition: background-color 0.3s ease;
-    }
-    .menu button:hover {
-      background-color: #1565c0;
+      padding: 20px;
+      max-width: 700px;
+      margin: auto;
     }
     #quizContainer {
-      max-width: 600px;
-      width: 100%;
-      background-color: #212121;
-      padding: 20px;
-      border-radius: 10px;
+      margin-top: 20px;
       display: none;
       flex-direction: column;
     }
     #questionText {
       font-size: 1.2rem;
-      margin-bottom: 15px;
+      margin-bottom: 10px;
     }
     .option {
+      display: block;
+      margin: 5px 0;
+      padding: 10px;
       background-color: #333;
       border: none;
-      padding: 12px;
-      margin: 6px 0;
-      text-align: left;
-      font-size: 1rem;
       color: white;
-      border-radius: 6px;
       cursor: pointer;
-      transition: background-color 0.3s ease;
-    }
-    .option:hover:not(:disabled) {
-      background-color: #555;
+      border-radius: 5px;
     }
     .option.correct {
       background-color: #2e7d32 !important;
@@ -71,36 +40,24 @@
     #explanation {
       margin-top: 15px;
       font-style: italic;
-      color: #bbb;
+      color: #ccc;
       min-height: 40px;
     }
     #nextBtn {
-      margin-top: 15px;
-      align-self: flex-end;
-      padding: 10px 20px;
-      font-size: 1rem;
+      margin-top: 10px;
+      padding: 8px 20px;
+      cursor: pointer;
       background-color: #fb8c00;
       border: none;
-      border-radius: 6px;
-      cursor: pointer;
+      border-radius: 5px;
       color: white;
       display: none;
-      transition: background-color 0.3s ease;
-    }
-    #nextBtn:hover {
-      background-color: #ef6c00;
     }
   </style>
 </head>
 <body>
-  <h1>Quiz Médico - Selecciona un módulo</h1>
-
-  <div class="menu">
-    <button data-module="pediatria">Pediatría</button>
-    <button data-module="ginecologia">Ginecología</button>
-    <button data-module="cirugia">Cirugía</button>
-    <button data-module="medicinaFamiliar">Medicina Familiar</button>
-  </div>
+  <h1>Quiz Pediatría - Prueba</h1>
+  <button id="startBtn">Iniciar Quiz Pediatría</button>
 
   <div id="quizContainer">
     <div id="questionText"></div>
@@ -109,7 +66,7 @@
     <button id="nextBtn">Siguiente</button>
   </div>
 
-  <!-- Cargamos solo preguntas de pediatría por ahora -->
+  <!-- Carga archivos con preguntas -->
   <script src="questions1.js"></script>
   <script src="questions2.js"></script>
   <script src="questions3.js"></script>
@@ -117,27 +74,26 @@
   <script src="questions5.js"></script>
 
   <script>
-    // Objeto que contiene arrays con preguntas por módulo (solo pediatría por ahora)
-    const modules = {
-      pediatria: [...questions1, ...questions2, ...questions3, ...questions4, ...questions5],
-      ginecologia: [],      // Luego agregarás gineQuestions1, gineQuestions2...
-      cirugia: [],
-      medicinaFamiliar: []
-    };
+    // Verificamos si las preguntas están cargadas
+    console.log('questions1:', questions1);
+    console.log('questions2:', questions2);
 
-    // Elementos DOM
-    const menuButtons = document.querySelectorAll('.menu button');
+    // Combinar todas las preguntas de pediatría
+    const questions = [...questions1, ...questions2, ...questions3, ...questions4, ...questions5];
+
+    if (!questions || questions.length === 0) {
+      alert('No se cargaron las preguntas. Verifique que los archivos JS están correctamente enlazados y las variables definidas.');
+    }
+
+    const startBtn = document.getElementById('startBtn');
     const quizContainer = document.getElementById('quizContainer');
     const questionText = document.getElementById('questionText');
     const optionsContainer = document.getElementById('optionsContainer');
     const explanationDiv = document.getElementById('explanation');
     const nextBtn = document.getElementById('nextBtn');
 
-    let currentModule = null;
-    let questions = [];
     let currentIndex = 0;
 
-    // Función para mezclar array (Fisher-Yates)
     function shuffleArray(array) {
       for (let i = array.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
@@ -145,67 +101,53 @@
       }
     }
 
-    // Al hacer click en un botón del menú
-    menuButtons.forEach(btn => {
-      btn.addEventListener('click', () => {
-        currentModule = btn.getAttribute('data-module');
-        questions = [...modules[currentModule]];
-        if(questions.length === 0) {
-          alert('Este módulo está en construcción. Por favor, elige otro.');
-          return;
-        }
-        shuffleArray(questions);
-        currentIndex = 0;
-        quizContainer.style.display = 'flex';
-        document.querySelector('.menu').style.display = 'none';
-        showQuestion();
-      });
-    });
-
-    // Muestra la pregunta actual
     function showQuestion() {
       explanationDiv.textContent = '';
       nextBtn.style.display = 'none';
+
       const q = questions[currentIndex];
       questionText.textContent = `${currentIndex + 1}. ${q.question}`;
       optionsContainer.innerHTML = '';
+
       q.options.forEach((opt, i) => {
         const btn = document.createElement('button');
         btn.className = 'option';
         btn.textContent = opt;
-        btn.addEventListener('click', () => selectAnswer(i, btn));
+        btn.onclick = () => selectAnswer(i, btn);
         optionsContainer.appendChild(btn);
       });
     }
 
-    // Selección de respuesta
     function selectAnswer(selectedIndex, btn) {
       const q = questions[currentIndex];
       explanationDiv.textContent = q.explanation;
 
       Array.from(optionsContainer.children).forEach((button, idx) => {
         button.disabled = true;
-        if(idx === q.answer) {
-          button.classList.add('correct');
-        }
-        if(idx === selectedIndex && selectedIndex !== q.answer) {
-          button.classList.add('incorrect');
-        }
+        if (idx === q.answer) button.classList.add('correct');
+        if (idx === selectedIndex && selectedIndex !== q.answer) button.classList.add('incorrect');
       });
+
       nextBtn.style.display = 'inline-block';
     }
 
-    // Botón siguiente pregunta
-    nextBtn.addEventListener('click', () => {
+    nextBtn.onclick = () => {
       currentIndex++;
-      if(currentIndex >= questions.length) {
-        alert('¡Terminaste el módulo! Podés volver a elegir otro módulo.');
-        quizContainer.style.display = 'none';
-        document.querySelector('.menu').style.display = 'flex';
+      if (currentIndex >= questions.length) {
+        alert('¡Terminaste el quiz!');
+        location.reload();
       } else {
         showQuestion();
       }
-    });
+    };
+
+    startBtn.onclick = () => {
+      shuffleArray(questions);
+      currentIndex = 0;
+      startBtn.style.display = 'none';
+      quizContainer.style.display = 'flex';
+      showQuestion();
+    };
   </script>
 </body>
 </html>
