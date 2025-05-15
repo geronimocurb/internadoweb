@@ -1,4 +1,4 @@
-const questions = [
+const questions3 = [
   {
     question: "Un lactante de 1 año presenta diarrea acuosa abundante y vómitos. Está irritable, con ojos hundidos, mucosas secas y tiempo de llenado capilar de 3 segundos. ¿Cuál es el plan de rehidratación inicial recomendado?",
     options: [

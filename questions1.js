@@ -1,4 +1,4 @@
-const questions = [
+const questions1 = [
   {
     question: "Un lactante de 8 meses llega a la emergencia con fiebre de 39,5°C, irritabilidad y llanto débil. El triángulo de evaluación pediátrica (TEP) muestra aspecto general anormal, trabajo respiratorio aumentado y circulación de la piel con moteado. ¿Cuál es la conducta inmediata más adecuada?",
     options: [

@@ -1,4 +1,4 @@
-const questions = [
+const questions4 = [
   {
     question: "Lactante de 15 meses con fiebre de 39,5°C que comienza con una convulsión tónico-clónica generalizada de menos de 5 minutos. No tiene antecedentes ni signos meníngeos. ¿Cuál es la conducta más adecuada?",
     options: [
