@@ -1,4 +1,4 @@
-const questions = [
+const questions2 = [
   {
     question: "Lactante de 9 meses con vómitos, irritabilidad y llanto paroxístico. Luego de unas horas, aparece una deposición en 'jalea de grosella'. ¿Cuál es el diagnóstico más probable?",
     options: [
