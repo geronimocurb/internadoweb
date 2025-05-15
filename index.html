@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <title>Quiz Pediatría - Prueba</title>
+  <title>Quiz Pediatría - Funcional</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -56,7 +56,7 @@
   </style>
 </head>
 <body>
-  <h1>Quiz Pediatría - Prueba</h1>
+  <h1>Quiz Pediatría</h1>
   <button id="startBtn">Iniciar Quiz Pediatría</button>
 
   <div id="quizContainer">
@@ -66,7 +66,7 @@
     <button id="nextBtn">Siguiente</button>
   </div>
 
-  <!-- Carga archivos con preguntas -->
+  <!-- Asegurate que estas rutas sean correctas -->
   <script src="questions1.js"></script>
   <script src="questions2.js"></script>
   <script src="questions3.js"></script>
@@ -74,16 +74,17 @@
   <script src="questions5.js"></script>
 
   <script>
-    // Verificamos si las preguntas están cargadas
-    console.log('questions1:', questions1);
-    console.log('questions2:', questions2);
-
-    // Combinar todas las preguntas de pediatría
-    const questions = [...questions1, ...questions2, ...questions3, ...questions4, ...questions5];
-
-    if (!questions || questions.length === 0) {
-      alert('No se cargaron las preguntas. Verifique que los archivos JS están correctamente enlazados y las variables definidas.');
+    // Verificar que las variables existan y contienen preguntas
+    if (typeof questions1 === 'undefined' || !Array.isArray(questions1)) {
+      alert('Error: questions1 no está definido o no es un array');
     }
+    if (typeof questions2 === 'undefined' || !Array.isArray(questions2)) {
+      alert('Error: questions2 no está definido o no es un array');
+    }
+    // Lo mismo para questions3, 4, 5 si querés
+
+    // Combinar preguntas
+    const questions = [...(questions1 || []), ...(questions2 || []), ...(questions3 || []), ...(questions4 || []), ...(questions5 || [])];
 
     const startBtn = document.getElementById('startBtn');
     const quizContainer = document.getElementById('quizContainer');
@@ -113,12 +114,12 @@
         const btn = document.createElement('button');
         btn.className = 'option';
         btn.textContent = opt;
-        btn.onclick = () => selectAnswer(i, btn);
+        btn.onclick = () => selectAnswer(i);
         optionsContainer.appendChild(btn);
       });
     }
 
-    function selectAnswer(selectedIndex, btn) {
+    function selectAnswer(selectedIndex) {
       const q = questions[currentIndex];
       explanationDiv.textContent = q.explanation;
 
