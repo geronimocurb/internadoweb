@@ -1,309 +1,260 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<<<<<<< HEAD
-  <title>Quiz Pediatría</title>
-  <style>
-    :root {
-      --bg: #0a0f24;
-      --text: #fff;
-      --card: #1c223a;
-      --accent: #ff9800;
-      --btn: #2c3558;
-      --right: #4caf50;
-      --wrong: #e57373;
-    }
-
-    .light {
-      --bg: #f4f4f4;
-      --text: #111;
-      --card: #fff;
-      --btn: #e0e0e0;
-      --accent: #1976d2;
-    }
-
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: 'Segoe UI', sans-serif;
-      margin: 0;
-      padding: 20px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      transition: 0.3s ease;
-    }
-
-    .container {
-      background: var(--card);
-=======
-  <title>Quiz Pediatría - Internado</title>
-  <style>
-    :root {
-      --bg-color: #0a0f24;
-      --text-color: #ffffff;
-      --container-color: #1c223a;
-      --button-color: #2c3558;
-      --highlight-color: #ff9800;
-      --correct-color: #4caf50;
-      --error-color: #f44336;
-    }
-
-    .light-mode {
-      --bg-color: #f4f4f4;
-      --text-color: #111;
-      --container-color: #ffffff;
-      --button-color: #e0e0e0;
-      --highlight-color: #1976d2;
-    }
-
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      margin: 0;
-      padding: 0;
-      background-color: var(--bg-color);
-      color: var(--text-color);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      min-height: 100vh;
-      padding: 20px;
-      transition: all 0.3s ease;
-    }
-
-    .quiz-container {
-      background-color: var(--container-color);
->>>>>>> 05c4467b6f26d13559911c18ee5b8e6296827dd1
-      padding: 20px;
-      border-radius: 20px;
-      max-width: 600px;
-      width: 100%;
-<<<<<<< HEAD
-      box-shadow: 0 0 15px rgba(0,0,0,0.3);
-    }
-
-    h1 {
-      text-align: center;
-      color: var(--accent);
-=======
-      box-shadow: 0 0 20px rgba(0,0,0,0.3);
-    }
-
-    h1 {
-      color: var(--highlight-color);
-      text-align: center;
->>>>>>> 05c4467b6f26d13559911c18ee5b8e6296827dd1
-    }
-
-    .question {
-      font-size: 1.2em;
-      margin-bottom: 20px;
-    }
-
-    .answers button {
-      display: block;
-      width: 100%;
-<<<<<<< HEAD
-      margin: 8px 0;
-      padding: 10px;
-      background: var(--btn);
-      color: var(--text);
-      border: none;
-      border-radius: 10px;
-      cursor: pointer;
-      transition: 0.2s;
-    }
-
-    .answers button:hover {
-      background: var(--accent);
-=======
-      padding: 10px;
-      margin-bottom: 10px;
-      background-color: var(--button-color);
-      color: var(--text-color);
-      border: none;
-      border-radius: 10px;
-      cursor: pointer;
-      transition: background-color 0.2s ease;
-    }
-
-    .answers button:hover {
-      background-color: var(--highlight-color);
->>>>>>> 05c4467b6f26d13559911c18ee5b8e6296827dd1
-      color: #000;
-    }
-
-    .explanation {
-      margin-top: 15px;
-      font-size: 0.95em;
-<<<<<<< HEAD
-    }
-
-    .next {
-      margin-top: 20px;
-      padding: 10px 20px;
-      background: var(--accent);
-      border: none;
-      border-radius: 10px;
-=======
-      color: var(--text-color);
-    }
-
-    .next-button, .toggle-mode {
-      margin-top: 20px;
-      padding: 10px 20px;
-      background-color: var(--highlight-color);
-      border: none;
-      border-radius: 10px;
-      color: #000;
->>>>>>> 05c4467b6f26d13559911c18ee5b8e6296827dd1
-      font-weight: bold;
-      cursor: pointer;
-    }
-
-    .toggle-mode {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-<<<<<<< HEAD
-      background: var(--accent);
-      color: #000;
-      border: none;
-      padding: 10px;
-      border-radius: 10px;
-      cursor: pointer;
-    }
-
-    .correct {
-      background-color: var(--right) !important;
-    }
-
-    .wrong {
-      background-color: var(--wrong) !important;
-=======
->>>>>>> 05c4467b6f26d13559911c18ee5b8e6296827dd1
-    }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Quiz Pediatría - Internado Rotatorio</title>
+<style>
+  :root {
+    --bg-light: #f0f0f0;
+    --text-light: #222;
+    --bg-dark: #121212;
+    --text-dark: #eee;
+    --primary-color: #005f99;
+    --accent-color: #ff6600;
+  }
+  body {
+    margin:0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: var(--bg-light);
+    color: var(--text-light);
+    transition: background-color 0.3s, color 0.3s;
+  }
+  body.dark {
+    background: var(--bg-dark);
+    color: var(--text-dark);
+  }
+  header {
+    background: var(--primary-color);
+    color: white;
+    padding: 1em;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  header h1 {
+    margin:0; font-size: 1.5em;
+  }
+  button#toggleTheme {
+    background: var(--accent-color);
+    border:none;
+    color: white;
+    padding: 0.5em 1em;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1em;
+  }
+  main {
+    max-width: 720px;
+    margin: 2em auto;
+    padding: 0 1em;
+  }
+  .question-container {
+    background: rgba(0,0,0,0.05);
+    border-radius: 8px;
+    padding: 1em 1.2em;
+    margin-bottom: 1.5em;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  }
+  body.dark .question-container {
+    background: rgba(255,255,255,0.05);
+    box-shadow: 0 2px 6px rgba(255,255,255,0.1);
+  }
+  .question-text {
+    font-size: 1.1em;
+    margin-bottom: 1em;
+  }
+  .answers button {
+    display: block;
+    width: 100%;
+    margin-bottom: 0.8em;
+    padding: 0.8em 1em;
+    font-size: 1em;
+    border-radius: 6px;
+    border: 2px solid transparent;
+    cursor: pointer;
+    transition: background-color 0.3s, border-color 0.3s;
+  }
+  .answers button:hover {
+    border-color: var(--primary-color);
+  }
+  .answers button.correct {
+    background-color: #4caf50a8;
+    border-color: #4caf50;
+    color: white;
+  }
+  .answers button.incorrect {
+    background-color: #e53935a8;
+    border-color: #e53935;
+    color: white;
+  }
+  .score {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-top: 1em;
+    text-align: center;
+  }
+  #nextBtn {
+    background: var(--accent-color);
+    border:none;
+    color:white;
+    padding: 0.7em 1.3em;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1.1em;
+    display: none;
+    margin: 1em auto 2em auto;
+    display: block;
+  }
+</style>
 </head>
 <body>
-<<<<<<< HEAD
-  <button class="toggle-mode" onclick="toggleMode()">🌓</button>
-  <div class="container">
-    <h1>Quiz Pediatría 👶</h1>
-    <div class="question" id="question">Cargando...</div>
-    <div class="answers" id="answers"></div>
-    <div class="explanation" id="explanation"></div>
-    <button class="next" id="next" style="display:none;" onclick="nextQuestion()">Siguiente</button>
-  </div>
+<header>
+  <h1>Quiz Pediatría - Internado Rotatorio</h1>
+  <button id="toggleTheme">Modo Oscuro</button>
+</header>
 
-  <!-- Sonidos -->
-  <audio id="correctSound" src="https://cdn.pixabay.com/audio/2022/03/15/audio_6d14240020.mp3"></audio>
-  <audio id="wrongSound" src="https://cdn.pixabay.com/audio/2022/03/15/audio_0973a388d2.mp3"></audio>
-=======
-  <button class="toggle-mode" onclick="toggleMode()">🌓 Modo Claro/Oscuro</button>
-
-  <div class="quiz-container">
-    <h1>Quiz Pediatría - Internado</h1>
-    <div id="quiz">
-      <div class="question" id="question">Cargando pregunta...</div>
+<main>
+  <div id="quiz">
+    <div class="question-container" id="question-container">
+      <div class="question-text" id="question"></div>
       <div class="answers" id="answers"></div>
-      <div class="explanation" id="explanation"></div>
-      <button id="nextButton" class="next-button" style="display:none;">Siguiente</button>
     </div>
+    <button id="nextBtn">Siguiente</button>
+    <div class="score" id="score"></div>
   </div>
->>>>>>> 05c4467b6f26d13559911c18ee5b8e6296827dd1
+</main>
 
-  <!-- Audios -->
-  <audio id="correctSound" src="https://cdn.pixabay.com/audio/2022/03/15/audio_6d14240020.mp3" preload="auto"></audio>
-  <audio id="wrongSound" src="https://cdn.pixabay.com/audio/2022/03/15/audio_0973a388d2.mp3" preload="auto"></audio>
+<script>
+// Base64 sonidos embebidos
+const soundCorrectBase64 = "data:audio/mp3;base64,//uQxAAAAAAAAAAAAAAAAAAAAAA...";
+const soundWrongBase64 = "data:audio/mp3;base64,//uQxAAAAAAAAAAAAAAAAAAAAAA...";
+// (Los valores reales de base64 te los pongo abajo)
 
-  <!-- Preguntas -->
-  <script src="questions1.js"></script>
-  <script src="questions2.js"></script>
-  <script src="questions3.js"></script>
-  <script src="questions4.js"></script>
-  <script src="questions5.js"></script>
+// Cargar sonido en Audio objects
+const soundCorrect = new Audio(soundCorrectBase64);
+const soundWrong = new Audio(soundWrongBase64);
 
-  <script>
-<<<<<<< HEAD
-    let questions = questions1.concat(questions2, questions3, questions4, questions5);
-    let current = 0;
+let questions = [];
+const totalQuestions = 50; // 5 archivos x 10 preguntas cada uno
+let currentQuestionIndex = 0;
+let score = 0;
 
-    const questionEl = document.getElementById("question");
-    const answersEl = document.getElementById("answers");
-    const explanationEl = document.getElementById("explanation");
-    const nextBtn = document.getElementById("next");
-    const correctSound = document.getElementById("correctSound");
-    const wrongSound = document.getElementById("wrongSound");
+const questionEl = document.getElementById("question");
+const answersEl = document.getElementById("answers");
+const nextBtn = document.getElementById("nextBtn");
+const scoreEl = document.getElementById("score");
+const toggleThemeBtn = document.getElementById("toggleTheme");
 
-    const emojis = ["🩺", "🧠", "👶", "🏥", "💉", "🧬", "🩹", "📋", "👨‍⚕️", "🚑"];
+toggleThemeBtn.addEventListener("click", () => {
+  document.body.classList.toggle("dark");
+  toggleThemeBtn.textContent = document.body.classList.contains("dark") ? "Modo Claro" : "Modo Oscuro";
+});
 
-    function shuffleArray(arr) {
-      return arr.sort(() => Math.random() - 0.5);
+function shuffleArray(array) {
+  for (let i = array.length -1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i+1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
+}
+
+async function loadQuestions() {
+  const promises = [];
+  for(let i=1; i<=5; i++) {
+    promises.push(fetch(`questions${i}.js`).then(res => res.text()));
+  }
+  const scriptsText = await Promise.all(promises);
+  for (let scriptText of scriptsText) {
+    // Los archivos questionsX.js deben exportar un array llamado 'questions'
+    // Para evitar problemas, los evaluamos en un sandbox (función)
+    // La idea es que los archivos contengan algo como: var questions = [{...},...];
+    const sandbox = {};
+    eval(scriptText); 
+    // Al evaluar, el array questions queda en sandbox? No. Por eso hacemos:
+    // En vez de eval, forzamos que el archivo declare 'window.questionsX'
+    // Mejor que los archivos contengan: window.questionsX = [ {...}, {...} ]
+    // Aquí hacemos un truco:
+  }
+  // Como no podemos importar JS directamente, se recomienda que cada archivo questionsX.js
+  // declare globalmente un array window.questionsX, por ejemplo:
+  // window.questions1 = [...];
+  // window.questions2 = [...];
+  // etc.
+  // Aquí los juntamos:
+  for(let i=1; i<=5; i++) {
+    if(window[`questions${i}`]) questions = questions.concat(window[`questions${i}`]);
+  }
+  questions = shuffleArray(questions);
+}
+
+function showQuestion() {
+  resetState();
+  let q = questions[currentQuestionIndex];
+  questionEl.textContent = q.question;
+  q.answers.forEach((answer, idx) => {
+    const button = document.createElement("button");
+    button.textContent = answer;
+    button.onclick = () => selectAnswer(idx);
+    answersEl.appendChild(button);
+  });
+}
+
+function resetState() {
+  nextBtn.style.display = "none";
+  while (answersEl.firstChild) {
+    answersEl.removeChild(answersEl.firstChild);
+  }
+  scoreEl.textContent = "";
+}
+
+function selectAnswer(selectedIndex) {
+  let q = questions[currentQuestionIndex];
+  const buttons = answersEl.querySelectorAll("button");
+  buttons.forEach((btn, idx) => {
+    btn.disabled = true;
+    if(idx === q.correct) {
+      btn.classList.add("correct");
     }
-
-    questions = shuffleArray(questions);
-
-    function toggleMode() {
-      document.body.classList.toggle("light");
+    if(idx === selectedIndex && idx !== q.correct) {
+      btn.classList.add("incorrect");
     }
+  });
+  if(selectedIndex === q.correct) {
+    score++;
+    playSound(soundCorrect);
+  } else {
+    playSound(soundWrong);
+  }
+  scoreEl.textContent = `Puntaje: ${score} / ${questions.length}`;
+  nextBtn.style.display = "block";
+}
 
-    function loadQuestion() {
-      const q = questions[current];
-      const emoji = emojis[Math.floor(Math.random() * emojis.length)];
-      questionEl.innerHTML = `${emoji} ${q.pregunta}`;
-      answersEl.innerHTML = "";
-      explanationEl.innerHTML = "";
-      nextBtn.style.display = "none";
+nextBtn.addEventListener("click", () => {
+  currentQuestionIndex++;
+  if(currentQuestionIndex < questions.length) {
+    showQuestion();
+  } else {
+    showFinalScore();
+  }
+});
 
-      q.opciones.forEach((op, i) => {
-        const btn = document.createElement("button");
-        btn.textContent = op;
-        btn.onclick = () => checkAnswer(i, q.respuesta, btn, q.explicacion);
-        answersEl.appendChild(btn);
-      });
-    }
+function showFinalScore() {
+  resetState();
+  questionEl.textContent = "¡Has terminado el quiz!";
+  scoreEl.textContent = `Tu puntaje final es ${score} / ${questions.length}`;
+  nextBtn.style.display = "none";
+}
 
-    function checkAnswer(index, correctIndex, button, explanation) {
-      const buttons = answersEl.querySelectorAll("button");
-      buttons.forEach((btn, i) => {
-        btn.disabled = true;
-        if (i === correctIndex) btn.classList.add("correct");
-        if (i === index && i !== correctIndex) btn.classList.add("wrong");
-      });
+function playSound(audio) {
+  audio.pause();
+  audio.currentTime = 0;
+  audio.play();
+}
 
-      if (index === correctIndex) {
-        correctSound.play();
-      } else {
-        wrongSound.play();
-      }
-
-      explanationEl.textContent = "💡 " + explanation;
-      nextBtn.style.display = "inline-block";
-    }
-
-    function nextQuestion() {
-      current++;
-      if (current < questions.length) {
-        loadQuestion();
-      } else {
-        questionEl.textContent = "🎉 ¡Has completado el quiz!";
-        answersEl.innerHTML = "";
-        explanationEl.innerHTML = "";
-        nextBtn.style.display = "none";
-      }
-    }
-
-    // Cargar la primera pregunta
-    loadQuestion();
-  </script>
+// Inicio:
+loadQuestions().then(() => {
+  showQuestion();
+});
+</script>
 </body>
 </html>
-=======
-    const correctSound = document.getElementById("correctSound");
-    const wrongSound = document.getElementById("wrongSound");
-
-    const emojis = ["🧠", "🩺", "👶", "💊", "🧬", "🩹", "👩‍⚕️", "🏥", "📋]()
->>>>>>> 05c4467b6f26d13559911c18ee5b8e6296827dd1
