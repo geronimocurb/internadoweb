@@ -1,154 +1,153 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Quiz Pediatría - Internado Rotatorio</title>
-<style>
-  body {
-    font-family: Arial, sans-serif;
-    background: #f0f0f0;
-    color: #222;
-    margin: 0; padding: 1em;
-  }
-  .question-container {
-    background: white;
-    padding: 1em;
-    border-radius: 8px;
-    max-width: 600px;
-    margin: 2em auto;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
-  }
-  .question-text {
-    font-size: 1.2em;
-    margin-bottom: 1em;
-  }
-  .answers button {
-    display: block;
-    width: 100%;
-    margin-bottom: 0.8em;
-    padding: 0.8em 1em;
-    font-size: 1em;
-    border-radius: 5px;
-    border: 1px solid #999;
-    cursor: pointer;
-    background: white;
-  }
-  .answers button:hover {
-    background: #e0e0e0;
-  }
-  .answers button.correct {
-    background: #4CAF50;
-    color: white;
-    border-color: #4CAF50;
-  }
-  .answers button.incorrect {
-    background: #f44336;
-    color: white;
-    border-color: #f44336;
-  }
-  #nextBtn {
-    display: none;
-    margin-top: 1em;
-    padding: 0.8em 1.5em;
-    font-size: 1em;
-    border: none;
-    border-radius: 6px;
-    background: #2196F3;
-    color: white;
-    cursor: pointer;
-  }
-  #score {
-    margin-top: 1em;
-    font-weight: bold;
-    font-size: 1.2em;
-    text-align: center;
-  }
-</style>
+  <meta charset="UTF-8">
+  <title>Quiz Pediatría</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #121212;
+      color: white;
+      max-width: 700px;
+      margin: 20px auto;
+      padding: 10px;
+    }
+    h1 {
+      text-align: center;
+    }
+    #progress {
+      text-align: right;
+      margin-bottom: 10px;
+      color: #bbb;
+      font-size: 0.9rem;
+    }
+    .question {
+      font-size: 1.2rem;
+      margin-bottom: 10px;
+    }
+    .option {
+      display: block;
+      margin: 5px 0;
+      padding: 10px;
+      background-color: #333;
+      border: none;
+      color: white;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+    .option.correct {
+      background-color: #2e7d32 !important;
+    }
+    .option.incorrect {
+      background-color: #c62828 !important;
+    }
+    #explanation {
+      margin-top: 15px;
+      font-style: italic;
+      color: #ccc;
+      min-height: 40px;
+    }
+    #nextBtn {
+      margin-top: 10px;
+      padding: 8px 20px;
+      background-color: #fb8c00;
+      border: none;
+      border-radius: 5px;
+      color: white;
+      cursor: pointer;
+      display: none;
+    }
+  </style>
 </head>
 <body>
-  <div class="question-container">
-    <div class="question-text" id="question">Cargando pregunta...</div>
-    <div class="answers" id="answers"></div>
-    <button id="nextBtn">Siguiente</button>
-    <div id="score"></div>
-  </div>
+  <h1>Quiz Pediatría</h1>
+  <div id="progress">Pregunta 1 de 90</div>
+  <div id="question" class="question"></div>
+  <div id="options"></div>
+  <div id="explanation"></div>
+  <button id="nextBtn">Siguiente</button>
 
-<script>
-  let questions = [];
-  let currentQuestionIndex = 0;
-  let score = 0;
+  <!-- Archivos de preguntas -->
+  <script src="questions1.js"></script>
+  <script src="questions2.js"></script>
+  <script src="questions3.js"></script>
+  <script src="questions4.js"></script>
+  <script src="questions5.js"></script>
 
-  // Los archivos questions1.js a questions5.js deben estar incluidos antes y
-  // definir arrays window.questions1, window.questions2, etc.
+  <!-- Sonidos -->
+  <audio id="correctSound" src="correct.mp3"></audio>
+  <audio id="incorrectSound" src="incorrect.mp3"></audio>
 
-  function loadQuestions() {
-    questions = [];
-    for(let i=1; i<=5; i++) {
-      if(window['questions'+i]) {
-        questions = questions.concat(window['questions'+i]);
+  <script>
+    const allQuestions = [...questions1, ...questions2, ...questions3, ...questions4, ...questions5];
+
+    function shuffle(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
       }
     }
-    questions = questions.sort(() => Math.random() - 0.5); // mezcla
-  }
 
-  const questionEl = document.getElementById("question");
-  const answersEl = document.getElementById("answers");
-  const nextBtn = document.getElementById("nextBtn");
-  const scoreEl = document.getElementById("score");
+    shuffle(allQuestions);
 
-  function showQuestion() {
-    resetState();
-    let q = questions[currentQuestionIndex];
-    questionEl.textContent = q.question;
-    q.answers.forEach((answer, idx) => {
-      const btn = document.createElement("button");
-      btn.textContent = answer;
-      btn.onclick = () => selectAnswer(idx);
-      answersEl.appendChild(btn);
-    });
-  }
+    let currentIndex = 0;
 
-  function resetState() {
-    nextBtn.style.display = "none";
-    while(answersEl.firstChild) {
-      answersEl.removeChild(answersEl.firstChild);
+    const questionDiv = document.getElementById("question");
+    const optionsDiv = document.getElementById("options");
+    const explanationDiv = document.getElementById("explanation");
+    const nextBtn = document.getElementById("nextBtn");
+    const progress = document.getElementById("progress");
+    const correctSound = document.getElementById("correctSound");
+    const incorrectSound = document.getElementById("incorrectSound");
+
+    function showQuestion() {
+      const q = allQuestions[currentIndex];
+      questionDiv.textContent = q.question;
+      explanationDiv.textContent = "";
+      nextBtn.style.display = "none";
+      progress.textContent = `Pregunta ${currentIndex + 1} de ${allQuestions.length}`;
+
+      optionsDiv.innerHTML = "";
+      q.options.forEach((opt, i) => {
+        const btn = document.createElement("button");
+        btn.className = "option";
+        btn.textContent = opt;
+        btn.onclick = () => selectAnswer(i, btn);
+        optionsDiv.appendChild(btn);
+      });
     }
-    scoreEl.textContent = "";
-  }
 
-  function selectAnswer(selectedIndex) {
-    let q = questions[currentQuestionIndex];
-    const buttons = answersEl.querySelectorAll("button");
-    buttons.forEach((btn, idx) => {
-      btn.disabled = true;
-      if(idx === q.correct) btn.classList.add("correct");
-      if(idx === selectedIndex && idx !== q.correct) btn.classList.add("incorrect");
-    });
-    if(selectedIndex === q.correct) score++;
-    scoreEl.textContent = `Puntaje: ${score} / ${questions.length}`;
-    nextBtn.style.display = "block";
-  }
+    function selectAnswer(selectedIndex, btn) {
+      const q = allQuestions[currentIndex];
+      explanationDiv.textContent = q.explanation;
 
-  nextBtn.onclick = () => {
-    currentQuestionIndex++;
-    if(currentQuestionIndex < questions.length) {
-      showQuestion();
-    } else {
-      showFinalScore();
+      Array.from(optionsDiv.children).forEach((button, i) => {
+        button.disabled = true;
+        if (i === q.answer) button.classList.add("correct");
+        if (i === selectedIndex && selectedIndex !== q.answer) button.classList.add("incorrect");
+      });
+
+      if (selectedIndex === q.answer) {
+        correctSound.play();
+      } else {
+        incorrectSound.play();
+      }
+
+      nextBtn.style.display = "inline-block";
     }
-  };
 
-  function showFinalScore() {
-    resetState();
-    questionEl.textContent = "¡Has terminado el quiz!";
-    scoreEl.textContent = `Tu puntaje final es ${score} / ${questions.length}`;
-    nextBtn.style.display = "none";
-  }
+    nextBtn.onclick = () => {
+      currentIndex++;
+      if (currentIndex >= allQuestions.length) {
+        alert("¡Terminaste el quiz!");
+        location.reload();
+      } else {
+        showQuestion();
+      }
+    };
 
-  // Inicio
-  loadQuestions();
-  showQuestion();
-</script>
+    // Cargar primera pregunta al entrar
+    showQuestion();
+  </script>
 </body>
 </html>
