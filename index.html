@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<<<<<<< HEAD
   <title>Quiz Pediatría</title>
   <style>
     :root {
@@ -37,16 +38,63 @@
 
     .container {
       background: var(--card);
+=======
+  <title>Quiz Pediatría - Internado</title>
+  <style>
+    :root {
+      --bg-color: #0a0f24;
+      --text-color: #ffffff;
+      --container-color: #1c223a;
+      --button-color: #2c3558;
+      --highlight-color: #ff9800;
+      --correct-color: #4caf50;
+      --error-color: #f44336;
+    }
+
+    .light-mode {
+      --bg-color: #f4f4f4;
+      --text-color: #111;
+      --container-color: #ffffff;
+      --button-color: #e0e0e0;
+      --highlight-color: #1976d2;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+      transition: all 0.3s ease;
+    }
+
+    .quiz-container {
+      background-color: var(--container-color);
+>>>>>>> 05c4467b6f26d13559911c18ee5b8e6296827dd1
       padding: 20px;
       border-radius: 20px;
       max-width: 600px;
       width: 100%;
+<<<<<<< HEAD
       box-shadow: 0 0 15px rgba(0,0,0,0.3);
     }
 
     h1 {
       text-align: center;
       color: var(--accent);
+=======
+      box-shadow: 0 0 20px rgba(0,0,0,0.3);
+    }
+
+    h1 {
+      color: var(--highlight-color);
+      text-align: center;
+>>>>>>> 05c4467b6f26d13559911c18ee5b8e6296827dd1
     }
 
     .question {
@@ -57,6 +105,7 @@
     .answers button {
       display: block;
       width: 100%;
+<<<<<<< HEAD
       margin: 8px 0;
       padding: 10px;
       background: var(--btn);
@@ -69,12 +118,27 @@
 
     .answers button:hover {
       background: var(--accent);
+=======
+      padding: 10px;
+      margin-bottom: 10px;
+      background-color: var(--button-color);
+      color: var(--text-color);
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+
+    .answers button:hover {
+      background-color: var(--highlight-color);
+>>>>>>> 05c4467b6f26d13559911c18ee5b8e6296827dd1
       color: #000;
     }
 
     .explanation {
       margin-top: 15px;
       font-size: 0.95em;
+<<<<<<< HEAD
     }
 
     .next {
@@ -83,6 +147,18 @@
       background: var(--accent);
       border: none;
       border-radius: 10px;
+=======
+      color: var(--text-color);
+    }
+
+    .next-button, .toggle-mode {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background-color: var(--highlight-color);
+      border: none;
+      border-radius: 10px;
+      color: #000;
+>>>>>>> 05c4467b6f26d13559911c18ee5b8e6296827dd1
       font-weight: bold;
       cursor: pointer;
     }
@@ -91,6 +167,7 @@
       position: fixed;
       top: 20px;
       right: 20px;
+<<<<<<< HEAD
       background: var(--accent);
       color: #000;
       border: none;
@@ -105,10 +182,13 @@
 
     .wrong {
       background-color: var(--wrong) !important;
+=======
+>>>>>>> 05c4467b6f26d13559911c18ee5b8e6296827dd1
     }
   </style>
 </head>
 <body>
+<<<<<<< HEAD
   <button class="toggle-mode" onclick="toggleMode()">🌓</button>
   <div class="container">
     <h1>Quiz Pediatría 👶</h1>
@@ -121,8 +201,25 @@
   <!-- Sonidos -->
   <audio id="correctSound" src="https://cdn.pixabay.com/audio/2022/03/15/audio_6d14240020.mp3"></audio>
   <audio id="wrongSound" src="https://cdn.pixabay.com/audio/2022/03/15/audio_0973a388d2.mp3"></audio>
+=======
+  <button class="toggle-mode" onclick="toggleMode()">🌓 Modo Claro/Oscuro</button>
 
-  <!-- Archivos de preguntas -->
+  <div class="quiz-container">
+    <h1>Quiz Pediatría - Internado</h1>
+    <div id="quiz">
+      <div class="question" id="question">Cargando pregunta...</div>
+      <div class="answers" id="answers"></div>
+      <div class="explanation" id="explanation"></div>
+      <button id="nextButton" class="next-button" style="display:none;">Siguiente</button>
+    </div>
+  </div>
+>>>>>>> 05c4467b6f26d13559911c18ee5b8e6296827dd1
+
+  <!-- Audios -->
+  <audio id="correctSound" src="https://cdn.pixabay.com/audio/2022/03/15/audio_6d14240020.mp3" preload="auto"></audio>
+  <audio id="wrongSound" src="https://cdn.pixabay.com/audio/2022/03/15/audio_0973a388d2.mp3" preload="auto"></audio>
+
+  <!-- Preguntas -->
   <script src="questions1.js"></script>
   <script src="questions2.js"></script>
   <script src="questions3.js"></script>
@@ -130,6 +227,7 @@
   <script src="questions5.js"></script>
 
   <script>
+<<<<<<< HEAD
     let questions = questions1.concat(questions2, questions3, questions4, questions5);
     let current = 0;
 
@@ -203,3 +301,9 @@
   </script>
 </body>
 </html>
+=======
+    const correctSound = document.getElementById("correctSound");
+    const wrongSound = document.getElementById("wrongSound");
+
+    const emojis = ["🧠", "🩺", "👶", "💊", "🧬", "🩹", "👩‍⚕️", "🏥", "📋]()
+>>>>>>> 05c4467b6f26d13559911c18ee5b8e6296827dd1
