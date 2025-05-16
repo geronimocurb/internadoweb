@@ -5,61 +5,22 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Quiz Pediatría - Internado Rotatorio</title>
 <style>
-  :root {
-    --bg-light: #f0f0f0;
-    --text-light: #222;
-    --bg-dark: #121212;
-    --text-dark: #eee;
-    --primary-color: #005f99;
-    --accent-color: #ff6600;
-  }
   body {
-    margin:0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: var(--bg-light);
-    color: var(--text-light);
-    transition: background-color 0.3s, color 0.3s;
-  }
-  body.dark {
-    background: var(--bg-dark);
-    color: var(--text-dark);
-  }
-  header {
-    background: var(--primary-color);
-    color: white;
-    padding: 1em;
-    display: flex; justify-content: space-between; align-items: center;
-  }
-  header h1 {
-    margin:0; font-size: 1.5em;
-  }
-  button#toggleTheme {
-    background: var(--accent-color);
-    border:none;
-    color: white;
-    padding: 0.5em 1em;
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: bold;
-    font-size: 1em;
-  }
-  main {
-    max-width: 720px;
-    margin: 2em auto;
-    padding: 0 1em;
+    font-family: Arial, sans-serif;
+    background: #f0f0f0;
+    color: #222;
+    margin: 0; padding: 1em;
   }
   .question-container {
-    background: rgba(0,0,0,0.05);
+    background: white;
+    padding: 1em;
     border-radius: 8px;
-    padding: 1em 1.2em;
-    margin-bottom: 1.5em;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-  }
-  body.dark .question-container {
-    background: rgba(255,255,255,0.05);
-    box-shadow: 0 2px 6px rgba(255,255,255,0.1);
+    max-width: 600px;
+    margin: 2em auto;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
   }
   .question-text {
-    font-size: 1.1em;
+    font-size: 1.2em;
     margin-bottom: 1em;
   }
   .answers button {
@@ -68,193 +29,126 @@
     margin-bottom: 0.8em;
     padding: 0.8em 1em;
     font-size: 1em;
-    border-radius: 6px;
-    border: 2px solid transparent;
+    border-radius: 5px;
+    border: 1px solid #999;
     cursor: pointer;
-    transition: background-color 0.3s, border-color 0.3s;
+    background: white;
   }
   .answers button:hover {
-    border-color: var(--primary-color);
+    background: #e0e0e0;
   }
   .answers button.correct {
-    background-color: #4caf50a8;
-    border-color: #4caf50;
+    background: #4CAF50;
     color: white;
+    border-color: #4CAF50;
   }
   .answers button.incorrect {
-    background-color: #e53935a8;
-    border-color: #e53935;
+    background: #f44336;
     color: white;
-  }
-  .score {
-    font-size: 1.2em;
-    font-weight: bold;
-    margin-top: 1em;
-    text-align: center;
+    border-color: #f44336;
   }
   #nextBtn {
-    background: var(--accent-color);
-    border:none;
-    color:white;
-    padding: 0.7em 1.3em;
-    border-radius: 6px;
-    cursor: pointer;
-    font-weight: bold;
-    font-size: 1.1em;
     display: none;
-    margin: 1em auto 2em auto;
-    display: block;
+    margin-top: 1em;
+    padding: 0.8em 1.5em;
+    font-size: 1em;
+    border: none;
+    border-radius: 6px;
+    background: #2196F3;
+    color: white;
+    cursor: pointer;
+  }
+  #score {
+    margin-top: 1em;
+    font-weight: bold;
+    font-size: 1.2em;
+    text-align: center;
   }
 </style>
 </head>
 <body>
-<header>
-  <h1>Quiz Pediatría - Internado Rotatorio</h1>
-  <button id="toggleTheme">Modo Oscuro</button>
-</header>
-
-<main>
-  <div id="quiz">
-    <div class="question-container" id="question-container">
-      <div class="question-text" id="question"></div>
-      <div class="answers" id="answers"></div>
-    </div>
+  <div class="question-container">
+    <div class="question-text" id="question">Cargando pregunta...</div>
+    <div class="answers" id="answers"></div>
     <button id="nextBtn">Siguiente</button>
-    <div class="score" id="score"></div>
+    <div id="score"></div>
   </div>
-</main>
 
 <script>
-// Base64 sonidos embebidos
-const soundCorrectBase64 = "data:audio/mp3;base64,//uQxAAAAAAAAAAAAAAAAAAAAAA...";
-const soundWrongBase64 = "data:audio/mp3;base64,//uQxAAAAAAAAAAAAAAAAAAAAAA...";
-// (Los valores reales de base64 te los pongo abajo)
+  let questions = [];
+  let currentQuestionIndex = 0;
+  let score = 0;
 
-// Cargar sonido en Audio objects
-const soundCorrect = new Audio(soundCorrectBase64);
-const soundWrong = new Audio(soundWrongBase64);
+  // Los archivos questions1.js a questions5.js deben estar incluidos antes y
+  // definir arrays window.questions1, window.questions2, etc.
 
-let questions = [];
-const totalQuestions = 50; // 5 archivos x 10 preguntas cada uno
-let currentQuestionIndex = 0;
-let score = 0;
-
-const questionEl = document.getElementById("question");
-const answersEl = document.getElementById("answers");
-const nextBtn = document.getElementById("nextBtn");
-const scoreEl = document.getElementById("score");
-const toggleThemeBtn = document.getElementById("toggleTheme");
-
-toggleThemeBtn.addEventListener("click", () => {
-  document.body.classList.toggle("dark");
-  toggleThemeBtn.textContent = document.body.classList.contains("dark") ? "Modo Claro" : "Modo Oscuro";
-});
-
-function shuffleArray(array) {
-  for (let i = array.length -1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i+1));
-    [array[i], array[j]] = [array[j], array[i]];
-  }
-  return array;
-}
-
-async function loadQuestions() {
-  const promises = [];
-  for(let i=1; i<=5; i++) {
-    promises.push(fetch(`questions${i}.js`).then(res => res.text()));
-  }
-  const scriptsText = await Promise.all(promises);
-  for (let scriptText of scriptsText) {
-    // Los archivos questionsX.js deben exportar un array llamado 'questions'
-    // Para evitar problemas, los evaluamos en un sandbox (función)
-    // La idea es que los archivos contengan algo como: var questions = [{...},...];
-    const sandbox = {};
-    eval(scriptText); 
-    // Al evaluar, el array questions queda en sandbox? No. Por eso hacemos:
-    // En vez de eval, forzamos que el archivo declare 'window.questionsX'
-    // Mejor que los archivos contengan: window.questionsX = [ {...}, {...} ]
-    // Aquí hacemos un truco:
-  }
-  // Como no podemos importar JS directamente, se recomienda que cada archivo questionsX.js
-  // declare globalmente un array window.questionsX, por ejemplo:
-  // window.questions1 = [...];
-  // window.questions2 = [...];
-  // etc.
-  // Aquí los juntamos:
-  for(let i=1; i<=5; i++) {
-    if(window[`questions${i}`]) questions = questions.concat(window[`questions${i}`]);
-  }
-  questions = shuffleArray(questions);
-}
-
-function showQuestion() {
-  resetState();
-  let q = questions[currentQuestionIndex];
-  questionEl.textContent = q.question;
-  q.answers.forEach((answer, idx) => {
-    const button = document.createElement("button");
-    button.textContent = answer;
-    button.onclick = () => selectAnswer(idx);
-    answersEl.appendChild(button);
-  });
-}
-
-function resetState() {
-  nextBtn.style.display = "none";
-  while (answersEl.firstChild) {
-    answersEl.removeChild(answersEl.firstChild);
-  }
-  scoreEl.textContent = "";
-}
-
-function selectAnswer(selectedIndex) {
-  let q = questions[currentQuestionIndex];
-  const buttons = answersEl.querySelectorAll("button");
-  buttons.forEach((btn, idx) => {
-    btn.disabled = true;
-    if(idx === q.correct) {
-      btn.classList.add("correct");
+  function loadQuestions() {
+    questions = [];
+    for(let i=1; i<=5; i++) {
+      if(window['questions'+i]) {
+        questions = questions.concat(window['questions'+i]);
+      }
     }
-    if(idx === selectedIndex && idx !== q.correct) {
-      btn.classList.add("incorrect");
+    questions = questions.sort(() => Math.random() - 0.5); // mezcla
+  }
+
+  const questionEl = document.getElementById("question");
+  const answersEl = document.getElementById("answers");
+  const nextBtn = document.getElementById("nextBtn");
+  const scoreEl = document.getElementById("score");
+
+  function showQuestion() {
+    resetState();
+    let q = questions[currentQuestionIndex];
+    questionEl.textContent = q.question;
+    q.answers.forEach((answer, idx) => {
+      const btn = document.createElement("button");
+      btn.textContent = answer;
+      btn.onclick = () => selectAnswer(idx);
+      answersEl.appendChild(btn);
+    });
+  }
+
+  function resetState() {
+    nextBtn.style.display = "none";
+    while(answersEl.firstChild) {
+      answersEl.removeChild(answersEl.firstChild);
     }
-  });
-  if(selectedIndex === q.correct) {
-    score++;
-    playSound(soundCorrect);
-  } else {
-    playSound(soundWrong);
+    scoreEl.textContent = "";
   }
-  scoreEl.textContent = `Puntaje: ${score} / ${questions.length}`;
-  nextBtn.style.display = "block";
-}
 
-nextBtn.addEventListener("click", () => {
-  currentQuestionIndex++;
-  if(currentQuestionIndex < questions.length) {
-    showQuestion();
-  } else {
-    showFinalScore();
+  function selectAnswer(selectedIndex) {
+    let q = questions[currentQuestionIndex];
+    const buttons = answersEl.querySelectorAll("button");
+    buttons.forEach((btn, idx) => {
+      btn.disabled = true;
+      if(idx === q.correct) btn.classList.add("correct");
+      if(idx === selectedIndex && idx !== q.correct) btn.classList.add("incorrect");
+    });
+    if(selectedIndex === q.correct) score++;
+    scoreEl.textContent = `Puntaje: ${score} / ${questions.length}`;
+    nextBtn.style.display = "block";
   }
-});
 
-function showFinalScore() {
-  resetState();
-  questionEl.textContent = "¡Has terminado el quiz!";
-  scoreEl.textContent = `Tu puntaje final es ${score} / ${questions.length}`;
-  nextBtn.style.display = "none";
-}
+  nextBtn.onclick = () => {
+    currentQuestionIndex++;
+    if(currentQuestionIndex < questions.length) {
+      showQuestion();
+    } else {
+      showFinalScore();
+    }
+  };
 
-function playSound(audio) {
-  audio.pause();
-  audio.currentTime = 0;
-  audio.play();
-}
+  function showFinalScore() {
+    resetState();
+    questionEl.textContent = "¡Has terminado el quiz!";
+    scoreEl.textContent = `Tu puntaje final es ${score} / ${questions.length}`;
+    nextBtn.style.display = "none";
+  }
 
-// Inicio:
-loadQuestions().then(() => {
+  // Inicio
+  loadQuestions();
   showQuestion();
-});
 </script>
 </body>
 </html>
